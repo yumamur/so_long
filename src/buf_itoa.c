@@ -15,7 +15,7 @@ static size_t	digitcount(int n)
 		return (zerosaver(n));
 }
 
-t_buf	ft_itoa(int n)
+t_buf	buf_itoa(int n)
 {
 	t_buf	ret;
 	size_t	d;

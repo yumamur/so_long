@@ -1,11 +1,14 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-#include <mlx.h>
-#include <X11/keysym.h>
-#include <X11/X.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <mlx.h>
 #include <math.h>
+#include "lc_keysym.h"
+#include "libft/include/libft.h"
 
 #define WIN_WIDTH 1368
 #define WIN_HEIGHT 768
@@ -37,6 +40,7 @@ typedef struct s_game
 
 int		handle_key_events(int key, t_game *game);
 int		map_init(t_game *game, char map[]);
+int		exit_game(t_game *game);
 
-t_buf	ft_itoa(int	i);
+t_buf	buf_itoa(int i);
 #endif
