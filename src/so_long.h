@@ -23,12 +23,20 @@ typedef struct s_player
 	int	velocity;
 }	t_player;
 
+typedef struct s_lst_img
+{
+}  t_lst_img;
+
 typedef struct s_game
 {
-	void		*mlx_ptr;
-	void		*win_ptr;
+	void		*mlx;
+	void		*win;
+	t_lst_img	*lst_img;
 	t_player	player;
 }	t_game;
+
+int		handle_key_events(int key, t_game *game);
+int		map_init(t_game *game, char map[]);
 
 t_buf	ft_itoa(int	i);
 #endif
