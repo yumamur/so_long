@@ -1,6 +1,6 @@
 #include "so_long.h"
 
-int move_player(t_game *game, int key);
+int	move_player(t_game *game, int key);
 
 int	handle_key_events(int key, t_game *game)
 {
