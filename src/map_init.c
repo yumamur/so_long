@@ -16,7 +16,7 @@ static void	name_ctl(char *path)
 
 int	count_rows(char map_name[])
 {
-	char	buf[4];
+	char	buf;
 	int		rd;
 	int		ctl;
 	int		row;
@@ -30,13 +30,13 @@ int	count_rows(char map_name[])
 	while (1)
 	{
 		ctl = rd;
-		*(int32_t *)buf = 0;
-		rd += read(fd, buf, 4);
+		buf = 0;
+		rd += read(fd, &buf, 1);
 		if (ctl > rd)
 			exit(1);
 		if (ctl == rd)
 			break ;
-		if (buf[0] == 12 || buf[1] == 12 || buf[2] == 12 || buf[3] == 12)
+		if (buf == '\n')
 			++row;
 	}
 	close(fd);
@@ -46,14 +46,15 @@ int	count_rows(char map_name[])
 t_map	map_read(char map_name[])
 {
 	int		fd;
-	t_map	map;
+	t_map	map = NULL;
 
-	map = malloc(sizeof(char *) * count_rows(map_name));
-	if (!map)
-		exit(1);
+	// map = malloc(sizeof(char *) * count_rows(map_name));
+	// if (!map)
+	// 	exit(1);
 	fd = open(map_name, O_RDONLY);
 	if (fd == -1)
 		exit(1);
+	close(fd);
 	return (map);
 }
 
@@ -61,7 +62,7 @@ int	map_init(t_game *game, char map[])
 {
 	name_ctl(map);
 	game->data.map = map_read(map);
-	if (map_validate(game->data.map))
-		exit(1);
+	// if (map_validate(game->data.map))
+	// 	exit(1);
 	return (0);
 }

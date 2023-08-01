@@ -7,7 +7,7 @@
 # include <stdlib.h>
 # include <mlx.h>
 # include <math.h>
-# include "lc_keysym.h"
+# include <X11/keysym.h>
 # include "libft/include/libft.h"
 # include "libft/include/shellft.h"
 
@@ -44,6 +44,7 @@ typedef struct s_data
 
 typedef struct s_img_lst
 {
+	void *ptr;
 }	t_img_lst;
 
 typedef struct s_game
@@ -57,7 +58,7 @@ typedef struct s_game
 int		handle_key_events(t_key key, t_game *game);
 int		map_init(t_game *game, char map_name[]);
 int		map_validate(t_map map);
-int		exit_game(t_game *game);
+void	exit_game(t_game *game);
 
 char	*get_next_line(int fd);
 t_buf	buf_itoa(int i);
