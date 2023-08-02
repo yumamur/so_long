@@ -3,12 +3,12 @@
 
 int	move_player(t_game *game, int key)
 {
-	t_object *player;
+	t_object	*player;
 
 	player = &game->data.player;
 	if (key == K_RIGHT)
 		mlx_put_image_to_window(game->mlx, game->win, player->img,
-			player->crd.x+=5, player->crd.y+=5);
+			player->crd.x += 5, player->crd.y += 5);
 	return (0);
 }
 

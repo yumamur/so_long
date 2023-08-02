@@ -13,7 +13,8 @@
 # define WIN_WIDTH 1368
 # define WIN_HEIGHT 768
 
-typedef void *t_img;
+typedef void	*t_img;
+typedef t_uint	t_errno;
 
 typedef struct s_buf
 {
@@ -52,22 +53,22 @@ typedef struct s_data
 	t_object	exit;
 	t_object	clct;
 	t_uint		ct_clct;
-	t_list_img	lst_img;
 }	t_data;
 
 typedef struct s_game
 {
 	void		*mlx;
 	void		*win;
+	t_list_img	lst_img;
 	t_data		data;
 }	t_game;
 
 void	handle_error(int errno, void *ptr);
+void	name_ctl(char *path);
 int		handle_key_events(int key, t_game *game);
-int		map_init(t_game *game);
+int		map_generate(t_data *data, char *map_name);
 int		map_validate(t_uchar **map);
 void	exit_game(t_game *game);
 
-char	*get_next_line(int fd);
 t_buf	buf_itoa(int i);
 #endif /* SO_LONG_H */

@@ -1,6 +1,6 @@
 NAME = play
 CC = clang
-CFLAGS = -Wall -Werror -Wextra -fsanitize=address -g
+CFLAGS = -Wall -Werror -Wextra -fsanitize=address
 
 SRC	= $(wildcard ./src/*.c)
 LIBFT = ./src/libft/libft.a
@@ -13,5 +13,8 @@ $(NAME): $(SRC) $(LIBFT)
 
 $(LIBFT):
 	@make -Cs $(dir $(LIBFT))
+
 clean:
 	@rm -rf ./play
+
+re: clean all
