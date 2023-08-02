@@ -1,6 +1,6 @@
 NAME = play
 CC = clang
-CFLAGS = -Wall -Werror -Wextra -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -fsanitize=address -g
 
 SRC	= $(wildcard ./src/*.c)
 LIBFT = ./src/libft/libft.a

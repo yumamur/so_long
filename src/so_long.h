@@ -7,15 +7,13 @@
 # include <stdlib.h>
 # include <mlx.h>
 # include <math.h>
-# include <X11/keysym.h>
 # include "libft/include/libft.h"
 # include "libft/include/shellft.h"
 
 # define WIN_WIDTH 1368
 # define WIN_HEIGHT 768
 
-typedef int32_t	t_key;
-typedef int8_t **t_map;
+typedef void *t_img;
 
 typedef struct s_buf
 {
@@ -28,38 +26,48 @@ typedef struct s_coordinate
 	int	y;
 }	t_coordinate;
 
-typedef struct s_collectibles
+typedef struct s_object
 {
-	t_coordinate	*axs;
-}	t_collectibles;
+	t_coordinate	crd;
+	t_img			img;
+}	t_object;
+
+typedef struct s_list_img
+{
+	t_img	*arr;
+	t_uint	count;
+}	t_list_img;
+
+typedef struct s_map
+{
+	t_coordinate	size;
+	char			*name;
+	char			**data;
+}	t_map;
 
 typedef struct s_data
 {
-	t_map			map;
-	t_coordinate	player;
-	t_coordinate	exit;
-	t_collectibles	cl_lst;
-	int				cl_count;
+	t_map		map;
+	t_object	player;
+	t_object	exit;
+	t_object	clct;
+	t_uint		ct_clct;
+	t_list_img	lst_img;
 }	t_data;
-
-typedef struct s_img_lst
-{
-	void *ptr;
-}	t_img_lst;
 
 typedef struct s_game
 {
 	void		*mlx;
 	void		*win;
-	t_img_lst	img_lst;
 	t_data		data;
 }	t_game;
 
-int		handle_key_events(t_key key, t_game *game);
-int		map_init(t_game *game, char map_name[]);
-int		map_validate(t_map map);
+void	handle_error(int errno, void *ptr);
+int		handle_key_events(int key, t_game *game);
+int		map_init(t_game *game);
+int		map_validate(t_uchar **map);
 void	exit_game(t_game *game);
 
 char	*get_next_line(int fd);
 t_buf	buf_itoa(int i);
-#endif
+#endif /* SO_LONG_H */
