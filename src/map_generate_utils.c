@@ -24,7 +24,8 @@ static void	ctl_obj(int p, int e, int w, t_coordinate *size)
 	err[0] = 0;
 	err[1] = -1;
 	err[2] = -1;
-	if (!p || p > 1 || !e || e > 1 || w < size->x + size->y - 4)
+	if (!p || p > 1 || !e || e > 1
+		|| w < (size->x + size->y) * 2 - 4 || size->x + size->y < 7)
 		err[0] = (1 << 6);
 	if (!p)
 		err[0] += (1 << 0);

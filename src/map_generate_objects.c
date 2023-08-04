@@ -41,7 +41,7 @@ static int	obj_count(t_map *map, int obj)
 
 int	assign_objects(t_data *data)
 {
-	int			i;
+	t_uint		i;
 	t_object	*ptr;
 
 	data->exit.id = 'E' + (1 << 8);

@@ -7,6 +7,8 @@
 # include <stdlib.h>
 # include <mlx.h>
 # include <math.h>
+# include <X11/keysym.h>
+# include "lc_keysym.h"
 # include "libft/include/libft.h"
 # include "libft/include/shellft.h"
 
@@ -49,11 +51,12 @@ typedef struct s_map
 
 typedef struct s_data
 {
-	t_map		map;
-	t_object	player;
-	t_object	exit;
-	t_object	*clct;
-	t_uint		ct_clct;
+	t_map			map;
+	t_object		player;
+	t_object		exit;
+	t_object		*clct;
+	t_uint			ct_clct;
+	t_coordinate	pad;
 }	t_data;
 
 typedef struct s_game
@@ -62,16 +65,21 @@ typedef struct s_game
 	void		*win;
 	t_list_img	lst_img;
 	t_data		data;
+	t_bind		keybinds;
 }	t_game;
+
+void	info(t_data *data);
+t_buf	buf_itoa(int i);
 
 void	handle_error(int errno, void *ptr);
 void	name_ctl(char *path);
 int		assign_objects(t_data *data);
 void	map_validate_simple(int fd, t_coordinate *size);
-int		handle_key_events(int key, t_game *game);
 int		map_generate(t_data *data, char *map_name);
 int		map_validate(char **map);
-void	exit_game(t_game *game);
 
-t_buf	buf_itoa(int i);
+void	graph_align(t_coordinate *pad, const t_coordinate *map_size);
+int		exit_game(t_game *game);
+
+int		handle_key_events(int key, t_game *game);
 #endif /* SO_LONG_H */
