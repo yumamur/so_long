@@ -1,20 +1,20 @@
 #include "so_long.h"
 #include "so_long_errno.h"
 
-static void	perror_objct(int errno)
+static void	perror_simple(int errno)
 {
 	if ((errno >> 0) % 2 == 1)
-		write(2, "", 1);
+		write(2, ".ber file contains no player\n", 29);
 	if ((errno >> 1) % 2 == 1)
-		write(2, "", 1);
+		write(2, ".ber file contains multiple players\n", 36);
 	if ((errno >> 2) % 2 == 1)
-		write(2, "", 1);
+		write(2, ".ber file contains no exits\n", 28);
 	if ((errno >> 3) % 2 == 1)
-		write(2, "", 1);
+		write(2, ".ber file contains multiple exits\n", 34);
 	if ((errno >> 4) % 2 == 1)
-		write(2, "", 1);
+		write(2, ".ber file does not contain enough walls\n", 40);
 	if ((errno >> 5) % 2 == 1)
-		write(2, "", 1);
+		write(2, ".ber file contains an insufficently sized map\n", 46);
 }
 
 static void	perror_nofree(int errno)
@@ -31,18 +31,16 @@ static void	perror_nofree(int errno)
 		write(2, "Map contains invalid character(s)\n", 34);
 	else if (errno == SLE_MAPMALLOC)
 		perror("Memory allocation error");
-	exit(1);
 }
 
 void	handle_error(int errno, void *ptr)
 {
-	if (errno < 0x0040)
+	if (errno < SLE_MAPSIMPLE)
 		perror_nofree(errno);
-	if (errno >= 0x0040 && errno <= 0x0060)
-		perror_objct(errno);
+	if (errno > SLE_MAPSIMPLE && errno < SLE_MAPGENER)
+		perror_simple(errno);
 	if (errno < 0xff00 && errno > 0x0f00)
 		ft_free_2pt(ptr);
 	if (errno)
-		printf("%d\n", errno);
-	exit(1);
+		exit(1);
 }

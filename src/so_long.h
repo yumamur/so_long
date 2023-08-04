@@ -29,13 +29,14 @@ typedef struct s_coordinate
 
 typedef struct s_object
 {
+	t_uint			id;
 	t_coordinate	crd;
 	t_img			img;
 }	t_object;
 
 typedef struct s_list_img
 {
-	t_img	*arr;
+	t_img	arr;
 	t_uint	count;
 }	t_list_img;
 
@@ -43,7 +44,7 @@ typedef struct s_map
 {
 	t_coordinate	size;
 	char			*name;
-	char			**data;
+	int				**data;
 }	t_map;
 
 typedef struct s_data
@@ -51,7 +52,7 @@ typedef struct s_data
 	t_map		map;
 	t_object	player;
 	t_object	exit;
-	t_object	clct;
+	t_object	*clct;
 	t_uint		ct_clct;
 }	t_data;
 
@@ -65,9 +66,11 @@ typedef struct s_game
 
 void	handle_error(int errno, void *ptr);
 void	name_ctl(char *path);
+int		assign_objects(t_data *data);
+void	map_validate_simple(int fd, t_coordinate *size);
 int		handle_key_events(int key, t_game *game);
 int		map_generate(t_data *data, char *map_name);
-int		map_validate(t_uchar **map);
+int		map_validate(char **map);
 void	exit_game(t_game *game);
 
 t_buf	buf_itoa(int i);
