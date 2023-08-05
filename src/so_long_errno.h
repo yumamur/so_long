@@ -9,12 +9,15 @@
 # define SLE_OPEN				0x000003
 # define SLE_COLINEQ			0x000004
 # define SLE_INVCHAR			0x000005
-# define SLE_MAPMALLOC			0xf00006
+# define SLE_MAPMALLOC			0x000006
 
-# define SLE_MAPSIMPLE			0x000040
+# define SLE_SIMPLE				0x000020
 
 # define SLE_MAPREAD			0x000f00
-# define SLE_IMP				0xf00f02
+# define SLE_IMP				0x000f02
+# define SLE_MLXINIT			0x000f03
 
 # define SLE_MAPGENER			0x000ff0
+
+# define SLE_MAPOVERSIZE		0x00ff01
 #endif /* SO_LONG_ERRNO_H */

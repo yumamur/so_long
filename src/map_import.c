@@ -17,7 +17,7 @@ static int	file_func(char *file_name, t_funccast func, void *param)
 	return (0);
 }
 
-static void	import_mapdata(int fd, t_map *read_map)
+static void	get_mapdata(int fd, t_map *read_map)
 {
 	t_coordinate	i;
 	int				rd;
@@ -40,7 +40,7 @@ static void	import_mapdata(int fd, t_map *read_map)
 	}
 }
 
-static int	**map_init(t_coordinate size)
+static int	**init_map(t_coordinate size)
 {
 	int	**ret;
 	int	i;
@@ -63,16 +63,16 @@ static t_map	read_from_ber(char *map_name)
 	read_map.size.y = 0;
 	if (file_func(map_name, (t_funccast) & map_validate_simple, &read_map.size))
 		handle_error(SLE_OPEN, 0);
-	read_map.data = map_init(read_map.size);
+	read_map.data = init_map(read_map.size);
 	if (!read_map.data)
 		handle_error(SLE_MAPMALLOC, 0);
-	if (file_func(map_name, (t_funccast) & import_mapdata, &read_map))
+	if (file_func(map_name, (t_funccast) & get_mapdata, &read_map))
 		handle_error(SLE_IMP, read_map.data);
 	read_map.name = map_name;
 	return (read_map);
 }
 
-int	map_generate(t_data *data, char *map_name)
+int	import_map(t_data *data, char *map_name)
 {
 	name_ctl(map_name);
 	data->map = read_from_ber(map_name);

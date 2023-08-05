@@ -1,46 +1,62 @@
 #include "so_long.h"
 #include "so_long_errno.h"
 
-static void	perror_simple(int errno)
+static void	perror_graph(int errno)
 {
-	if ((errno >> 0) % 2 == 1)
-		write(2, ".ber file contains no player\n", 29);
-	if ((errno >> 1) % 2 == 1)
-		write(2, ".ber file contains multiple players\n", 36);
-	if ((errno >> 2) % 2 == 1)
-		write(2, ".ber file contains no exits\n", 28);
-	if ((errno >> 3) % 2 == 1)
-		write(2, ".ber file contains multiple exits\n", 34);
-	if ((errno >> 4) % 2 == 1)
-		write(2, ".ber file does not contain enough walls\n", 40);
-	if ((errno >> 5) % 2 == 1)
-		write(2, ".ber file contains an insufficently sized map\n", 46);
+	if (errno == SLE_MAPOVERSIZE)
+		ft_putstr_fd(2, "Can not display block-size smaller than 8x8\n");
+	ft_putstr_fd(2, "Configure \"\033[1muser.cfg\033[m\" and retry");
 }
 
-static void	perror_nofree(int errno)
+static void	perror_simple_validation(int errno)
+{
+	if ((errno >> 0) % 2 == 1)
+		ft_putstr_fd(2, ".ber file contains no player\n");
+	if ((errno >> 1) % 2 == 1)
+		ft_putstr_fd(2, ".ber file contains multiple players\n");
+	if ((errno >> 2) % 2 == 1)
+		ft_putstr_fd(2, ".ber file contains no exits\n");
+	if ((errno >> 3) % 2 == 1)
+		ft_putstr_fd(2, ".ber file contains multiple exits\n");
+	if ((errno >> 4) % 2 == 1)
+		ft_putstr_fd(2, ".ber file does not contain enough walls\n");
+	if ((errno >> 5) % 2 == 1)
+		ft_putstr_fd(2, ".ber file contains an insufficently sized map\n");
+}
+
+static void	perror_file(int errno)
 {
 	if (errno == SLE_INVPATH)
-		write(2, "Given argument is a directory\n", 30);
+		ft_putstr_fd(2, "Given argument is a directory\n");
 	else if (errno == SLE_INVEXT)
-		write(2, "File format for map is not supported\n", 37);
+		ft_putstr_fd(2, "File format of map is not supported\n");
 	else if (errno == SLE_OPEN)
 		perror("Could not open map");
 	else if (errno == SLE_COLINEQ)
-		write(2, "Map is not rectangular\n", 23);
+		ft_putstr_fd(2, "Map is not rectangular\n");
 	else if (errno == SLE_INVCHAR)
-		write(2, "Map contains invalid character(s)\n", 34);
+		ft_putstr_fd(2, "Map contains invalid character(s)\n");
 	else if (errno == SLE_MAPMALLOC)
 		perror("Memory allocation error");
 }
 
 void	handle_error(int errno, void *ptr)
 {
-	if (errno < SLE_MAPSIMPLE)
-		perror_nofree(errno);
-	if (errno > SLE_MAPSIMPLE && errno < SLE_MAPGENER)
-		perror_simple(errno);
-	if (errno < 0xff00 && errno > 0x0f00)
-		ft_free_2pt(ptr);
-	if (errno)
-		exit(1);
+	if (errno < SLE_SIMPLE)
+		perror_file(errno);
+	if (errno > 0x000040 && errno < 0x000080)
+	{
+		perror_simple_validation(errno);
+		free(ptr);
+	}
+	if (errno == SLE_MAPREAD)
+	{
+		perror("Could not read map");
+		free(ptr);
+	}
+	if (errno > SLE_MAPGENER)
+		perror_graph(errno);
+	if (errno > SLE_MAPGENER)
+		exit_game(ptr, 1);
+	exit(1);
 }

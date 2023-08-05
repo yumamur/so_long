@@ -36,8 +36,8 @@ int	move_player(t_game *game, int key)
 		player->crd.y -= 1;
 		mlx_put_image_to_window(game->mlx, game->win, game->data.exit.img, game->data.exit.crd.x, game->data.exit.crd.y);
 	}
-	mlx_string_put(game->mlx, game->win, WIN_WIDTH-40, WIN_HEIGHT-40, 0xffffff, buf_itoa(player->crd.x).ret);
-	mlx_string_put(game->mlx, game->win, WIN_WIDTH-40, WIN_HEIGHT-30, 0xffffff, buf_itoa(player->crd.y).ret);
+	mlx_string_put(game->mlx, game->win, game->res.width-40, game->res.height-40, 0xffffff, buf_itoa(player->crd.x).ret);
+	mlx_string_put(game->mlx, game->win, game->res.width-40, game->res.height-30, 0xffffff, buf_itoa(player->crd.y).ret);
 	// mlx_loop_hook(game->mlx, to_hook, game);
 	return (0);
 }
@@ -47,9 +47,9 @@ int	handle_key_events(int key, t_game *game)
 	t_bind	*k;
 
 	k = &game->keybinds;
-	if (key == k->right || key == k->left || key == k->down || key == k->up)
+	if (key == k->up || key == k->down || key == k->left || key == k->right)
 		move_player(game, key);
 	else if (key == k->esc)
-		exit_game(game);
+		exit_game(game, 0);
 	return (0);
 }

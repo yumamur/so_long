@@ -1,38 +1,34 @@
 #include "so_long.h"
-#include <mlx.h>
 
 void	run_game(t_game *game)
 {
-	int	a = 16;
+	game->mlx = mlx_init();
+	if (!game->mlx)
+		handle_error(SLE_MLXINIT, game);
+	game->win = mlx_new_window(game->mlx, game->res.width, game->res.height, "game");
 	mlx_do_key_autorepeatoff(game->mlx);
-	game->win = mlx_new_window(game->mlx, WIN_WIDTH, WIN_HEIGHT, "game");
-	// game->data.player.img = mlx_xpm_file_to_image(game->mlx, "/home/yusuf/Desktop/so_long/ghost.xpm", &a, &a);
-	game->data.player.img = NULL;
-	game->data.exit.img = mlx_xpm_file_to_image(game->mlx, "/home/yusuf/Desktop/so_long/background.xpm", &a, &a);
-	// game->data.exit.img = NULL;
-	game->lst_img.arr = NULL;
 }
 
-void	bind_default(t_bind *bind)
+void	settings_default(t_game *game)
 {
-	bind->right = K_RIGHT;
-	bind->left = K_LEFT;
-	bind->up = K_UP;
-	bind->down = K_DOWN;
-	bind->esc = K_ESC;
-	bind->pause = K_P;
-
+	game->res = (t_resolution){800, 600};
+	game->keybinds.right = K_RIGHT;
+	game->keybinds.left = K_LEFT;
+	game->keybinds.up = K_UP;
+	game->keybinds.down = K_DOWN;
+	game->keybinds.esc = K_ESC;
+	game->keybinds.pause = K_P;
+	game->keybinds.restart = K_R;
 }
 
 int	main(int argc, char *argv[])
 {
 	t_game	game;
 
-	map_generate(&game.data, argv[argc - 1]);
-	graph_align(&game.data.pad, &game.data.map.size);
-	info(&game.data);
-	bind_default(&game.keybinds);
-	game.mlx = mlx_init();
+	import_map(&game.data, argv[argc - 1]);
+	settings_default(&game);
+	// info(&game.data);
+	set_assets(&game);
 	run_game(&game);
 	game.data.exit.crd = (t_coordinate){0, 0};
 	mlx_hook(game.win, 17, 0, &exit_game, &game);
