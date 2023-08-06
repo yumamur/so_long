@@ -1,6 +1,6 @@
 #include "so_long.h"
 
-static t_coordinate	obj_find_crd(t_map *map, int obj)
+static t_coordinate	obj_find_crd(t_map *map, int key)
 {
 	t_coordinate	ret;
 
@@ -9,10 +9,16 @@ static t_coordinate	obj_find_crd(t_map *map, int obj)
 	{
 		ret.x = 0;
 		while (ret.x < map->size.x)
-			if (map->data[ret.y][ret.x] == obj)
+		{
+			if (map->data[ret.y][ret.x] == key)
+			{
+				if (key == 'P')
+					map->data[ret.y][ret.x] = '0';
 				return (ret);
-		else
-			++ret.x;
+			}
+			else
+				++ret.x;
+		}
 		++ret.y;
 	}
 	return ((t_coordinate){-1, -1});
@@ -49,8 +55,11 @@ int	assign_objects(t_data *data)
 	data->player.id = 'P' + (1 << 8);
 	data->player.crd = obj_find_crd(&data->map, 'P');
 	data->ct_clct = obj_count(&data->map, 'C');
-	data->clct = malloc(sizeof(t_object) * data->ct_clct);
-	if (!data->clct)
+	if (data->ct_clct)
+		data->clct = malloc(sizeof(t_object) * data->ct_clct);
+	else
+		data->clct = NULL;
+	if (data->ct_clct && !data->clct)
 		return (-1);
 	i = 1;
 	ptr = data->clct;

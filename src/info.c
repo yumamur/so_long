@@ -22,7 +22,8 @@ void	info(t_data *data)
 				printf(CL_RED);
 			if (data->map.data[i][k] == 'E')
 				printf(CL_BLU);
-			if (data->map.data[i][k] == 'C' + (1 << 8))
+			if (((t_uchar *)&data->map.data[i][k])[0] == 'C'
+				&& data->map.data[i][k] <= 'C' + ((int )data->ct_clct << 8))
 				printf(CL_YLW);
 			if (data->map.data[i][k] == '1')
 				printf(CL_GRN);
@@ -34,4 +35,6 @@ void	info(t_data *data)
 	}
 	printf("p(%d,%d)\n", data->player.crd.x, data->player.crd.y);
 	printf("e(%d,%d)\n", data->exit.crd.x, data->exit.crd.y);
+	printf("pad.x\t= %d\npad.y\t= %d\n", data->padding.x, data->padding.y);
+	printf("pxl\t= %d\n", data->block_size);
 }
