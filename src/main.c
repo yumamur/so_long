@@ -10,7 +10,7 @@ void	run_game(t_game *game)
 
 void	settings_default(t_game *game)
 {
-	game->res = (t_resolution){800, 600};
+	game->res = (t_resolution){1368, 768};
 	game->keybinds.right = K_RIGHT;
 	game->keybinds.left = K_LEFT;
 	game->keybinds.up = K_UP;
@@ -19,7 +19,6 @@ void	settings_default(t_game *game)
 	game->keybinds.pause = K_P;
 	game->keybinds.restart = K_R;
 	game->keybinds.info = K_I;
-	game->data.is_running = 0;
 }
 
 int	main(int argc, char *argv[])
@@ -32,6 +31,6 @@ int	main(int argc, char *argv[])
 	run_game(&game);
 	mlx_hook(game.win, 17, 0, exit_game, &game);
 	mlx_hook(game.win, 2, 1L << 0, handle_key_events, &game);
-	mlx_loop_hook(game.mlx, display_game, &game);
+	// mlx_loop_hook(game.mlx, display_game, &game);
 	mlx_loop(game.mlx);
 }

@@ -34,6 +34,6 @@ int	handle_key_events(int key, t_game *game)
 		exit_game(game, 0);
 	if (key == k->info)
 		info(&game->data);
-	mlx_clear_window(game->mlx, game->win);
+	display_game(game);
 	return (0);
 }

@@ -71,7 +71,7 @@ typedef struct s_data
 	t_uint			ct_clct;
 	t_coordinate	padding;
 	int				block_size;
-	int				is_running;
+	int				playing;
 }	t_data;
 
 typedef struct s_game
