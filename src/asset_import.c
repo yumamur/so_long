@@ -7,25 +7,28 @@
 // {
 
 // }
+#define ASSET_PATH "/home/yusuf/Desktop/so_long/asset/"
+#define ASD "128"
 
 static void	import_img(t_game *game)
 {
-	int	b_size;
+	int		x;
 	t_uint	i;
 
-	b_size = game->data.block_size;
 	game->data.player.img = mlx_xpm_file_to_image(game->mlx,
-		"/home/yusuf/Desktop/so_long/asset/player64.xpm", &b_size, &b_size);
+		ASSET_PATH ASD"_player.xpm", &x, &x);
 	game->data.exit.img = mlx_xpm_file_to_image(game->mlx,
-		"/home/yusuf/Desktop/so_long/asset/exit64.xpm", &b_size, &b_size);
+		ASSET_PATH ASD"_exit.xpm", &x, &x);
 	game->lst_img[0] = game->data.player.img;
 	game->lst_img[1] = game->data.exit.img;
 	game->lst_img[2] = mlx_xpm_file_to_image(game->mlx,
-		"/home/yusuf/Desktop/so_long/asset/collectable64.xpm", &b_size, &b_size);
+		ASSET_PATH ASD"_collectable.xpm", &x, &x);
 	game->lst_img[3] = mlx_xpm_file_to_image(game->mlx,
-		"/home/yusuf/Desktop/so_long/asset/background64.xpm", &b_size, &b_size);
+		ASSET_PATH ASD"_background.xpm", &x, &x);
 	game->lst_img[4] = mlx_xpm_file_to_image(game->mlx,
-		"/home/yusuf/Desktop/so_long/asset/wall64.xpm", &b_size, &b_size);
+		ASSET_PATH ASD"_wall.xpm", &x, &x);
+	game->lst_img[5] = mlx_xpm_file_to_image(game->mlx,
+		ASSET_PATH"gui.xpm", &x, &x);
 	if (game->data.ct_clct)
 	{
 		i = 0;

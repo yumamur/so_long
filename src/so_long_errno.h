@@ -20,4 +20,6 @@
 # define SLE_MAPGENER			0x000ff0
 
 # define SLE_MAPOVERSIZE		0x00ff01
+
+void	handle_error(int errno, void *ptr);
 #endif /* SO_LONG_ERRNO_H */

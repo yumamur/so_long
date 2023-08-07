@@ -1,8 +1,8 @@
 /* XPM */
-static char *_3c89d5cd6274c84831045e4b8ec93e1G4pflCPKFyqMucdG[] = {
+static char *64_wall[] = {
 /* columns rows colors chars-per-pixel */
 "64 64 1 1 ",
-"# c red",
+"# c #00efff",
 /* pixels */
 "################################################################",
 "################################################################",

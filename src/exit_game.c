@@ -15,10 +15,10 @@ int	exit_game(t_game *game, int ext)
 		if (game->data.clct)
 			free(game->data.clct);
 		i = 0;
-		while (i < 5)
+		while (i < 6)
 			mlx_destroy_image(game->mlx, game->lst_img[i++]);
 		mlx_destroy_window(game->mlx, game->win);
-		free(game->data.map.data);
+		free(game->data.map.area);
 	}
 	exit(ext);
 }

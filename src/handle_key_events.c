@@ -1,39 +1,17 @@
 #include "so_long.h"
-#include "lc_keysym.h"
 
-void	move_check(int **mapdata, t_coordinate *pos, t_coordinate next)
-{
-	if (mapdata[next.y][next.x] != '1')
-		*pos = next;
-}
-
-int	move_player(t_data *data, t_bind *k, int key)
-{
-	t_coordinate	*pos;
-
-	pos = &data->player.crd;
-	if (key == k->right)
-		move_check(data->map.data, pos, (t_coordinate){pos->x + 1, pos->y});
-	if (key == k->left)
-		move_check(data->map.data, pos, (t_coordinate){pos->x - 1, pos->y});
-	if (key == k->down)
-		move_check(data->map.data, pos, (t_coordinate){pos->x, pos->y + 1});
-	if (key == k->up)
-		move_check(data->map.data, pos, (t_coordinate){pos->x, pos->y - 1});
-	return (0);
-}
+void	draw_background(t_game *game, t_coordinate crd);
 
 int	handle_key_events(int key, t_game *game)
 {
-	t_bind	*k;
-
-	k = &game->keybinds;
-	if (key == k->up || key == k->down || key == k->left || key == k->right)
-		move_player(&game->data, k, key);
-	else if (key == k->esc)
+	if (key == game->keybinds.up || key == game->keybinds.down
+		|| key == game->keybinds.left || key == game->keybinds.right)
+	{
+		draw_background(game, game->data.player.pos);
+		object_move(game, &game->data.player, key);
+	}
+	else if (key == game->keybinds.esc)
 		exit_game(game, 0);
-	if (key == k->info)
-		info(&game->data);
 	display_game(game);
 	return (0);
 }

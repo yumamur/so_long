@@ -1,5 +1,4 @@
 #include "so_long.h"
-#include "so_long_errno.h"
 
 void	name_ctl(char *path)
 {

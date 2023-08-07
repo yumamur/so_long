@@ -31,8 +31,8 @@ static void	get_mapdata(int fd, t_map *read_map)
 		{
 			rd = read(fd, &buf, 1);
 			if (rd == -1)
-				handle_error(SLE_MAPREAD, &read_map->data);
-			read_map->data[i.y][i.x] = buf;
+				handle_error(SLE_MAPREAD, &read_map->area);
+			read_map->area[i.y][i.x] = buf;
 			++i.x;
 		}
 		read(fd, &buf, 1);
@@ -63,11 +63,11 @@ static t_map	read_from_ber(char *map_name)
 	read_map.size.y = 0;
 	if (file_func(map_name, (t_funccast) & map_validate_simple, &read_map.size))
 		handle_error(SLE_OPEN, 0);
-	read_map.data = init_map(read_map.size);
-	if (!read_map.data)
+	read_map.area = init_map(read_map.size);
+	if (!read_map.area)
 		handle_error(SLE_MAPMALLOC, 0);
 	if (file_func(map_name, (t_funccast) & get_mapdata, &read_map))
-		handle_error(SLE_IMP, read_map.data);
+		handle_error(SLE_IMP, read_map.area);
 	read_map.name = map_name;
 	return (read_map);
 }
