@@ -1,6 +1,9 @@
 #include "so_long.h"
-#include "so_long_errno.h"
 
+void	name_ctl(char *path);
+void	map_validate_simple(int fd, t_coordinate *size);
+int		map_validate(char **map);
+int		assign_objects(t_data *data);
 typedef void	(*t_funccast)(int, void *);
 
 static int	file_func(char *file_name, t_funccast func, void *param)

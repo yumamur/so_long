@@ -44,8 +44,7 @@ typedef struct s_map
 typedef struct s_object
 {
 	t_uint			id;
-	int				in_air;
-	char			orient;
+	t_uchar			orient;
 	t_coordinate	pos;
 	t_img			img;
 }	t_object;

@@ -2,52 +2,79 @@
 
 void	move_check_right(int **area, t_object *obj)
 {
-	t_coordinate	p;
-
-	p = obj->pos;
-	if (area[p.y][p.x + 1] == '1')
-	{
-		if (obj->in_air)
-			obj->in_air = 0;
-		obj->orient = 0x03;
-	}
-	else if (area[p.y][p.x + 1] == '0')
-		obj->pos.x += 1;
+	if (v_data(area, obj->pos, 1, 0) == '1' && obj->orient % 2 == 0)
+		obj->orient = 0x6;
+	else if (obj->orient == 0x7)
+		v_move(obj, 0x0, (t_coordinate){1, 0});
+	else if (obj->orient == 0x5)
+		v_move(obj, 0x4, (t_coordinate){1, 0});
+	else if ((obj->orient == 0x0 && v_data(area, obj->pos, 1, 1) == '1')
+		|| (obj->orient == 0x4 && v_data(area, obj->pos, 1, -1) == '1'))
+		v_move(obj, obj->orient, (t_coordinate){1, 0});
+	else if (obj->orient == 0x0 && v_data(area, obj->pos, 1, 1) != '1')
+		v_move(obj, 0x1, (t_coordinate){1, 0});
+	else if (obj->orient == 0x4 && v_data(area, obj->pos, 1, -1) != '1')
+		v_move(obj, 0x3, (t_coordinate){1, 0});
 }
 
 void	move_check_down(int **area, t_object *obj)
 {
-	t_coordinate	p;
-
-	p = obj->pos;
-	if (area[p.y + 1][p.x] == '1')
-	{
-		obj->in_air = 0;
-		obj->orient = 0x06;
-	}
-	else if (!obj->in_air)
-	{
-		if (obj->orient == 0x12 && area[p.y - 1][p.x] == '1')
-			obj->orient = 0xff;
-		if ((obj->orient == 0x03 && area[p.y + 1][p.x + 1] == '1')
-			|| (obj->orient == 0x09 && area[p.y + 1][p.x - 1] == '1'))
-			obj->pos.y += 1;
-	}
-	if (obj->in_air)
+	if (v_data(area, obj->pos, 0, 1) == '1' && obj->orient % 2 == 0)
+		obj->orient = 0x0;
+	else if (obj->orient == 0xa)
 		obj->pos.y += 1;
+	else if (obj->orient == 0x4 && v_data(area, obj->pos, 0, 1) != '1')
+		v_move(obj, 0xa, (t_coordinate){0, 0});
+	else if (obj->orient == 0x7)
+		v_move(obj, 0x6, (t_coordinate){0, 1});
+	else if (obj->orient == 0x1)
+		v_move(obj, 0x2, (t_coordinate){0, 1});
+	else if ((obj->orient == 0x6 && v_data(area, obj->pos, 1, 1) == '1')
+		|| (obj->orient == 0x2 && v_data(area, obj->pos, -1, 1) == '1'))
+		v_move(obj, obj->orient, (t_coordinate){0, 1});
+	else if (obj->orient == 0x6 && v_data(area, obj->pos, 1, 1) != '1')
+		v_move(obj, 0x5, (t_coordinate){0, 1});
+	else if (obj->orient == 0x2 && v_data(area, obj->pos, -1, 1) != '1')
+		v_move(obj, 0x3, (t_coordinate){0, 1});
 }
 
 void	move_check_left(int **area, t_object *obj)
 {
-	if (area[obj->pos.y][obj->pos.x - 1] == '1')
-		obj->orient = 0x09;
+	if (v_data(area, obj->pos, -1, 0) == '1' && obj->orient % 2 == 0)
+		obj->orient = 0x2;
+	else if (obj->orient == 0x1)
+		v_move(obj, 0x0, (t_coordinate){-1, 0});
+	else if (obj->orient == 0x3)
+		v_move(obj, 0x4, (t_coordinate){-1, 0});
+	else if ((obj->orient == 0x0 && v_data(area, obj->pos, -1, 1) == '1')
+		|| (obj->orient == 0x4 && v_data(area, obj->pos, -1, -1) == '1'))
+		v_move(obj, obj->orient, (t_coordinate){-1, 0});
+	else if (obj->orient == 0x0 && v_data(area, obj->pos, -1, 1) != '1')
+		v_move(obj, 0x7, (t_coordinate){-1, 0});
+	else if (obj->orient == 0x4 && v_data(area, obj->pos, -1, -1) != '1')
+		v_move(obj, 0x5, (t_coordinate){-1, 0});
 }
 
 void	move_check_up(int **area, t_object *obj)
 {
-	if (area[obj->pos.y - 1][obj->pos.x] == '1')
-		obj->orient = 0x12;
+	if (v_data(area, obj->pos, 0, -1) == '1' && obj->orient % 2 == 0)
+		obj->orient = 0x4;
+	else if (obj->orient == 0xa)
+		obj->pos.y -= 1;
+	else if (obj->orient == 0x3)
+		v_move(obj, 0x2, (t_coordinate){0, -1});
+	else if (obj->orient == 0x5)
+		v_move(obj, 0x6, (t_coordinate){0, -1});
+	else if ((obj->orient == 0x6 && v_data(area, obj->pos, 1, -1) == '1')
+		|| (obj->orient == 0x2 && v_data(area, obj->pos, -1, -1) == '1'))
+		v_move(obj, obj->orient, (t_coordinate){0, -1});
+	else if (obj->orient == 0x6 && v_data(area, obj->pos, 1, -1) != '1')
+		v_move(obj, 0x7, (t_coordinate){0, -1});
+	else if (obj->orient == 0x2 && v_data(area, obj->pos, -1, -1) != '1')
+		v_move(obj, 0x1, (t_coordinate){0, -1});
 }
+
+void	object_interact(t_game *game, t_object *obj);
 
 int	object_move(t_game *game, t_object *obj, int key)
 {
@@ -59,5 +86,6 @@ int	object_move(t_game *game, t_object *obj, int key)
 		move_check_down(game->data.map.area, obj);
 	if (key == game->keybinds.up)
 		move_check_up(game->data.map.area, obj);
+	object_interact(game, obj);
 	return (0);
 }

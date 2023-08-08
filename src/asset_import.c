@@ -8,34 +8,33 @@
 
 // }
 #define ASSET_PATH "/home/yusuf/Desktop/so_long/asset/"
-#define ASD "128"
+#define ASD "32"
 
 static void	import_img(t_game *game)
 {
 	int		x;
-	t_uint	i;
 
 	game->data.player.img = mlx_xpm_file_to_image(game->mlx,
-		ASSET_PATH ASD"_player.xpm", &x, &x);
+			ASSET_PATH ASD"_player.xpm", &x, &x);
 	game->data.exit.img = mlx_xpm_file_to_image(game->mlx,
-		ASSET_PATH ASD"_exit.xpm", &x, &x);
+			ASSET_PATH ASD"_exit.xpm", &x, &x);
 	game->lst_img[0] = game->data.player.img;
 	game->lst_img[1] = game->data.exit.img;
 	game->lst_img[2] = mlx_xpm_file_to_image(game->mlx,
-		ASSET_PATH ASD"_collectable.xpm", &x, &x);
+			ASSET_PATH ASD"_collectable.xpm", &x, &x);
 	game->lst_img[3] = mlx_xpm_file_to_image(game->mlx,
-		ASSET_PATH ASD"_background.xpm", &x, &x);
+			ASSET_PATH ASD"_background.xpm", &x, &x);
 	game->lst_img[4] = mlx_xpm_file_to_image(game->mlx,
-		ASSET_PATH ASD"_wall.xpm", &x, &x);
+			ASSET_PATH ASD"_wall.xpm", &x, &x);
 	game->lst_img[5] = mlx_xpm_file_to_image(game->mlx,
-		ASSET_PATH"gui.xpm", &x, &x);
+			ASSET_PATH"gui.xpm", &x, &x);
 	if (game->data.ct_clct)
 	{
-		i = 0;
-		while (i < game->data.ct_clct)
+		x = 0;
+		while ((t_uint)x < game->data.ct_clct)
 		{
-			game->data.clct[i].img = game->lst_img[2];
-			i++;
+			game->data.clct[x].img = game->lst_img[2];
+			++x;
 		}
 	}
 }

@@ -53,27 +53,33 @@ void	draw_background(t_game *game, t_coordinate crd)
 		{
 			index.x = -1;
 			while (++index.x < game->data.map.size.x)
+			{
 				if (game->data.map.area[index.y][index.x] == '0')
 				{
 					background.pos = index;
 					draw_object(game, &background);
 				}
+			}
 		}
+		return ;
 	}
-	else
-	{
-		background.pos = crd;
-		draw_object(game, &background);
-	}
+	background.pos = crd;
+	draw_object(game, &background);
 }
 
 void	draw_gui(t_game *game)
 {
-	mlx_put_image_to_window(game->mlx, game->win, game->lst_img[5], game->res.w - 40, game->res.h - 60);
-	mlx_string_put(game->mlx, game->win, game->res.w-40, game->res.h-60, 0xffffff, buf_itoa(game->res.w).ret);
-	mlx_string_put(game->mlx, game->win, game->res.w-40, game->res.h-50, 0xffffff, buf_itoa(game->res.h).ret);
-	mlx_string_put(game->mlx, game->win, game->res.w-40, game->res.h-40, 0xffffff, buf_itoa(game->data.player.pos.x).ret);
-	mlx_string_put(game->mlx, game->win, game->res.w-40, game->res.h-30, 0xffffff, buf_itoa(game->data.player.pos.y).ret);
+	mlx_put_image_to_window(game->mlx, game->win, game->lst_img[5],
+		game->res.w - 40, game->res.h - 60);
+	mlx_string_put(game->mlx, game->win, game->res.w - 40, game->res.h - 60,
+		0xffffff, buf_itoa(game->res.w).ret);
+	mlx_string_put(game->mlx, game->win, game->res.w - 40, game->res.h - 50,
+		0xffffff, buf_itoa(game->res.h).ret);
+	mlx_string_put(game->mlx, game->win, game->res.w - 40, game->res.h - 40,
+		0xffffff, buf_itoa(game->data.player.pos.x).ret);
+	mlx_string_put(game->mlx, game->win, game->res.w - 40, game->res.h - 30,
+		0xffffff, buf_itoa(game->data.player.pos.y).ret);
+	printf("orient = %x\n", game->data.player.orient);
 }
 
 int	display_game(t_game *game)
