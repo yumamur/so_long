@@ -8,7 +8,7 @@ int	handle_key_events(int key, t_game *game)
 		|| key == game->keybinds.left || key == game->keybinds.right)
 	{
 		draw_background(game, game->data.player.pos);
-		object_move(game, &game->data.player, key);
+		object_p_move(game, &game->data.player, key);
 	}
 	else if (key == game->keybinds.esc)
 		exit_game(game, 0);

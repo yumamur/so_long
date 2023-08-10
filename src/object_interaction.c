@@ -24,16 +24,17 @@ void	object_list_remove_nth(t_data *data, int n)
 	--data->ct_clct;
 }
 
-void	object_interact(t_game *game, t_object *obj)
+void	object_p_interact(t_game *game, t_object *obj)
 {
 	t_uint	i;
 
-	if (!game->data.ct_clct && !v_dist(obj, &game->data.exit))
+	if (!game->data.ct_clct
+		&& !v_magnitude(v_set(obj->pos, game->data.exit.pos)))
 		exit_game(game, 0);
 	i = 0;
 	while (i < game->data.ct_clct)
 	{
-		if (!v_dist(obj, &game->data.clct[i]))
+		if (!v_magnitude((t_vector2){obj->pos, game->data.clct[i].pos}))
 			return (object_list_remove_nth(&game->data, i));
 		++i;
 	}

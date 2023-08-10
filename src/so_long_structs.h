@@ -8,7 +8,7 @@ typedef int	**t_area;
 
 typedef struct s_buf
 {
-	char	ret[10];
+	char	ret[21];
 }	t_buf;
 
 typedef struct s_bind
