@@ -79,7 +79,6 @@ void	draw_gui(t_game *game)
 		0xffffff, buf_itoa(game->data.player.pos.x).ret);
 	mlx_string_put(game->mlx, game->win, game->res.w - 40, game->res.h - 30,
 		0xffffff, buf_itoa(game->data.player.pos.y).ret);
-	printf("orient = %x\n", game->data.player.orient);
 }
 
 int	display_game(t_game *game)

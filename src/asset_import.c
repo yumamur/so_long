@@ -58,7 +58,7 @@ static void	align_display(t_coordinate *pad, int *pxl, t_game *game)
 			*pxl /= 2;
 	}
 	if (*pxl < SL_IMGRES_MIN)
-		handle_error(SLE_MAPOVERSIZE, &game->data.map);
+		handle_error(SLE_MAPOVRSZ, &game->data.map);
 }
 
 void	set_assets(t_game *game)

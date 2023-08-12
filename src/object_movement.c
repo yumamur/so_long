@@ -74,9 +74,9 @@ void	move_check_up(int **area, t_object *obj)
 		p_move(obj, 0x1, (t_coordinate){0, -1});
 }
 
-void	object_interact(t_game *game, t_object *obj);
+void	object_p_interact(t_game *game, t_object *obj);
 
-int	object_p_move(t_game *game, t_object *obj, int key)
+void	object_p_move(t_game *game, t_object *obj, int key)
 {
 	if (key == game->keybinds.right)
 		move_check_right(game->data.map.area, obj);
@@ -86,6 +86,5 @@ int	object_p_move(t_game *game, t_object *obj, int key)
 		move_check_down(game->data.map.area, obj);
 	if (key == game->keybinds.up)
 		move_check_up(game->data.map.area, obj);
-	object_interact(game, obj);
-	return (0);
+	object_p_interact(game, obj);
 }

@@ -17,14 +17,11 @@ double	v_slope(t_vector2 vector2)
 		/ (double)(vector2.node1.x - vector2.node2.x));
 }
 
-double	vp_distance(t_vector2 vector2, t_coordinate point)
+double	v_adjacent(t_vector2 v1, t_vector2 v2)
 {
-	double dist;
-
-
-	return (dist);
-}
-
-double	v_adjacency(t_vector2 v1, t_vector2 v2)
-{
+	if ((v1.node1.x == v2.node1.x + 1 || v1.node1.x == v2.node1.x - 1)
+		&& ((v1.node1.y >= v2.node1.y && v2.node1.y >= v1.node2.y)
+			|| (v1.node1.y >= v2.node2.y && v2.node2.y >= v1.node1.y)))
+		return (1);
+	return (0);
 }

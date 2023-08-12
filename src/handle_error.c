@@ -1,62 +1,54 @@
 #include "so_long.h"
-#include "so_long_errno.h"
 
 static void	perror_graph(int errno)
 {
-	if (errno == SLE_MAPOVERSIZE)
-		ft_putstr_fd(2, "Can not display block-size smaller than 8x8\n");
-	ft_putstr_fd(2, "Configure \"\033[1muser.cfg\033[m\" and retry");
+	if (errno == SLE_MAPOVRSZ)
+		ft_putstr_fd(2, MSG_MAPOVRSZ MSG_CONFIG);
 }
 
 static void	perror_simple_validation(int errno)
 {
 	if ((errno >> 0) % 2 == 1)
-		ft_putstr_fd(2, ".ber file contains no player\n");
+		ft_putstr_fd(2, MSG_NOPLAYER);
 	if ((errno >> 1) % 2 == 1)
-		ft_putstr_fd(2, ".ber file contains multiple players\n");
+		ft_putstr_fd(2, MSG_MLTPLAYER);
 	if ((errno >> 2) % 2 == 1)
-		ft_putstr_fd(2, ".ber file contains no exits\n");
+		ft_putstr_fd(2, MSG_NOEXIT);
 	if ((errno >> 3) % 2 == 1)
-		ft_putstr_fd(2, ".ber file contains multiple exits\n");
+		ft_putstr_fd(2, MSG_MLTEXIT);
 	if ((errno >> 4) % 2 == 1)
-		ft_putstr_fd(2, ".ber file does not contain enough walls\n");
+		ft_putstr_fd(2, MSG_NOCLCT);
 	if ((errno >> 5) % 2 == 1)
-		ft_putstr_fd(2, ".ber file contains an insufficently sized map\n");
+		ft_putstr_fd(2, MSG_LESSWALL);
+	if ((errno >> 6) % 2 == 1)
+		ft_putstr_fd(2, MSG_SMALLMAP);
 }
 
 static void	perror_file(int errno)
 {
 	if (errno == SLE_INVPATH)
-		ft_putstr_fd(2, "Given argument is a directory\n");
+		ft_putstr_fd(2, MSG_INVPATH);
 	else if (errno == SLE_INVEXT)
-		ft_putstr_fd(2, "File format of map is not supported\n");
+		ft_putstr_fd(2, MSG_INVEXT);
 	else if (errno == SLE_OPEN)
-		perror("Could not open map");
+		perror(MSG_OPEN);
 	else if (errno == SLE_COLINEQ)
-		ft_putstr_fd(2, "Map is not rectangular\n");
+		ft_putstr_fd(2, MSG_COLINEQ);
 	else if (errno == SLE_INVCHAR)
-		ft_putstr_fd(2, "Map contains invalid character(s)\n");
+		ft_putstr_fd(2, MSG_INVCHAR);
 	else if (errno == SLE_MAPMALLOC)
-		perror("Memory allocation error");
+		perror(MSG_MAPMALLOC);
 }
 
 void	handle_error(int errno, void *ptr)
 {
 	if (errno < SLE_SIMPLE)
 		perror_file(errno);
-	if (errno > 0x000040 && errno < 0x000080)
-	{
+	else if (errno > SLE_SIMPLE && errno < SLE_VAL1)
 		perror_simple_validation(errno);
-		free(ptr);
-	}
-	if (errno == SLE_MAPREAD)
-	{
-		perror("Could not read map");
-		free(ptr);
-	}
-	if (errno > SLE_MAPGENER)
+	else if (errno > SLE_VAL1 && errno < SLE_MAPGENER)
 		perror_graph(errno);
-	if (errno > SLE_MAPGENER)
-		exit_game(ptr, 1);
+	if (errno < SLE_MAPGENER)
+		free(ptr);
 	exit(1);
 }

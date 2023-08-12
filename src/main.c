@@ -27,7 +27,7 @@ int	main(int argc, char *argv[])
 {
 	t_game	game;
 
-	import_map(&game.data, argv[argc - 1]);
+	map_generate(&game.data, argv[argc - 1]);
 	settings_default(&game);
 	run_game(&game);
 }

@@ -2,14 +2,22 @@
 # define SO_LONG_STRUCTS_H 1
 
 # include "libft/include/libft.h"
+# include "libft/include/stackft.h"
 
 typedef void	*t_img;
 typedef int	**t_area;
 
-typedef struct s_buf
+typedef struct s_coordinate
 {
-	char	ret[21];
-}	t_buf;
+	int	x;
+	int	y;
+}	t_coordinate;
+
+typedef struct s_vector2
+{
+	t_coordinate	node1;
+	t_coordinate	node2;
+}	t_vector2;
 
 typedef struct s_bind
 {
@@ -27,12 +35,6 @@ typedef struct s_resolution
 	t_ushort	w;
 	t_ushort	h;
 }	t_resolution;
-
-typedef struct s_coordinate
-{
-	int	x;
-	int	y;
-}	t_coordinate;
 
 typedef struct s_map
 {

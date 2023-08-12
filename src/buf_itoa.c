@@ -1,36 +1,33 @@
 #include "so_long.h"
 
-static size_t	zerosaver(int n)
+static t_int32	digitcount(int n)
 {
-	while (n != 0)
-		return (1 + zerosaver(n / 10));
-	return (0);
-}
+	t_int32	a;
 
-static size_t	digitcount(int n)
-{
 	if (n == 0)
 		return (1);
 	else
-		return (zerosaver(n));
+	{
+		a = 0;
+		while (n && ++a)
+			n /= 10;
+		return (a);
+	}
 }
 
 t_buf	buf_itoa(t_int64 n)
 {
 	t_buf	ret;
-	size_t	d;
+	t_int32	d;
 	long	x;
 
+	d = digitcount(n);
 	x = n;
-	d = digitcount(x);
-	if (n < 0)
-		d += 1;
-	if (n < 0)
+	if (n < 0 && ++d)
 		x *= -1;
 	ret.ret[d] = '\0';
-	while (d > 0)
+	while (d-- > 0)
 	{
-		d--;
 		ret.ret[d] = 48 + (x % 10);
 		x /= 10;
 	}
