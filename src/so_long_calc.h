@@ -13,14 +13,13 @@ typedef struct s_buf
 
 t_buf	buf_itoa(t_int64 i);
 
-t_int64		i_hcf(t_int64 x, t_int64 y);
+t_int64	i_hcf(t_int64 x, t_int64 y);
 
-int			p_data(int **area, t_coordinate pos, int x, int y);
-void		p_move(t_object *obj, int orient, t_coordinate move);
+int		p_data(int **area, t_coordinate pos, int x, int y);
+void	p_move(t_object *obj, int orient, t_coordinate move);
 
-t_vector2	v_set(t_coordinate node1, t_coordinate node2);
-double		v_slope(t_vector2 vector);
-double		v_magnitude(t_vector2 vector);
-double		vp_distance(t_vector2 vector, t_coordinate point);
-double		v_adjacent(t_vector2 v1, t_vector2 v2);
+double	l_slope(t_line2 line);
+double	l_magnitude(t_line2 line);
+double	lp_distance(t_line2 line, t_coordinate point);
+int		l_adjacent(t_line2 l1, t_line2 l2);
 #endif

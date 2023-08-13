@@ -29,12 +29,12 @@ void	object_p_interact(t_game *game, t_object *obj)
 	t_uint	i;
 
 	if (!game->data.ct_clct
-		&& !v_magnitude(v_set(obj->pos, game->data.exit.pos)))
+		&& !l_magnitude((t_line2){obj->pos, game->data.exit.pos}))
 		exit_game(game, 0);
 	i = 0;
 	while (i < game->data.ct_clct)
 	{
-		if (!v_magnitude((t_vector2){obj->pos, game->data.clct[i].pos}))
+		if (!l_magnitude((t_line2){obj->pos, game->data.clct[i].pos}))
 			return (object_list_remove_nth(&game->data, i));
 		++i;
 	}

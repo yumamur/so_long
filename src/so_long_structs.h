@@ -13,11 +13,27 @@ typedef struct s_coordinate
 	int	y;
 }	t_coordinate;
 
-typedef struct s_vector2
+typedef struct s_line2
 {
 	t_coordinate	node1;
 	t_coordinate	node2;
-}	t_vector2;
+}	t_line2;
+
+typedef struct s_map_lines
+{
+	t_line2	l;
+	int		flag;
+	int		visit;
+}	t_map_lines;
+
+typedef struct s_path t_path;
+
+typedef struct s_path
+{
+	int			step;
+	t_map_lines	*cur;
+	t_path		*sub;
+}	t_path;
 
 typedef struct s_bind
 {
