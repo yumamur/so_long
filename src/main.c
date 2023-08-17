@@ -1,10 +1,10 @@
 #include "so_long.h"
 
+	// mlx_do_key_autorepeatoff(game->mlx);
 void	run_game(t_game *game)
 {
 	set_assets(game);
 	game->win = mlx_new_window(game->mlx, game->res.w, game->res.h, "so_long");
-	mlx_do_key_autorepeatoff(game->mlx);
 	mlx_hook(game->win, 17, 0, exit_game, game);
 	mlx_hook(game->win, 2, 1L << 0, handle_key_events, game);
 	mlx_expose_hook(game->win, display_game, game);

@@ -17,9 +17,11 @@ t_int64	i_hcf(t_int64 x, t_int64 y);
 
 int		p_data(int **area, t_coordinate pos, int x, int y);
 void	p_move(t_object *obj, int orient, t_coordinate move);
+double	p_distance(t_coordinate p1, t_coordinate p2);
 
 double	l_slope(t_line2 line);
 double	l_magnitude(t_line2 line);
 double	lp_distance(t_line2 line, t_coordinate point);
+// double	l_adjacency(t_line2 l1, t_line2 l2);
 int		l_adjacent(t_line2 l1, t_line2 l2);
 #endif

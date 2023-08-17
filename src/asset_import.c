@@ -7,37 +7,11 @@
 // {
 
 // }
-#define ASSET_PATH "/home/yusuf/Desktop/so_long/asset/"
-#define ASD "32"
-
-static void	import_img(t_game *game)
-{
-	int		x;
-
-	game->data.player.img = mlx_xpm_file_to_image(game->mlx,
-			ASSET_PATH ASD"_player.xpm", &x, &x);
-	game->data.exit.img = mlx_xpm_file_to_image(game->mlx,
-			ASSET_PATH ASD"_exit.xpm", &x, &x);
-	game->lst_img[0] = game->data.player.img;
-	game->lst_img[1] = game->data.exit.img;
-	game->lst_img[2] = mlx_xpm_file_to_image(game->mlx,
-			ASSET_PATH ASD"_collectable.xpm", &x, &x);
-	game->lst_img[3] = mlx_xpm_file_to_image(game->mlx,
-			ASSET_PATH ASD"_background.xpm", &x, &x);
-	game->lst_img[4] = mlx_xpm_file_to_image(game->mlx,
-			ASSET_PATH ASD"_wall.xpm", &x, &x);
-	game->lst_img[5] = mlx_xpm_file_to_image(game->mlx,
-			ASSET_PATH"gui.xpm", &x, &x);
-	if (game->data.ct_clct)
-	{
-		x = 0;
-		while ((t_uint)x < game->data.ct_clct)
-		{
-			game->data.clct[x].img = game->lst_img[2];
-			++x;
-		}
-	}
-}
+void	import_img128(t_game *game);
+void	import_img64(t_game *game);
+void	import_img32(t_game *game);
+void	import_img16(t_game *game);
+void	import_img8(t_game *game);
 
 static void	align_display(t_coordinate *pad, int *pxl, t_game *game)
 {
@@ -67,5 +41,12 @@ void	set_assets(t_game *game)
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		handle_error(SLE_MLXINIT, game);
-	import_img(game);
+	if (game->data.block_size == 128)
+		import_img128(game);
+	else if (game->data.block_size == 64)
+		import_img64(game);
+	else if (game->data.block_size == 32)
+		import_img32(game);
+	else if (game->data.block_size == 16)
+		import_img16(game);
 }

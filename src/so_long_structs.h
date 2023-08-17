@@ -30,7 +30,10 @@ typedef struct s_path t_path;
 
 typedef struct s_path
 {
+	int			closed;
 	int			step;
+	int			ct_sub;
+	int			i_sub;
 	t_map_lines	*cur;
 	t_path		*sub;
 }	t_path;
