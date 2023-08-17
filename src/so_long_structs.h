@@ -1,3 +1,4 @@
+#include "libft/include/def/typeft.h"
 #ifndef SO_LONG_STRUCTS_H
 # define SO_LONG_STRUCTS_H 1
 
@@ -6,6 +7,8 @@
 
 typedef void	*t_img;
 typedef int	**t_area;
+typedef struct s_path t_path;
+typedef struct s_level	t_depth;
 
 typedef struct s_coordinate
 {
@@ -22,21 +25,21 @@ typedef struct s_line2
 typedef struct s_map_lines
 {
 	t_line2	l;
-	int		flag;
 	int		visit;
 }	t_map_lines;
-
-typedef struct s_path t_path;
 
 typedef struct s_path
 {
 	int			closed;
-	int			step;
-	int			ct_sub;
-	int			i_sub;
-	t_map_lines	*cur;
-	t_path		*sub;
+	t_map_lines	*line;
 }	t_path;
+
+typedef struct s_level
+{
+	t_int64	ct;
+	t_path	*list;
+	t_depth	*next;
+}	t_depth;
 
 typedef struct s_bind
 {

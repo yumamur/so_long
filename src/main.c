@@ -13,7 +13,7 @@ void	run_game(t_game *game)
 
 void	settings_default(t_game *game)
 {
-	game->res = (t_resolution){1368, 768};
+	game->res = (t_resolution){2160, 1644};
 	game->keybinds.right = K_RIGHT;
 	game->keybinds.left = K_LEFT;
 	game->keybinds.up = K_UP;

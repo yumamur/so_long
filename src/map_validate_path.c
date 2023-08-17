@@ -18,112 +18,125 @@ int	count_subroutes(t_path *route, t_map_lines **arr)
 	if (route->closed)
 		return (0);
 	ct = 0;
-	if (route->cur->l.node1.x > 1)
+	if (route->line->l.node1.x > 1)
 	{
-		i = (t_coordinate){route->cur->l.node1.x - 2, -1};
+		i = (t_coordinate){route->line->l.node1.x - 2, -1};
 		while (arr[i.x][++i.y].l.node1.x != -1)
 		{
-			if (l_adjacent(arr[i.x][i.y].l, route->cur->l)
+			if (l_adjacent(arr[i.x][i.y].l, route->line->l)
 				&& !arr[i.x][i.y].visit)
 				++ct;
 		}
 	}
-	i = (t_coordinate){route->cur->l.node1.x, -1};
+	i = (t_coordinate){route->line->l.node1.x, -1};
 	if (arr[i.x])
 		while (arr[i.x][++i.y].l.node1.x != -1)
-			if (l_adjacent(arr[i.x][i.y].l, route->cur->l)
+			if (l_adjacent(arr[i.x][i.y].l, route->line->l)
 				&& !arr[i.x][i.y].visit)
 				++ct;
+	if (ct)
+		route->closed = 0;
 	return (ct);
 }
 
-void	assign_subroutes(t_path *route, t_map_lines **arr)
+int	generate_next_depth(int sub_ct, t_depth *parent)
+{
+	if (!sub_ct)
+		return (-1);
+	parent->next = ft_calloc(sizeof(t_depth), 1);
+	if (!parent->next)
+		return (-1);
+	parent->next->list = ft_calloc(sizeof(t_path), sub_ct);
+	if (!parent->next->list)
+		return (-1);
+	parent->next->ct = sub_ct;
+	parent->next->next = NULL;
+	return (0);
+}
+
+void	assign_next_list(t_depth *parent, t_map_lines **arr)
 {
 	t_coordinate	i;
-	int				ct;
+	t_coordinate	k;
 
-	if (route->closed)
-		return ;
-	ct = -1;
-	if (route->cur->l.node1.x > 1)
+	k = (t_coordinate){-1, -1};
+	while (++k.x < parent->ct)
 	{
-		i = (t_coordinate){route->cur->l.node1.x - 2, -1};
-		while (arr[i.x][++i.y].l.node1.x != -1)
-			if (l_adjacent(arr[i.x][i.y].l, route->cur->l)
-				&& !arr[i.x][i.y].visit)
-				route->sub[++ct].cur = &arr[i.x][i.y];
-	}
-	i = (t_coordinate){route->cur->l.node1.x, -1};
-	if (arr[i.x])
-	{
-		while (arr[i.x][++i.y].l.node1.x != -1)
-			if (l_adjacent(arr[i.x][i.y].l, route->cur->l)
-				&& !arr[i.x][i.y].visit)
-				route->sub[++ct].cur = &arr[i.x][i.y];
+		if (parent->list[k.x].line->l.node1.x > 1)
+		{
+			i = (t_coordinate){parent->list[k.x].line->l.node1.x - 2, -1};
+			while (arr[i.x][++i.y].l.node1.x != -1)
+			{
+				if (l_adjacent(arr[i.x][i.y].l, parent->list[k.x].line->l)
+					&& !arr[i.x][i.y].visit)
+					parent->next->list[++k.y].line = &arr[i.x][i.y];
+			}
+		}
+		i = (t_coordinate){parent->list[k.x].line->l.node1.x, -1};
+		if (arr[i.x])
+			while (arr[i.x][++i.y].l.node1.x != -1)
+				if (l_adjacent(arr[i.x][i.y].l, parent->list[k.x].line->l)
+					&& !arr[i.x][i.y].visit)
+					parent->next->list[++k.y].line = &arr[i.x][i.y];
 	}
 }
 
-void	take_step(t_path *parent)
+int	free_depth(t_depth *level)
 {
-	int	i;
+	t_depth	*ptr;
 
-	parent->step = 1;
+	while (level->next)
+	{
+		ptr = level;
+		while (ptr->next->next)
+			ptr = ptr->next;
+		free(ptr->next->list);
+		free(ptr->next);
+		ptr->next = NULL;
+	}
+	return (1);
+}
+
+int	depth_loop(t_depth *root, t_map_lines **arr)
+{
+	int		i;
+	int		next_subrts;
+	t_depth	*ptr;
+
+	ptr = root;
+	while (ptr->next)
+		ptr = ptr->next;
 	i = -1;
-	while (++i < parent->ct_sub)
-		parent->sub[i].cur->visit = 1;
-}
-
-t_path	*set_ptr(t_path *start)
-{
-	t_path	*ptr;
-
-	if (!start->step)
-		return (start);
-	ptr = start->sub;
-	while (1)
-	{
-		if (!ptr->closed && !ptr->ct_sub)
-			return (ptr);
-		else if (!ptr->closed && ptr->ct_sub)
-			return (set_ptr(ptr->sub));
-		else
-			++ptr;
-		if (!ptr)
-			return (NULL);
-	}
-}
-
-int	set_subroutes(t_path *parent, t_map_lines **arr)
-{
-	parent->ct_sub = count_subroutes(parent, arr);
-	if (parent->ct_sub)
-		parent->sub = ft_calloc(parent->ct_sub, sizeof(t_path));
-	else
-		parent->closed = 1;
-	assign_subroutes(parent, arr);
-	int i = 0;
-	while (i < parent->ct_sub)
-	{
-		print_line(parent->sub[i].cur->l, "sub");
-		++i;
-	}
-	take_step(parent);
+	next_subrts = 0;
+	while (++i < ptr->ct)
+		next_subrts += count_subroutes(&ptr->list[i], arr);
+	if (!next_subrts)
+		return (1);
+	if (generate_next_depth(next_subrts, ptr))
+		return (free_depth(root));
+	assign_next_list(ptr, arr);
+	i = -1;
+	while (++i < next_subrts)
+		ptr->next->list[i].line->visit = 1;
 	return (0);
 }
 
 int	find_path(t_map_lines **arr, t_coordinate player)
 {
 	t_path	start;
-	t_path	*parent;
+	t_depth	level;
 
-	start = (t_path){0, 0, 0, 0, find_line(arr, player), NULL};
-	start.cur->visit = 1;
+	start.line = find_line(arr, player);
+	start.line->visit = 1;
+	start.closed = 0;
+	level.list = &start;
+	level.ct = 1;
+	level.next = NULL;
 	while (1)
-	{
-		if (set_subroutes(&start, arr))
+		if (depth_loop(&level, arr))
 			break ;
-	}
-	return (1);
+	free_depth(&level);
+	return (0);
 }
 
 int	map_validate_path(t_data *data)

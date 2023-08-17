@@ -5,33 +5,20 @@ void print_line(t_line2 line, char *tag);
 
 t_map_lines	*find_line(t_map_lines **arr, t_coordinate to_find)
 {
-	short	i;
+	int		i;
+	t_line2	*ptr;
 
 	i = 0;
 	while (arr[to_find.x - 1][i].l.node1.x != -1)
 	{
-		if (!l_adjacent(arr[to_find.x - 1][i].l, (t_line2){to_find, to_find}))
+		ptr = &arr[to_find.x - 1][i].l;
+		if ((to_find.y <= ptr->node1.y && to_find.y >= ptr->node2.y)
+			|| (to_find.y >= ptr->node1.y && to_find.y <= ptr->node2.y))
 			break ;
 		else
 			++i;
 	}
 	return (&arr[to_find.x - 1][i]);
-}
-
-static int	set_l_flag(int **area, t_line2 line)
-{
-	int	flag;
-
-	flag = 0;
-	while (line.node2.y <= line.node1.y)
-	{
-		if (area[line.node2.y][line.node2.x] == 'C')
-			++flag;
-		else if (area[line.node2.y][line.node2.x] == 'E')
-			flag *= -1;
-		++line.node2.y;
-	}
-	return (flag);
 }
 
 t_map_lines	**optimize_array(t_map_lines *arr, int sz_x)
@@ -82,12 +69,11 @@ t_map_lines	**set_map_lines(t_map_lines *arr, t_map *map)
 				l.node2 = l.node1;
 				while (map->area[l.node1.y + 1][l.node1.x] != '1')
 					++l.node1.y;
-				arr[index] = (t_map_lines){l, set_l_flag(map->area, l), 0};
+				arr[index] = (t_map_lines){l, 0};
 				++index;
 			}
 		}
 	}
-	printf("count %d\n\n", index);
 	arr[index].l.node1.x = -1;
 	return (optimize_array(arr, map->size.x));
 }
