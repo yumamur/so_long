@@ -5,7 +5,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <mlx.h>
+# include "mlx.h"
 # include "so_long_structs.h"
 # include "so_long_keysym.h"
 # include "so_long_display.h"

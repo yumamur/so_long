@@ -13,7 +13,7 @@ void	run_game(t_game *game)
 
 void	settings_default(t_game *game)
 {
-	game->res = (t_resolution){2160, 1644};
+	game->res = (t_resolution){2000, 1600};
 	game->keybinds.right = K_RIGHT;
 	game->keybinds.left = K_LEFT;
 	game->keybinds.up = K_UP;
@@ -26,8 +26,11 @@ void	settings_default(t_game *game)
 int	main(int argc, char *argv[])
 {
 	t_game	game;
+	int		errno;
 
-	map_generate(&game.data, argv[argc - 1]);
+	errno = map_generate(&game.data, argv[argc - 1]);
+	if (errno)
+		handle_error(errno, NULL);
 	settings_default(&game);
 	run_game(&game);
 }

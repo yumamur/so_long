@@ -1,12 +1,5 @@
 #include "so_long.h"
 
-// t_cfg	get_config()
-// {}
-
-// void	resize_window(t_game *game, t_resolution res)
-// {
-
-// }
 void	import_img128(t_game *game);
 void	import_img64(t_game *game);
 void	import_img32(t_game *game);
@@ -32,7 +25,9 @@ static void	align_display(t_coordinate *pad, int *pxl, t_game *game)
 			*pxl /= 2;
 	}
 	if (*pxl < SL_IMGRES_MIN)
-		handle_error(SLE_MAPOVRSZ, &game->data.map);
+	{
+		handle_error(SLE_MAPOVRSZ, NULL);
+	}
 }
 
 void	set_assets(t_game *game)

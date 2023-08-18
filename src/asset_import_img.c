@@ -1,6 +1,6 @@
 #include "so_long.h"
 
-#define ASSET_PATH "/home/yusuf/Desktop/so_long/asset/"
+#define ASSET_PATH "asset/"
 
 void	import_img128(t_game *game)
 {
