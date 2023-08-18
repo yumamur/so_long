@@ -36,3 +36,25 @@ int	file_func(char *file_name, t_funccast func, void *param, int *errno)
 	close(fd);
 	return (*errno);
 }
+
+void	set_player_orient(t_data *data)
+{
+	if (data->map.area[data->player.pos.y + 1][data->player.pos.x] == '1')
+		data->player.orient = 0x0;
+	else if (data->map.area[data->player.pos.y - 1][data->player.pos.x] == '1')
+		data->player.orient = 0x4;
+	else if (data->map.area[data->player.pos.y][data->player.pos.x + 1] == '1')
+		data->player.orient = 0x6;
+	else if (data->map.area[data->player.pos.y][data->player.pos.x - 1] == '1')
+		data->player.orient = 0x2;
+	else if (data->map.area[data->player.pos.y + 1][data->player.pos.x + 1] == '1')
+		data->player.orient = 0x3;
+	else if (data->map.area[data->player.pos.y + 1][data->player.pos.x - 1] == '1')
+		data->player.orient = 0x5;
+	else if (data->map.area[data->player.pos.y - 1][data->player.pos.x + 1] == '1')
+		data->player.orient = 0x1;
+	else if (data->map.area[data->player.pos.y - 1][data->player.pos.x - 1] == '1')
+		data->player.orient = 0x7;
+	else
+		data->player.orient = 0xa;
+}

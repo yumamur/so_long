@@ -1,4 +1,3 @@
-#include "libft/include/def/typeft.h"
 #include "so_long_calc.h"
 #include "so_long_structs.h"
 

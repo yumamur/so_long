@@ -52,20 +52,19 @@ int	assign_objects(t_data *data)
 
 	data->exit.id = 'E';
 	data->exit.pos = obj_find_pos(&data->map, 'E');
-	data->player.id = 'P';
-	data->player.pos = obj_find_pos(&data->map, 'P');
-	data->ct_clct = obj_count(&data->map, 'C');
-	data->clct = malloc(sizeof(t_object) * data->ct_clct);
-	if (data->ct_clct && !data->clct)
+	data->tmp_player.id = 'P';
+	data->tmp_player.pos = obj_find_pos(&data->map, 'P');
+	data->tmp_ct_clct = obj_count(&data->map, 'C');
+	data->tmp_clct = malloc(sizeof(t_object) * data->tmp_ct_clct);
+	if (data->tmp_ct_clct && !data->tmp_clct)
 		return (-1);
-	i = 1;
-	ptr = data->clct;
-	while (i <= data->ct_clct)
+	i = 0;
+	ptr = data->tmp_clct;
+	while (++i <= data->tmp_ct_clct)
 	{
 		ptr->pos = obj_find_pos(&data->map, 'C');
 		ptr->id = 'C' + (i << 8);
 		data->map.area[ptr->pos.y][ptr->pos.x] += i << 8;
-		++i;
 		++ptr;
 	}
 	return (0);
