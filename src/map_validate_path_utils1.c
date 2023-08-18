@@ -1,8 +1,6 @@
 #include "so_long.h"
 #include "so_long_structs.h"
 
-void print_line(t_line2 line, char *tag);
-
 t_map_lines	*find_line(t_map_lines **arr, t_coordinate to_find)
 {
 	int		i;
@@ -43,8 +41,7 @@ t_map_lines	**optimize_array(t_map_lines *arr, int sz_x)
 			++ct[1];
 		}
 		ret[ct[0]][ct[1]].l.node1.x = -1;
-		++ct[0];
-		if (ct[0] < sz_x - 2)
+		if (++ct[0] < sz_x - 2)
 			ret[ct[0]] = ret[ct[0] - 1] + ct[1] + 1;
 	}
 	ret[sz_x - 2] = NULL;
