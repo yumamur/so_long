@@ -75,13 +75,17 @@ typedef struct s_object
 
 typedef struct s_data
 {
+	int				movect;
+	int				block_size;
 	t_map			map;
 	t_object		player;
 	t_object		exit;
 	t_object		*clct;
 	t_uint			ct_clct;
 	t_coordinate	padding;
-	int				block_size;
+	t_object		tmp_player;
+	t_uint			tmp_ct_clct;
+	t_object		*tmp_clct;
 }	t_data;
 
 typedef struct s_game
@@ -91,6 +95,7 @@ typedef struct s_game
 	t_resolution	res;
 	t_img			lst_img[6];
 	t_data			data;
+	t_object		menu[3];
 	t_bind			keybinds;
 }	t_game;
 #endif
