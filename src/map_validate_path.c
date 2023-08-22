@@ -1,4 +1,5 @@
 #include "so_long.h"
+#include "so_long_structs.h"
 
 t_map_lines	**set_map_lines(t_map_lines *arr, t_map *map);
 t_map_lines	*find_line(t_map_lines **arr, t_coordinate to_find);
@@ -7,10 +8,28 @@ int			generate_next_depth(int sub_ct, t_depth *parent);
 int			free_depth(t_depth *level);
 void		assign_next_list(t_depth *parent, t_map_lines **arr);
 
-void	print_line(t_line2 l, char *tag)
+void	mark_visited_blocks(t_map_lines **arr, int **area)
 {
-	printf("%s (%d,%d)->(%d,%d)\n", tag,
-		l.node1.x, l.node1.y, l.node2.x, l.node2.y);
+	t_uint	i;
+	t_line2	l;
+
+	while (*arr)
+	{
+		i = -1;
+		while ((*arr)[++i].l.node1.x != -1)
+		{
+			if ((*arr)[i].visit)
+			{
+				l = (*arr)[i].l;
+				while (l.node2.y <= l.node1.y)
+				{
+					area[l.node2.y][l.node2.x] = SL_ACCESSIBLE;
+					++l.node2.y;
+				}
+			}
+		}
+		++arr;
+	}
 }
 
 int	depth_loop(t_depth *root, t_map_lines **arr)
@@ -95,6 +114,7 @@ int	map_validate_path(t_data *data)
 		return (errno);
 	}
 	errno = check_unvisited(arr, data);
+	mark_visited_blocks(arr, data->map.area);
 	free(arr);
 	if (errno)
 		return (errno);

@@ -10,7 +10,7 @@ void	draw_object(t_game *game, t_object *obj)
 	mlx_put_image_to_window(game->mlx, game->win, obj->img, pos.x, pos.y);
 }
 
-void	draw_map(t_game *game, t_object obj)
+static void	draw_map(t_game *game, t_object obj)
 {
 	t_coordinate	index;
 
@@ -51,6 +51,8 @@ int	display_game(t_game *game)
 	{
 		draw_map(game, (t_object){.id = '1', .img = game->lst_img[4]});
 		draw_map(game, (t_object){.id = '0', .img = game->lst_img[3]});
+		draw_map(game,
+			(t_object){.id = SL_ACCESSIBLE, .img = game->lst_img[3]});
 	}
 	draw_object(game, &game->data.exit);
 	i = 0;

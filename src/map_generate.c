@@ -45,7 +45,7 @@ static int	**init_map(t_coordinate size)
 	return (ret);
 }
 
-int	check_outer_walls(t_map *map)
+static int	check_outer_walls(t_map *map)
 {
 	int	index;
 

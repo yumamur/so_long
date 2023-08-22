@@ -8,9 +8,11 @@
 # include "mlx.h"
 # include "so_long_structs.h"
 # include "so_long_keysym.h"
-# include "so_long_display.h"
+# include "so_long_img_macro.h"
 # include "so_long_errno.h"
 # include "so_long_calc.h"
+
+# define SL_ACCESSIBLE 0xaa
 
 typedef int	(*t_funccast)(int, void *);
 

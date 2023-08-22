@@ -5,14 +5,14 @@ void	object_p_attack(t_game *game);
 void	draw_object(t_game *game, t_object *obj);
 void	run_game(t_game *game);
 
-int	restart_game(int key, t_game *game)
+static int	restart_game(int key, t_game *game)
 {
 	if (key == game->keybinds.enter)
 		run_game(game);
 	return (0);
 }
 
-int	pause_game(int key, t_game *game)
+static int	pause_game(int key, t_game *game)
 {
 	if (key == game->keybinds.enter)
 		mlx_hook(game->win, 2, 1L << 0, handle_key_events, game);

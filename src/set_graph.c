@@ -1,10 +1,6 @@
 #include "so_long.h"
 
-int	import_img128(t_game *game);
-int	import_img64(t_game *game);
-int	import_img32(t_game *game);
-int	import_img16(t_game *game);
-int	import_img8(t_game *game);
+int	import_img(t_game *game);
 
 static void	align_display(t_coordinate *pad, int *pxl, t_game *game)
 {
@@ -33,18 +29,12 @@ static void	align_display(t_coordinate *pad, int *pxl, t_game *game)
 
 void	set_assets(t_game *game)
 {
+	int	errno;
 	align_display(&game->data.padding, &game->data.block_size, game);
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		handle_error(SLE_MLXINIT, game);
-	if (game->data.block_size == 128 && import_img128(game))
-		handle_error(SLE_IMGIMPORT, game);
-	else if (game->data.block_size == 64 && import_img64(game))
-		handle_error(SLE_IMGIMPORT, game);
-	else if (game->data.block_size == 32 && import_img32(game))
-		handle_error(SLE_IMGIMPORT, game);
-	else if (game->data.block_size == 16 && import_img16(game))
-		handle_error(SLE_IMGIMPORT, game);
-	else if (game->data.block_size == 8 && import_img8(game))
+	errno = import_img(game);
+	if (errno)
 		handle_error(SLE_IMGIMPORT, game);
 }

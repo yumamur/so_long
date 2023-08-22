@@ -1,6 +1,6 @@
 #include "so_long.h"
 
-void	move_check_right(int **area, t_object *obj)
+static void	move_check_right(int **area, t_object *obj)
 {
 	if (p_data(area, obj->pos, 1, 0) == '1' && obj->orient % 2 == 0)
 		obj->orient = 0x6;
@@ -17,7 +17,7 @@ void	move_check_right(int **area, t_object *obj)
 		p_move(obj, 0x3, (t_coordinate){1, 0});
 }
 
-void	move_check_down(int **area, t_object *obj)
+static void	move_check_down(int **area, t_object *obj)
 {
 	if (p_data(area, obj->pos, 0, 1) == '1' && obj->orient % 2 == 0)
 		obj->orient = 0x0;
@@ -38,7 +38,7 @@ void	move_check_down(int **area, t_object *obj)
 		p_move(obj, 0x3, (t_coordinate){0, 1});
 }
 
-void	move_check_left(int **area, t_object *obj)
+static void	move_check_left(int **area, t_object *obj)
 {
 	if (p_data(area, obj->pos, -1, 0) == '1' && obj->orient % 2 == 0)
 		obj->orient = 0x2;
@@ -55,7 +55,7 @@ void	move_check_left(int **area, t_object *obj)
 		p_move(obj, 0x5, (t_coordinate){-1, 0});
 }
 
-void	move_check_up(int **area, t_object *obj)
+static void	move_check_up(int **area, t_object *obj)
 {
 	if (p_data(area, obj->pos, 0, -1) == '1' && obj->orient % 2 == 0)
 		obj->orient = 0x4;

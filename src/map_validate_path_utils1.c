@@ -19,7 +19,7 @@ t_map_lines	*find_line(t_map_lines **arr, t_coordinate to_find)
 	return (&arr[to_find.x - 1][i]);
 }
 
-t_map_lines	**optimize_array(t_map_lines *arr, int sz_x)
+static t_map_lines	**optimize_array(t_map_lines *arr, int sz_x)
 {
 	t_map_lines	**ret;
 	int			ct[2];

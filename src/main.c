@@ -2,6 +2,7 @@
 
 int		map_generate(t_data *data, char *map_name);
 void	set_assets(t_game *game);
+void	generate_patrol(t_game *game);
 
 int	generate_obj(t_data *data)
 {
@@ -47,6 +48,7 @@ void	run_game(t_game *game)
 	errno = generate_obj(&game->data);
 	if (errno)
 		handle_error(errno, game);
+	generate_patrol(game);
 	game->data.movect = 0;
 	mlx_do_key_autorepeaton(game->mlx);
 	mlx_hook(game->win, 17, 0, exit_game, game);
@@ -57,9 +59,9 @@ void	run_game(t_game *game)
 }
 #endif
 
-void	settings_default(t_game *game)
+static void	settings_default(t_game *game)
 {
-	game->res = (t_resolution){1368, 768};
+	game->res = (t_resolution){800, 600};
 	game->keybinds.right = K_RIGHT;
 	game->keybinds.left = K_LEFT;
 	game->keybinds.up = K_UP;
@@ -69,6 +71,7 @@ void	settings_default(t_game *game)
 	game->keybinds.enter = K_ENTER;
 	game->keybinds.pause = K_P;
 	game->keybinds.restart = K_R;
+	game->mode = PEACEFUL;
 }
 
 int	main(int argc, char *argv[])

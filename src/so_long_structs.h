@@ -2,7 +2,6 @@
 # define SO_LONG_STRUCTS_H 1
 
 # include "libft/include/libft.h"
-# include "libft/include/stackft.h"
 
 typedef void			*t_img;
 typedef int				**t_area;
@@ -80,14 +79,25 @@ typedef struct s_data
 	int				block_size;
 	t_map			map;
 	t_object		player;
+	double			player_range;
 	t_object		exit;
-	t_object		*clct;
 	t_uint			ct_clct;
-	t_coordinate	padding;
+	t_object		*clct;
+	t_uint			ct_enemy;
+	t_object		*enemy;
 	t_object		tmp_player;
 	t_uint			tmp_ct_clct;
 	t_object		*tmp_clct;
+	t_coordinate	padding;
 }	t_data;
+
+typedef enum e_difficulty
+{
+	PEACEFUL = 0,
+	EASY = 1,
+	NORMAL = 3,
+	HARD = 6
+}	t_difficulty;
 
 typedef struct s_game
 {
@@ -96,7 +106,7 @@ typedef struct s_game
 	t_resolution	res;
 	t_img			lst_img[6];
 	t_data			data;
-	t_object		menu[3];
 	t_bind			keybinds;
+	t_difficulty	mode;
 }	t_game;
 #endif
