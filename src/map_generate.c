@@ -4,7 +4,7 @@ int		name_ctl(char *path);
 int		file_func(char *file_name, t_funccast func, void *param, int *errno);
 int		map_validate_simple(int fd, t_coordinate *size);
 int		assign_objects(t_data *data);
-void	set_player_orient(t_data *data);
+void	set_player_orient(int **area, t_object *player);
 
 static int	get_mapdata(int fd, t_map *read_map)
 {
@@ -98,6 +98,6 @@ int	map_generate(t_data *data, char *map_name)
 	errno = map_validate_path(data);
 	if (errno)
 		return (errno);
-	set_player_orient(data);
+	set_player_orient(data->map.area, &data->tmp_player);
 	return (0);
 }

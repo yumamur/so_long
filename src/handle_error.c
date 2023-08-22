@@ -2,8 +2,22 @@
 
 static void	perror_graph(int errno)
 {
-	if (errno == SLE_MAPOVRSZ)
+	if (errno == SLE_OPEN2)
+		ft_putstr_fd(2, MSG_OPEN2);
+	else if (errno == SLE_MAPREAD)
+		ft_putstr_fd(2, MSG_MAPREAD);
+	else if (errno == SLE_MLXINIT)
+		ft_putstr_fd(2, MSG_MLXINIT);
+	else if (errno == SLE_OUTERWALL)
+		ft_putstr_fd(2, MSG_OUTERWALL);
+	else if (errno == SLE_OUTERWALL)
+		ft_putstr_fd(2, MSG_OUTERWALL);
+	else if (errno == SLE_MAPOVRSZ)
 		ft_putstr_fd(2, MSG_MAPOVRSZ MSG_CONFIG);
+	else if (errno == SLE_RCHEXIT)
+		ft_putstr_fd(2, MSG_RCHEXIT);
+	else if (errno == SLE_RCHCLCT)
+		ft_putstr_fd(2, MSG_RCHCLCT);
 }
 
 static void	perror_simple_validation(int errno)
@@ -30,14 +44,16 @@ static void	perror_file(int errno)
 		ft_putstr_fd(2, MSG_INVPATH);
 	else if (errno == SLE_INVEXT)
 		ft_putstr_fd(2, MSG_INVEXT);
-	else if (errno == SLE_OPEN)
-		perror(MSG_OPEN);
 	else if (errno == SLE_COLINEQ)
 		ft_putstr_fd(2, MSG_COLINEQ);
 	else if (errno == SLE_INVCHAR)
 		ft_putstr_fd(2, MSG_INVCHAR);
+	else if (errno == SLE_MAXVAL)
+		ft_putstr_fd(2, MSG_MAXVAL);
 	else if (errno == SLE_MAPMALLOC)
 		perror(MSG_MAPMALLOC);
+	else if (errno == SLE_OPEN)
+		perror(MSG_OPEN);
 }
 
 void	handle_error(int errno, void *ptr)

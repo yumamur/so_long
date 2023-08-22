@@ -1,19 +1,20 @@
 #include "so_long.h"
 
-void	draw_background(t_game *game, t_coordinate crd);
+void	object_p_move(t_game *game, t_object *player, int key);
+void	object_p_attack(t_game *game);
+void	draw_object(t_game *game, t_object *obj);
+void	run_game(t_game *game);
 
 int	restart_game(int key, t_game *game)
 {
-	if (key == game->keybinds.left)
-		return (1);
+	if (key == game->keybinds.enter)
+		run_game(game);
 	return (0);
 }
 
 int	pause_game(int key, t_game *game)
 {
-	t_object	*ptr;
-
-	if (key == game->keybinds.pause)
+	if (key == game->keybinds.enter)
 		mlx_hook(game->win, 2, 1L << 0, handle_key_events, game);
 	return (0);
 }
@@ -23,12 +24,15 @@ int	handle_key_events(int key, t_game *game)
 	if (key == game->keybinds.up || key == game->keybinds.down
 		|| key == game->keybinds.left || key == game->keybinds.right)
 	{
-		draw_background(game, game->data.player.pos);
+		draw_object(game,
+			&(t_object){.pos = game->data.player.pos, .img = game->lst_img[3]});
 		object_p_move(game, &game->data.player, key);
-		write(1, "\rMove Count: ", 13);
-		ft_putstr_fd(1, buf_itoa(++game->data.movect).ret);
+		ft_putstr_fd(1, "\rMove Count: ");
+		ft_putstr_fd(1, buf_itoa(game->data.movect).ret);
 	}
-	else if (key == game->keybinds.esc)
+	else if (key == game->keybinds.attack)
+		object_p_attack(game);
+	else if (key == game->keybinds.exit)
 		exit_game(game, 0);
 	else if (key == game->keybinds.pause)
 		mlx_hook(game->win, 2, 1L << 0, pause_game, game);

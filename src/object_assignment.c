@@ -67,5 +67,8 @@ int	assign_objects(t_data *data)
 		data->map.area[ptr->pos.y][ptr->pos.x] += i << 8;
 		++ptr;
 	}
+	data->clct = 0;
+	data->ct_clct = 0;
+	data->player = (t_object){0, 0, (t_coordinate){0, 0}, 0};
 	return (0);
 }

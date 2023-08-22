@@ -1,45 +1,153 @@
 #include "so_long.h"
 
-int	import_img128(t_game *game);
-int	import_img64(t_game *game);
-int	import_img32(t_game *game);
-int	import_img16(t_game *game);
-int	import_img8(t_game *game);
+#define ASSET_PATH "/home/yusuf/Desktop/so_long/asset/"
 
-static void	align_display(t_coordinate *pad, int *pxl, t_game *game)
+int	import_img128(t_game *game)
 {
-	int	c;
+	int		x;
 
-	c = 0;
-	game->data.block_size = SL_IMGRES_MAX;
-	game->data.padding.x = game->res.w - 96 / game->data.map.size.x;
-	game->data.padding.y = game->res.h / game->data.map.size.y;
-	while (!c && *pxl >= SL_IMGRES_MIN)
+	game->data.tmp_player.img = mlx_xpm_file_to_image(game->mlx,
+			ASSET_PATH"128_player.xpm", &x, &x);
+	game->data.exit.img = mlx_xpm_file_to_image(game->mlx,
+			ASSET_PATH"128_exit.xpm", &x, &x);
+	game->lst_img[0] = game->data.tmp_player.img;
+	game->lst_img[1] = game->data.exit.img;
+	game->lst_img[2] = mlx_xpm_file_to_image(game->mlx,
+			ASSET_PATH"128_collectable.xpm", &x, &x);
+	game->lst_img[3] = mlx_xpm_file_to_image(game->mlx,
+			ASSET_PATH"128_background.xpm", &x, &x);
+	game->lst_img[4] = mlx_xpm_file_to_image(game->mlx,
+			ASSET_PATH"128_wall.xpm", &x, &x);
+	game->lst_img[5] = mlx_xpm_file_to_image(game->mlx,
+			ASSET_PATH"gui.xpm", &x, &x);
+	if (game->data.tmp_ct_clct)
 	{
-		if (pad->x >= *pxl && pad->y >= *pxl && ++c)
+		x = 0;
+		while ((t_uint)x < game->data.tmp_ct_clct)
 		{
-			pad->x = (game->res.w - 96 - (*pxl * game->data.map.size.x)) / 2;
-			pad->y = (game->res.h - (*pxl * game->data.map.size.y)) / 2;
+			game->data.tmp_clct[x].img = game->lst_img[2];
+			++x;
 		}
-		else
-			*pxl /= 2;
 	}
-	if (*pxl < SL_IMGRES_MIN)
-		handle_error(SLE_MAPOVRSZ, NULL);
+	return (0);
 }
 
-void	set_assets(t_game *game)
+int	import_img64(t_game *game)
 {
-	align_display(&game->data.padding, &game->data.block_size, game);
-	game->mlx = mlx_init();
-	if (!game->mlx)
-		handle_error(SLE_MLXINIT, game);
-	if (game->data.block_size == 128 && import_img128(game))
-		handle_error(SLE_IMGIMPORT, game);
-	else if (game->data.block_size == 64 && import_img64(game))
-		handle_error(SLE_IMGIMPORT, game);
-	else if (game->data.block_size == 32 && import_img32(game))
-		handle_error(SLE_IMGIMPORT, game);
-	else if (game->data.block_size == 16 && import_img16(game))
-		handle_error(SLE_IMGIMPORT, game);
+	int		x;
+
+	game->data.tmp_player.img = mlx_xpm_file_to_image(game->mlx,
+			ASSET_PATH"64_player.xpm", &x, &x);
+	game->data.exit.img = mlx_xpm_file_to_image(game->mlx,
+			ASSET_PATH"64_exit.xpm", &x, &x);
+	game->lst_img[0] = game->data.tmp_player.img;
+	game->lst_img[1] = game->data.exit.img;
+	game->lst_img[2] = mlx_xpm_file_to_image(game->mlx,
+			ASSET_PATH"64_collectable.xpm", &x, &x);
+	game->lst_img[3] = mlx_xpm_file_to_image(game->mlx,
+			ASSET_PATH"64_background.xpm", &x, &x);
+	game->lst_img[4] = mlx_xpm_file_to_image(game->mlx,
+			ASSET_PATH"64_wall.xpm", &x, &x);
+	game->lst_img[5] = mlx_xpm_file_to_image(game->mlx,
+			ASSET_PATH"gui.xpm", &x, &x);
+	if (game->data.tmp_ct_clct)
+	{
+		x = 0;
+		while ((t_uint)x < game->data.tmp_ct_clct)
+		{
+			game->data.tmp_clct[x].img = game->lst_img[2];
+			++x;
+		}
+	}
+	return (0);
+}
+
+int	import_img32(t_game *game)
+{
+	int		x;
+
+	game->data.tmp_player.img = mlx_xpm_file_to_image(game->mlx,
+			ASSET_PATH"32_player.xpm", &x, &x);
+	game->data.exit.img = mlx_xpm_file_to_image(game->mlx,
+			ASSET_PATH"32_exit.xpm", &x, &x);
+	game->lst_img[0] = game->data.tmp_player.img;
+	game->lst_img[1] = game->data.exit.img;
+	game->lst_img[2] = mlx_xpm_file_to_image(game->mlx,
+			ASSET_PATH"32_collectable.xpm", &x, &x);
+	game->lst_img[3] = mlx_xpm_file_to_image(game->mlx,
+			ASSET_PATH"32_background.xpm", &x, &x);
+	game->lst_img[4] = mlx_xpm_file_to_image(game->mlx,
+			ASSET_PATH"32_wall.xpm", &x, &x);
+	game->lst_img[5] = mlx_xpm_file_to_image(game->mlx,
+			ASSET_PATH"gui.xpm", &x, &x);
+	if (game->data.tmp_ct_clct)
+	{
+		x = 0;
+		while ((t_uint)x < game->data.tmp_ct_clct)
+		{
+			game->data.tmp_clct[x].img = game->lst_img[2];
+			++x;
+		}
+	}
+	return (0);
+}
+
+int	import_img16(t_game *game)
+{
+	int		x;
+
+	game->data.tmp_player.img = mlx_xpm_file_to_image(game->mlx,
+			ASSET_PATH"16_player.xpm", &x, &x);
+	game->data.exit.img = mlx_xpm_file_to_image(game->mlx,
+			ASSET_PATH"16_exit.xpm", &x, &x);
+	game->lst_img[0] = game->data.tmp_player.img;
+	game->lst_img[1] = game->data.exit.img;
+	game->lst_img[2] = mlx_xpm_file_to_image(game->mlx,
+			ASSET_PATH"16_collectable.xpm", &x, &x);
+	game->lst_img[3] = mlx_xpm_file_to_image(game->mlx,
+			ASSET_PATH"16_background.xpm", &x, &x);
+	game->lst_img[4] = mlx_xpm_file_to_image(game->mlx,
+			ASSET_PATH"16_wall.xpm", &x, &x);
+	game->lst_img[5] = mlx_xpm_file_to_image(game->mlx,
+			ASSET_PATH"gui.xpm", &x, &x);
+	if (game->data.tmp_ct_clct)
+	{
+		x = 0;
+		while ((t_uint)x < game->data.tmp_ct_clct)
+		{
+			game->data.tmp_clct[x].img = game->lst_img[2];
+			++x;
+		}
+	}
+	return (0);
+}
+
+int	import_img8(t_game *game)
+{
+	int		x;
+
+	game->data.tmp_player.img = mlx_xpm_file_to_image(game->mlx,
+			ASSET_PATH"8_player.xpm", &x, &x);
+	game->data.exit.img = mlx_xpm_file_to_image(game->mlx,
+			ASSET_PATH"8_exit.xpm", &x, &x);
+	game->lst_img[0] = game->data.tmp_player.img;
+	game->lst_img[1] = game->data.exit.img;
+	game->lst_img[2] = mlx_xpm_file_to_image(game->mlx,
+			ASSET_PATH"8_collectable.xpm", &x, &x);
+	game->lst_img[3] = mlx_xpm_file_to_image(game->mlx,
+			ASSET_PATH"8_background.xpm", &x, &x);
+	game->lst_img[4] = mlx_xpm_file_to_image(game->mlx,
+			ASSET_PATH"8_wall.xpm", &x, &x);
+	game->lst_img[5] = mlx_xpm_file_to_image(game->mlx,
+			ASSET_PATH"gui.xpm", &x, &x);
+	if (game->data.tmp_ct_clct)
+	{
+		x = 0;
+		while ((t_uint)x < game->data.tmp_ct_clct)
+		{
+			game->data.tmp_clct[x].img = game->lst_img[2];
+			++x;
+		}
+	}
+	return (0);
 }

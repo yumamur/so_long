@@ -37,24 +37,24 @@ int	file_func(char *file_name, t_funccast func, void *param, int *errno)
 	return (*errno);
 }
 
-void	set_player_orient(t_data *data)
+void	set_player_orient(int **area, t_object *player)
 {
-	if (data->map.area[data->player.pos.y + 1][data->player.pos.x] == '1')
-		data->player.orient = 0x0;
-	else if (data->map.area[data->player.pos.y - 1][data->player.pos.x] == '1')
-		data->player.orient = 0x4;
-	else if (data->map.area[data->player.pos.y][data->player.pos.x + 1] == '1')
-		data->player.orient = 0x6;
-	else if (data->map.area[data->player.pos.y][data->player.pos.x - 1] == '1')
-		data->player.orient = 0x2;
-	else if (data->map.area[data->player.pos.y + 1][data->player.pos.x + 1] == '1')
-		data->player.orient = 0x3;
-	else if (data->map.area[data->player.pos.y + 1][data->player.pos.x - 1] == '1')
-		data->player.orient = 0x5;
-	else if (data->map.area[data->player.pos.y - 1][data->player.pos.x + 1] == '1')
-		data->player.orient = 0x1;
-	else if (data->map.area[data->player.pos.y - 1][data->player.pos.x - 1] == '1')
-		data->player.orient = 0x7;
+	if (area[player->pos.y + 1][player->pos.x] == '1')
+		player->orient = 0x0;
+	else if (area[player->pos.y - 1][player->pos.x] == '1')
+		player->orient = 0x4;
+	else if (area[player->pos.y][player->pos.x + 1] == '1')
+		player->orient = 0x6;
+	else if (area[player->pos.y][player->pos.x - 1] == '1')
+		player->orient = 0x2;
+	else if (area[player->pos.y + 1][player->pos.x + 1] == '1')
+		player->orient = 0x3;
+	else if (area[player->pos.y + 1][player->pos.x - 1] == '1')
+		player->orient = 0x5;
+	else if (area[player->pos.y - 1][player->pos.x + 1] == '1')
+		player->orient = 0x1;
+	else if (area[player->pos.y - 1][player->pos.x - 1] == '1')
+		player->orient = 0x7;
 	else
-		data->player.orient = 0xa;
+		player->orient = 0xa;
 }

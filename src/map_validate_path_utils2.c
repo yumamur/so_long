@@ -57,7 +57,7 @@ int	free_depth(t_depth *level)
 		free(ptr->next);
 		ptr->next = NULL;
 	}
-	return (1);
+	return (-1);
 }
 
 void	assign_next_list(t_depth *parent, t_map_lines **arr)

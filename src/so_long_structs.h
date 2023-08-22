@@ -1,13 +1,12 @@
-#include "libft/include/def/typeft.h"
 #ifndef SO_LONG_STRUCTS_H
 # define SO_LONG_STRUCTS_H 1
 
 # include "libft/include/libft.h"
 # include "libft/include/stackft.h"
 
-typedef void	*t_img;
-typedef int	**t_area;
-typedef struct s_path t_path;
+typedef void			*t_img;
+typedef int				**t_area;
+typedef struct s_path	t_path;
 typedef struct s_level	t_depth;
 
 typedef struct s_coordinate
@@ -43,13 +42,15 @@ typedef struct s_level
 
 typedef struct s_bind
 {
-	int	esc;
+	int	exit;
+	int	enter;
 	int	pause;
 	int	restart;
 	int	up;
 	int	down;
 	int	left;
 	int	right;
+	int	attack;
 }	t_bind;
 
 typedef struct s_resolution

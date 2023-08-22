@@ -39,3 +39,8 @@ void	object_p_interact(t_game *game, t_object *obj)
 		++i;
 	}
 }
+
+void	object_p_attack(t_game *game)
+{
+
+}

@@ -41,6 +41,7 @@ int	check_path(t_map_lines **arr, t_coordinate player)
 {
 	t_path	start;
 	t_depth	level;
+	int		errno;
 
 	start.line = find_line(arr, player);
 	start.line->visit = 1;
@@ -49,8 +50,13 @@ int	check_path(t_map_lines **arr, t_coordinate player)
 	level.ct = 1;
 	level.next = NULL;
 	while (1)
-		if (depth_loop(&level, arr))
+	{
+		errno = depth_loop(&level, arr);
+		if (errno == -1)
+			return (SLE_MAPMALLOC);
+		if (errno)
 			break ;
+	}
 	free_depth(&level);
 	return (0);
 }
@@ -60,11 +66,11 @@ int	check_unvisited(t_map_lines **arr, t_data *data)
 	t_uint	i;
 
 	if (!find_line(arr, data->exit.pos)->visit)
-		return (-1);
+		return (SLE_RCHEXIT);
 	i = 0;
 	while (i < data->ct_clct)
 		if (!find_line(arr, data->clct[i++].pos)->visit)
-			return (-1);
+			return (SLE_RCHCLCT);
 	return (0);
 }
 
@@ -82,7 +88,7 @@ int	map_validate_path(t_data *data)
 	free(lines);
 	if (!arr)
 		return (SLE_MAPMALLOC);
-	errno = check_path(arr, data->player.pos);
+	errno = check_path(arr, data->tmp_player.pos);
 	if (errno)
 	{
 		free(arr);
