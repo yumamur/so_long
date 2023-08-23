@@ -27,8 +27,9 @@ int	handle_key_events(int key, t_game *game)
 		// draw_object(game,
 		// 	&(t_object){.pos = game->data.player.pos, .img = game->lst_img[3]});
 		object_p_move(game, &game->data.player, key);
-		ft_putstr_fd(1, "\rMove Count: ");
-		ft_putstr_fd(1, buf_itoa(game->data.movect).ret);
+		printf("\nplayer  (%d,%d)\n", game->data.player.pos.x,game->data.player.pos.y);
+		// ft_putstr_fd(1, "\rMove Count: ");
+		// ft_putstr_fd(1, buf_itoa(game->data.movect).ret);
 	}
 	else if (key == game->keybinds.attack)
 		object_p_attack(game);
@@ -38,6 +39,12 @@ int	handle_key_events(int key, t_game *game)
 		mlx_hook(game->win, 2, 1L << 0, pause_game, game);
 	else if (key == game->keybinds.restart)
 		mlx_hook(game->win, 2, 1L << 0, restart_game, game);
+	t_uint i = 0;
+	while (i < game->data.ct_patrol)
+	{
+		printf("patrol%d (%d,%d)\n", i, game->data.patrol[i].pos.x,game->data.patrol[i].pos.y);
+		++i;
+	}
 	display_game(game);
 	return (0);
 }

@@ -38,12 +38,13 @@ void	object_p_attack(t_game *game)
 	t_uint	i;
 	double	dist;
 
-	i = -1;
-	while (++i < game->data.ct_patrol)
+	i = 0;
+	while (i < game->data.ct_patrol)
 	{
 		dist = p_distance(game->data.player.pos, game->data.patrol[i].pos);
 		if (dist <= game->data.player_range)
 			object_list_remove_nth(game->data.patrol,
 				&game->data.ct_patrol, i);
+		++i;
 	}
 }

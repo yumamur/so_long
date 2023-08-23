@@ -48,16 +48,21 @@ t_coordinate	get_movable_crd(t_map *map, t_uint n)
 	t_uint			i;
 
 	i = 0;
-	ret.y = -1;
-	while (i != n && ++ret.y < map->size.y)
+	ret.y = 1;
+	while (++ret.y < map->size.y)
 	{
-		ret.x = -1;
-		while (i != n && ++ret.x < map->size.x)
+		ret.x = 0;
+		while (++ret.x < map->size.x)
 		{
 			if (map->area[ret.y][ret.x] == SL_ACCESSIBLE)
 				++i;
+			if (i == n)
+			{
+				printf("cur %d %d\n", ret.y, ret.x);
+				map->area[ret.y][ret.x] = '0';
+				return (ret);
+			}
 		}
 	}
-	map->area[ret.y][ret.x] = '0';
 	return (ret);
 }

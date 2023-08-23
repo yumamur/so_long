@@ -50,10 +50,24 @@ void	run_game(t_game *game)
 	if (errno)
 		handle_error(errno, game);
 	game->data.movect = 0;
+	game->data.player_range = 1;
+	generate_patrol(game);
 	mlx_do_key_autorepeaton(game->mlx);
 	mlx_hook(game->win, 17, 0, exit_game, game);
 	mlx_hook(game->win, 2, 1L << 0, handle_key_events, game);
 	mlx_expose_hook(game->win, display_game, game);
+	t_coordinate i = {.x = 0, .y = 0};
+	while (i.y < game->data.map.size.y)
+	{
+		i.x = 0;
+		while (i.x < game->data.map.size.x)
+		{
+			printf("%c ",((t_uchar *)&game->data.map.area[i.y][i.x])[0]);
+			++i.x;
+		}
+		printf("\n");
+		++i.y;
+	}
 	display_game(game);
 	mlx_loop(game->mlx);
 }
@@ -71,7 +85,7 @@ static void	settings_default(t_game *game)
 	game->keybinds.enter = K_ENTER;
 	game->keybinds.pause = K_P;
 	game->keybinds.restart = K_R;
-	game->mode = PEACEFUL;
+	game->mode = HARD;
 }
 
 int	main(int argc, char *argv[])

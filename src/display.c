@@ -7,7 +7,6 @@ void	draw_object(t_game *game, t_object *obj)
 	pos = game->data.padding;
 	pos = (t_coordinate){pos.x + obj->pos.x * game->data.block_size,
 		pos.y + obj->pos.y * game->data.block_size};
-	printf("%p\n%p\n%p\n%d %d\n", game->mlx, game->win, obj->img, pos.x, pos.y);
 	mlx_put_image_to_window(game->mlx, game->win, obj->img, pos.x, pos.y);
 }
 

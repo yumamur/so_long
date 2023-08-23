@@ -21,6 +21,7 @@ static void	patrol_init(t_game *game)
 	{
 		game->data.patrol[i].id = SL_ID_PATROL;
 		game->data.patrol[i].img = game->img.patrol.d;
+		++i;
 	}
 }
 
@@ -45,7 +46,7 @@ void	generate_patrol(t_game *game)
 {
 	t_uint	movable_space;
 
-	if (!game->mode)
+	if (game->mode == PEACEFUL)
 		return ;
 	movable_space = count_movable_space(&game->data.map);
 	patrol_init(game);

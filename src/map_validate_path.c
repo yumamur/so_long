@@ -23,7 +23,8 @@ void	mark_visited_blocks(t_map_lines **arr, int **area)
 				l = (*arr)[i].l;
 				while (l.node2.y <= l.node1.y)
 				{
-					area[l.node2.y][l.node2.x] = SL_ACCESSIBLE;
+					if (area[l.node2.y][l.node2.x] == '0')
+						area[l.node2.y][l.node2.x] = SL_ACCESSIBLE;
 					++l.node2.y;
 				}
 			}
