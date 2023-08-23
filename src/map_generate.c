@@ -70,7 +70,7 @@ static t_map	map_import(char *map_name)
 	t_map	map;
 	int		errno;
 
-	map.size = (t_coordinate){0, 0};
+	map = (t_map){};
 	errno = SLE_OK;
 	if (file_func(map_name, (t_funccast) & map_validate_simple,
 			&map.size, &errno))
@@ -99,5 +99,6 @@ int	map_generate(t_data *data, char *map_name)
 	if (errno)
 		return (errno);
 	set_player_orient(data->map.area, &data->tmp_player);
+	data->map.area[data->tmp_player.pos.y][data->tmp_player.pos.x] = '0';
 	return (0);
 }

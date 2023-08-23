@@ -29,10 +29,11 @@ void	run_game(t_game *game)
 	if (errno)
 		handle_error(errno, game);
 	game->data.movect = 0;
+	generate_patrol(game);
 	mlx_do_key_autorepeaton(game->mlx);
 	mlx_hook(game->win, 17, 0, exit_game, game);
 	mlx_hook(game->win, 2, 1L << 0, handle_key_events, game);
-	mlx_loop_hook(game->win, display_game, game);
+	mlx_expose_hook(game->win, display_game, game);
 	display_game(game);
 	mlx_loop(game->mlx);
 }
@@ -48,7 +49,6 @@ void	run_game(t_game *game)
 	errno = generate_obj(&game->data);
 	if (errno)
 		handle_error(errno, game);
-	generate_patrol(game);
 	game->data.movect = 0;
 	mlx_do_key_autorepeaton(game->mlx);
 	mlx_hook(game->win, 17, 0, exit_game, game);
@@ -79,6 +79,7 @@ int	main(int argc, char *argv[])
 	t_game	game;
 	int		errno;
 
+	game = (t_game){};
 	errno = map_generate(&game.data, argv[argc - 1]);
 	if (errno)
 		handle_error(errno, NULL);

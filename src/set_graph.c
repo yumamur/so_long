@@ -1,6 +1,6 @@
 #include "so_long.h"
 
-int	import_img(t_game *game);
+int	asset_import(t_game *game);
 
 static void	align_display(t_coordinate *pad, int *pxl, t_game *game)
 {
@@ -34,7 +34,7 @@ void	set_assets(t_game *game)
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		handle_error(SLE_MLXINIT, game);
-	errno = import_img(game);
+	errno = asset_import(game);
 	if (errno)
 		handle_error(SLE_IMGIMPORT, game);
 }

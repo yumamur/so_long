@@ -2,39 +2,29 @@
 
 #define ASSET_PATH "/home/yusuf/Desktop/so_long/asset/"
 
-void	set_img_names(int pxl, char **list)
+int	import_img(t_xpm *xpm, void *mlx, int bs, char path[])
 {
-	list = malloc(61 * sizeof(char *));
+	xpm->d = mlx_xpm_file_to_image(mlx, path, &xpm->h, &xpm->w);
+	if (!xpm->d)
+		return (-1);
+	if (xpm->h != xpm->w || xpm->h != bs)
+	{
+		mlx_destroy_image(mlx, xpm->d);
+		*xpm = (t_xpm){};
+		return (-1);
+	}
+	return (0);
 }
 
-int	import_img(t_game *game)
+int	asset_import(t_game *game)
 {
-	int		x;
-	char	**img_to_import;
+	t_uint i = 0;
 
-	set_img_names(game->data.block_size, img_to_import);
-	game->data.tmp_player.img = mlx_xpm_file_to_image(game->mlx,
-			ASSET_PATH"8_player.xpm", &x, &x);
-	game->data.exit.img = mlx_xpm_file_to_image(game->mlx,
-			ASSET_PATH"8_exit.xpm", &x, &x);
-	game->lst_img[0] = game->data.tmp_player.img;
-	game->lst_img[1] = game->data.exit.img;
-	game->lst_img[2] = mlx_xpm_file_to_image(game->mlx,
-			ASSET_PATH"8_collectable.xpm", &x, &x);
-	game->lst_img[3] = mlx_xpm_file_to_image(game->mlx,
-			ASSET_PATH"8_background.xpm", &x, &x);
-	game->lst_img[4] = mlx_xpm_file_to_image(game->mlx,
-			ASSET_PATH"8_wall.xpm", &x, &x);
-	game->lst_img[5] = mlx_xpm_file_to_image(game->mlx,
-			ASSET_PATH"gui.xpm", &x, &x);
-	if (game->data.tmp_ct_clct)
+	import_img(&game->img.clct, game->mlx, game->data.block_size, ASSET_PATH SL_WALL"64p.xpm");
+	while (i < game->data.tmp_ct_clct)
 	{
-		x = 0;
-		while ((t_uint)x < game->data.tmp_ct_clct)
-		{
-			game->data.tmp_clct[x].img = game->lst_img[2];
-			++x;
-		}
+		game->data.tmp_clct[i].img = game->img.clct.d;
+		++i;
 	}
 	return (0);
 }

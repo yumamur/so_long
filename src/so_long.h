@@ -12,7 +12,11 @@
 # include "so_long_errno.h"
 # include "so_long_calc.h"
 
-# define SL_ACCESSIBLE 0xaa
+# define SL_ACCESSIBLE 	0xaa
+# define SL_ID_CLCT		0x89
+# define SL_ID_PLAYER	0xab
+# define SL_ID_PATROL	0xcd
+# define SL_ID_EXIT		0xef
 
 typedef int	(*t_funccast)(int, void *);
 

@@ -50,9 +50,9 @@ int	assign_objects(t_data *data)
 	t_uint		i;
 	t_object	*ptr;
 
-	data->exit.id = 'E';
+	data->exit.id = SL_ID_EXIT;
 	data->exit.pos = obj_find_pos(&data->map, 'E');
-	data->tmp_player.id = 'P';
+	data->tmp_player.id = SL_ID_PLAYER;
 	data->tmp_player.pos = obj_find_pos(&data->map, 'P');
 	data->tmp_ct_clct = obj_count(&data->map, 'C');
 	data->tmp_clct = malloc(sizeof(t_object) * data->tmp_ct_clct);
@@ -63,7 +63,7 @@ int	assign_objects(t_data *data)
 	while (++i <= data->tmp_ct_clct)
 	{
 		ptr->pos = obj_find_pos(&data->map, 'C');
-		ptr->id = 'C' + (i << 8);
+		ptr->id = SL_ID_CLCT + (i << 8);
 		data->map.area[ptr->pos.y][ptr->pos.x] += i << 8;
 		++ptr;
 	}
