@@ -65,37 +65,38 @@ typedef struct s_xpm
 	int		h;
 	int		w;
 	void	*d;
+	char	*name;
 }	t_xpm;
 
-typedef struct s_player_assets
+typedef struct s_player_assets 
 {
-	t_xpm	_0L;
-	t_xpm	_0R;
-	t_xpm	_0S;
-	t_xpm	_1D;
-	t_xpm	_1L;
-	t_xpm	_2D;
-	t_xpm	_2S;
-	t_xpm	_2U;
-	t_xpm	_3L;
-	t_xpm	_3U;
-	t_xpm	_4L;
-	t_xpm	_4R;
-	t_xpm	_4S;
-	t_xpm	_5R;
-	t_xpm	_5U;
-	t_xpm	_6D;
-	t_xpm	_6S;
-	t_xpm	_6U;
-	t_xpm	_7D;
-	t_xpm	_7R;
+	t_xpm	_0l;
+	t_xpm	_0r;
+	t_xpm	_0s;
+	t_xpm	_1d;
+	t_xpm	_1l;
+	t_xpm	_2d;
+	t_xpm	_2s;
+	t_xpm	_2u;
+	t_xpm	_3l;
+	t_xpm	_3u;
+	t_xpm	_4l;
+	t_xpm	_4r;
+	t_xpm	_4s;
+	t_xpm	_5r;
+	t_xpm	_5u;
+	t_xpm	_6d;
+	t_xpm	_6s;
+	t_xpm	_6u;
+	t_xpm	_7d;
+	t_xpm	_7r;
 	t_xpm	inair;
 }	t_player_assets;
 
 typedef struct s_assets
 {
 	t_player_assets	p;
-	t_xpm			background;
+	t_xpm			bckgrnd;
 	t_xpm			exit;
 	t_xpm			wall;
 	t_xpm			clct;

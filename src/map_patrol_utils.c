@@ -49,6 +49,7 @@ t_coordinate	get_movable_crd(t_map *map, t_uint n)
 
 	i = 0;
 	ret.y = 1;
+	printf("%u\n", n);
 	while (++ret.y < map->size.y)
 	{
 		ret.x = 0;

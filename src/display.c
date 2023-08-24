@@ -54,7 +54,7 @@ int	display_game(t_game *game)
 		// draw_map(game,
 		// 	(t_object){.id = SL_ACCESSIBLE, .img = game->lst_img[3]});
 	// }
-	// draw_object(game, &game->data.exit);
+	draw_object(game, &game->data.exit);
 	i = 0;
 	while (i < game->data.ct_clct)
 	{
