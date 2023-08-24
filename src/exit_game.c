@@ -9,9 +9,6 @@ int	exit_game(t_game *game, int ext)
 	mlx_do_key_autorepeaton(game->mlx);
 	if (!ext)
 	{
-		i = 0;
-		while (i < 6)
-			mlx_destroy_image(game->mlx, game->lst_img[i++]);
 		mlx_destroy_window(game->mlx, game->win);
 		if (game->data.tmp_clct)
 			free(game->data.tmp_clct);
@@ -32,7 +29,6 @@ int	exit_game(t_game *game, int ext)
 	if (!ext)
 	{
 		mlx_loop_end(game->mlx);
-		mlx_destroy_image(game->mlx, game->img.clct.d);
 		mlx_destroy_window(game->mlx, game->win);
 		if (game->data.tmp_clct)
 			free(game->data.tmp_clct);

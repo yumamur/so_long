@@ -3,7 +3,6 @@
 
 # include "libft/include/libft.h"
 
-typedef void			*t_img;
 typedef int				**t_area;
 typedef struct s_path	t_path;
 typedef struct s_level	t_depth;
@@ -52,14 +51,6 @@ typedef struct s_map
 	t_area			area;
 }	t_map;
 
-typedef struct s_object
-{
-	t_uint			id;
-	t_uchar			orient;
-	t_coordinate	pos;
-	t_img			img;
-}	t_object;
-
 typedef struct s_xpm
 {
 	int		h;
@@ -67,6 +58,14 @@ typedef struct s_xpm
 	void	*d;
 	char	*name;
 }	t_xpm;
+
+typedef struct s_object
+{
+	t_uint			id;
+	t_uchar			orient;
+	t_coordinate	pos;
+	t_xpm			*img;
+}	t_object;
 
 typedef struct s_player_assets 
 {
@@ -97,15 +96,25 @@ typedef struct s_assets
 {
 	t_player_assets	p;
 	t_xpm			bckgrnd;
+	t_xpm			noaccess;
 	t_xpm			exit;
 	t_xpm			wall;
 	t_xpm			clct;
 	t_xpm			patrol;
 }	t_assets;
 
+typedef enum e_move
+{
+	LEFT,
+	RIGHT,
+	UP,
+	DOWN,
+}	t_move;
+
 typedef struct s_data
 {
 	int				movect;
+	t_move			last_move;
 	int				block_size;
 	t_map			map;
 	t_object		player;

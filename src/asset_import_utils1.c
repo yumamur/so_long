@@ -5,13 +5,8 @@
 #define ASSET_PATH "/home/yusuf/Desktop/so_long/asset/"
 #define ASSET_TYPE ".xpm"
 
-int	r_free(void *ptr)
-{
-	if (!ptr)
-		return (0);
-	free(ptr);
-	return (0);
-}
+void	set_player_asset_ptr(t_player_assets *p, t_xpm **ptr);
+int		r_free(void *ptr);
 
 int	free_asset_names(int ret, t_assets *img)
 {
@@ -25,6 +20,8 @@ int	free_asset_names(int ret, t_assets *img)
 		free(img->wall.name);
 	if (img->bckgrnd.name)
 		free(img->bckgrnd.name);
+	if (img->noaccess.name)
+		free(img->noaccess.name);
 	return (ret);
 }
 
@@ -39,43 +36,15 @@ int	free_player_asset_names(t_player_assets *p, t_xpm **ptr)
 			free(ptr[i++]->name);
 		return (-1);
 	}
-	else
-	{
-		if (r_free(p->_0r.name) || r_free(p->_0l.name) || r_free(p->inair.name)
-			|| r_free(p->_1d.name) || r_free(p->_1l.name) || r_free(p->_2d.name)
-			|| r_free(p->_2s.name) || r_free(p->_2u.name) || r_free(p->_3u.name)
-			|| r_free(p->_3l.name) || r_free(p->_4r.name) || r_free(p->_4l.name)
-			|| r_free(p->_4s.name) || r_free(p->_5u.name) || r_free(p->_5r.name)
-			|| r_free(p->_6u.name) || r_free(p->_6s.name) || r_free(p->_6d.name)
-			|| r_free(p->_7d.name) || r_free(p->_7r.name) || r_free(p->_0s.name))
-			return (0);
+	if (r_free(p->_0r.name) || r_free(p->_0l.name) || r_free(p->inair.name)
+		|| r_free(p->_1d.name) || r_free(p->_1l.name) || r_free(p->_2d.name)
+		|| r_free(p->_2s.name) || r_free(p->_2u.name) || r_free(p->_3u.name)
+		|| r_free(p->_3l.name) || r_free(p->_4r.name) || r_free(p->_4l.name)
+		|| r_free(p->_4s.name) || r_free(p->_5u.name) || r_free(p->_5r.name)
+		|| r_free(p->_6u.name) || r_free(p->_6s.name) || r_free(p->_6d.name)
+		|| r_free(p->_7d.name) || r_free(p->_7r.name) || r_free(p->_0s.name))
 		return (0);
-	}
-}
-
-void	set_player_asset_ptr(t_player_assets *p, t_xpm **ptr)
-{
-	ptr[0] = &p->_0l;
-	ptr[1] = &p->_0r;
-	ptr[2] = &p->_0s;
-	ptr[3] = &p->_1d;
-	ptr[4] = &p->_1l;
-	ptr[5] = &p->_2d;
-	ptr[6] = &p->_2s;
-	ptr[7] = &p->_2u;
-	ptr[8] = &p->_3l;
-	ptr[9] = &p->_3u;
-	ptr[10] = &p->_4l;
-	ptr[11] = &p->_4r;
-	ptr[12] = &p->_4s;
-	ptr[13] = &p->_5r;
-	ptr[14] = &p->_5u;
-	ptr[15] = &p->_6d;
-	ptr[16] = &p->_6s;
-	ptr[17] = &p->_6u;
-	ptr[18] = &p->_7d;
-	ptr[19] = &p->_7r;
-	ptr[20] = &p->inair;
+	return (0);
 }
 
 static int	set_player_asset_exts(t_player_assets *p)
@@ -135,16 +104,18 @@ int	set_asset_names(t_assets *img, int bs)
 	img->wall.name = ft_strjoin(ASSET_PATH SL_WALL, buf_itoa(bs).ret);
 	img->patrol.name = ft_strjoin(ASSET_PATH SL_PATROL, buf_itoa(bs).ret);
 	img->bckgrnd.name = ft_strjoin(ASSET_PATH SL_BCKGRND, buf_itoa(bs).ret);
+	img->noaccess.name = ft_strjoin(ASSET_PATH SL_NOACCESS, buf_itoa(bs).ret);
 	if (!img->exit.name || !img->clct.name || !img->wall.name
-		|| !img->patrol.name || !img->bckgrnd.name)
+		|| !img->patrol.name || !img->bckgrnd.name || !img->noaccess.name)
 		return (free_asset_names(-1, img));
 	img->exit.name = ft_strjoin_frees1(img->exit.name, "p.xpm");
 	img->clct.name = ft_strjoin_frees1(img->clct.name, "p.xpm");
 	img->wall.name = ft_strjoin_frees1(img->wall.name, "p.xpm");
 	img->patrol.name = ft_strjoin_frees1(img->patrol.name, "p.xpm");
 	img->bckgrnd.name = ft_strjoin_frees1(img->bckgrnd.name, "p.xpm");
+	img->noaccess.name = ft_strjoin_frees1(img->noaccess.name, "p.xpm");
 	if (!img->exit.name || !img->clct.name || !img->wall.name
-		|| !img->patrol.name || !img->bckgrnd.name)
+		|| !img->patrol.name || !img->bckgrnd.name || !img->noaccess.name)
 		return (free_asset_names(-1, img));
 	if (set_player_asset_names(&img->p, bs))
 		return (-1);

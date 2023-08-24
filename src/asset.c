@@ -8,10 +8,10 @@ static void	align_display(t_coordinate *pad, int *pxl, t_game *game)
 
 	c = 0;
 	game->data.block_size = SL_IMGRES_MAX;
-	if ((game->res.w - 128) / game->data.map.size.x < 8
+	if ((game->res.w - 256) / game->data.map.size.x < 8
 		|| game->res.h / game->data.map.size.y < 8)
 		handle_error(SLE_MAPOVRSZ, NULL);
-	pad->x = (game->res.w - 128) / game->data.map.size.x;
+	pad->x = (game->res.w - 256) / game->data.map.size.x;
 	pad->y = game->res.h / game->data.map.size.y;
 	while (!c && *pxl >= SL_IMGRES_MIN)
 	{
@@ -30,6 +30,7 @@ static void	align_display(t_coordinate *pad, int *pxl, t_game *game)
 void	set_assets(t_game *game)
 {
 	int	errno;
+
 	align_display(&game->data.padding, &game->data.block_size, game);
 	game->mlx = mlx_init();
 	if (!game->mlx)

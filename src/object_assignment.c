@@ -69,6 +69,6 @@ int	assign_objects(t_data *data)
 	}
 	data->clct = 0;
 	data->ct_clct = 0;
-	data->player = (t_object){0, 0, (t_coordinate){0, 0}, 0};
+	data->player = (t_object){};
 	return (0);
 }

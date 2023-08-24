@@ -3,6 +3,7 @@
 int		name_ctl(char *path);
 int		file_func(char *file_name, t_funccast func, void *param, int *errno);
 int		map_validate_simple(int fd, t_coordinate *size);
+int		map_validate_path(t_data *data);
 int		assign_objects(t_data *data);
 void	set_player_orient(int **area, t_object *player);
 

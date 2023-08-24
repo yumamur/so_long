@@ -17,12 +17,13 @@
 # define SL_ID_PLAYER	0xab
 # define SL_ID_PATROL	0xcd
 # define SL_ID_EXIT		0xef
+# define SL_RES_HEIGHT	738
+# define SL_RES_WIDTH	1368
 
 typedef int	(*t_funccast)(int, void *);
 
 void	handle_error(int errno, void *ptr);
-int		map_validate_path(t_data *data);
 int		display_game(t_game *game);
-int		handle_key_events(int key, t_game *game);
+int		handle_playing(int key, t_game *game);
 int		exit_game(t_game *game, int ext);
 #endif /* SO_LONG_H */

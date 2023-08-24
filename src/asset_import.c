@@ -1,6 +1,4 @@
-#include "libft/include/def/typeft.h"
 #include "so_long.h"
-#include "so_long_structs.h"
 
 int		set_asset_names(t_assets *img, int bs);
 int		free_asset_names(int ret, t_assets *img);
@@ -15,6 +13,7 @@ int	import_img(t_xpm *xpm, void *mlx, int bs)
 		ft_putstr_fd(2, "MiniLibX could not convert ");
 		ft_putstr_fd(2, xpm->name);
 		ft_putstr_fd(2, "\n");
+		free(xpm->name);
 		return (-1);
 	}
 	if (xpm->h != xpm->w || xpm->h != bs)
@@ -27,37 +26,43 @@ int	import_img(t_xpm *xpm, void *mlx, int bs)
 		*xpm = (t_xpm){};
 		return (-1);
 	}
+	free(xpm->name);
 	return (0);
 }
 
-int	free_assets(int ret, t_assets *img)
+void	assign_obj_img(t_game *game)
 {
-	free_asset_names(ret, img);
-	free_player_asset_names(&img->p, NULL);
-	return (ret);
+	t_uint	i;
+
+	game->data.exit.img = &game->img.exit;
+	i = 0;
+	while (i < game->data.tmp_ct_clct)
+	{
+		game->data.tmp_clct[i].img = &game->img.clct;
+		++i;
+	}
+	i = 0;
 }
 
 int	asset_import(t_game *game)
 {
 	t_xpm	*ptr[21];
 	t_uint	i;
+	int		errno;
 
 	if (set_asset_names(&game->img, game->data.block_size))
 		return (-1);
-	if (import_img(&game->img.clct, game->mlx, game->data.block_size))
-		return (free_assets(-1, &game->img));
-	if (import_img(&game->img.exit, game->mlx, game->data.block_size))
-		return (free_assets(-1, &game->img));
-	if (import_img(&game->img.patrol, game->mlx, game->data.block_size))
-		return (free_assets(-1, &game->img));
-	if (import_img(&game->img.wall, game->mlx, game->data.block_size))
-		return (free_assets(-1, &game->img));
-	if (import_img(&game->img.bckgrnd, game->mlx, game->data.block_size))
-		return (free_assets(-1, &game->img));
+	errno = 0;
+	errno += import_img(&game->img.clct, game->mlx, game->data.block_size);
+	errno += import_img(&game->img.exit, game->mlx, game->data.block_size);
+	errno += import_img(&game->img.patrol, game->mlx, game->data.block_size);
+	errno += import_img(&game->img.wall, game->mlx, game->data.block_size);
+	errno += import_img(&game->img.bckgrnd, game->mlx, game->data.block_size);
+	errno += import_img(&game->img.noaccess, game->mlx, game->data.block_size);
 	set_player_asset_ptr(&game->img.p, ptr);
 	i = 0;
 	while (i < 21)
-		if (import_img(ptr[i++], game->mlx, game->data.block_size))
-			return (free_assets(-1, &game->img));
-	return (0);
+		errno += import_img(ptr[i++], game->mlx, game->data.block_size);
+	assign_obj_img(game);
+	return (errno);
 }

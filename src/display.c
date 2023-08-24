@@ -1,34 +1,7 @@
 #include "so_long.h"
 
-void	draw_object(t_game *game, t_object *obj)
-{
-	t_coordinate	pos;
-
-	pos = game->data.padding;
-	pos = (t_coordinate){pos.x + obj->pos.x * game->data.block_size,
-		pos.y + obj->pos.y * game->data.block_size};
-	mlx_put_image_to_window(game->mlx, game->win, obj->img, pos.x, pos.y);
-}
-
-// static void	draw_map(t_game *game, t_object obj)
-// {
-// 	t_coordinate	index;
-
-// 	index.y = -1;
-// 	while (++index.y < game->data.map.size.y)
-// 	{
-// 		index.x = -1;
-// 		while (++index.x < game->data.map.size.x)
-// 		{
-// 			if ((t_uint)game->data.map.area[index.y][index.x] == obj.id)
-// 			{
-// 				obj.pos = index;
-// 				draw_object(game, &obj);
-// 			}
-// 		}
-// 	}
-// }
-
+void	draw_object(t_game *game, t_object *obj);
+void	draw_map(t_game *game, t_object obj);
 // void	draw_gui(t_game *game)
 // {
 // 	mlx_put_image_to_window(game->mlx, game->win, game->lst_img[5],
@@ -47,18 +20,24 @@ int	display_game(t_game *game)
 {
 	t_uint	i;
 
-	// if (!game->data.movect)
-	// {
-		// draw_map(game, (t_object){.id = '1', .img = game->lst_img[4]});
-		// draw_map(game, (t_object){.id = '0', .img = game->lst_img[3]});
-		// draw_map(game,
-		// 	(t_object){.id = SL_ACCESSIBLE, .img = game->lst_img[3]});
-	// }
+	if (!game->data.movect)
+	{
+		draw_map(game, (t_object){.id = '1', .img = &game->img.wall});
+		draw_map(game, (t_object){.id = '0', .img = &game->img.noaccess});
+		draw_map(game,
+			(t_object){.id = SL_ACCESSIBLE, .img = &game->img.bckgrnd});
+	}
 	draw_object(game, &game->data.exit);
 	i = 0;
 	while (i < game->data.ct_clct)
 	{
 		draw_object(game, &game->data.clct[i]);
+		++i;
+	}
+	i = 0;
+	while (i < game->data.ct_patrol)
+	{
+		draw_object(game, &game->data.patrol[i]);
 		++i;
 	}
 	// draw_object(game, &game->data.player);

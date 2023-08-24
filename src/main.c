@@ -3,6 +3,7 @@
 int		map_generate(t_data *data, char *map_name);
 void	set_assets(t_game *game);
 void	generate_patrol(t_game *game);
+void	settings_default(t_game *game);
 
 int	generate_obj(t_data *data)
 {
@@ -16,29 +17,6 @@ int	generate_obj(t_data *data)
 	ft_memcpy(data->clct, data->tmp_clct, sizeof(t_object) * data->ct_clct);
 	return (0);
 }
-
-#ifdef SO_LONG_BONUS
-
-void	run_game(t_game *game)
-{
-	int	errno;
-
-	mlx_clear_window(game->mlx, game->win);
-	game->data.movect = 0;
-	errno = generate_obj(&game->data);
-	if (errno)
-		handle_error(errno, game);
-	game->data.movect = 0;
-	generate_patrol(game);
-	mlx_do_key_autorepeaton(game->mlx);
-	mlx_hook(game->win, 17, 0, exit_game, game);
-	mlx_hook(game->win, 2, 1L << 0, handle_key_events, game);
-	mlx_expose_hook(game->win, display_game, game);
-	display_game(game);
-	mlx_loop(game->mlx);
-}
-
-#else
 
 void	run_game(t_game *game)
 {
@@ -54,38 +32,10 @@ void	run_game(t_game *game)
 	generate_patrol(game);
 	mlx_do_key_autorepeaton(game->mlx);
 	mlx_hook(game->win, 17, 0, exit_game, game);
-	mlx_hook(game->win, 2, 1L << 0, handle_key_events, game);
+	mlx_hook(game->win, 2, 1L << 0, handle_playing, game);
 	mlx_expose_hook(game->win, display_game, game);
-	t_coordinate i = {.x = 0, .y = 0};
-	while (i.y < game->data.map.size.y)
-	{
-		i.x = 0;
-		while (i.x < game->data.map.size.x)
-		{
-			printf("%c ",((t_uchar *)&game->data.map.area[i.y][i.x])[0]);
-			++i.x;
-		}
-		printf("\n");
-		++i.y;
-	}
 	display_game(game);
 	mlx_loop(game->mlx);
-}
-#endif
-
-static void	settings_default(t_game *game)
-{
-	game->res = (t_resolution){800, 600};
-	game->keybinds.right = K_RIGHT;
-	game->keybinds.left = K_LEFT;
-	game->keybinds.up = K_UP;
-	game->keybinds.down = K_DOWN;
-	game->keybinds.attack = K_SPACE;
-	game->keybinds.exit = K_ESC;
-	game->keybinds.enter = K_ENTER;
-	game->keybinds.pause = K_P;
-	game->keybinds.restart = K_R;
-	game->mode = HARD;
 }
 
 int	main(int argc, char *argv[])

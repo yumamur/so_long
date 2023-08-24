@@ -11,16 +11,18 @@ static void	patrol_init(t_game *game)
 	if (game->data.patrol)
 		free(game->data.patrol);
 	game->data.ct_patrol = ceil((pow(count_movable_space(&game->data.map), 2)
-		/ ((game->data.map.size.x - 1) * (game->data.map.size.y - 1) * 10))
-		* ((double)game->mode / 2));
+				/ ((game->data.map.size.x - 1)
+					* (game->data.map.size.y - 1) * 15))
+			* ((double)game->mode / 2));
 	game->data.patrol = malloc(game->data.ct_patrol * sizeof(t_object));
 	if (!game->data.patrol)
 		return ;
 	i = 0;
 	while (i < game->data.ct_patrol)
 	{
+		game->data.patrol[i].orient = 0;
 		game->data.patrol[i].id = SL_ID_PATROL;
-		game->data.patrol[i].img = game->img.patrol.d;
+		game->data.patrol[i].img = &game->img.patrol;
 		++i;
 	}
 }
@@ -36,7 +38,14 @@ static void	patrol_deploy(t_data *data, t_uint movable_space)
 		if (random_data(0, &block, sizeof(block)))
 			return ;
 		block %= movable_space--;
-		data->patrol[i].pos = get_movable_crd(&data->map, block);
+		data->patrol[i].pos = get_movable_crd(&data->map, ++block);
+		++i;
+	}
+	i = 0;
+	while (i < data->ct_patrol)
+	{
+		data->map.area[data->patrol[i].pos.y]
+			[data->patrol[i].pos.x] = SL_ACCESSIBLE;
 		++i;
 	}
 	random_data(1, 0, 0);

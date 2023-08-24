@@ -1,5 +1,8 @@
 #include "so_long.h"
 
+void	state_success(t_game *game);
+void	state_failure(t_game *game);
+
 static void	object_list_remove_nth(t_object *list, t_uint *ct, int n)
 {
 	t_uint	r;
@@ -31,6 +34,14 @@ void	object_p_interact(t_game *game, t_object *obj)
 					&game->data.ct_clct, i));
 		++i;
 	}
+	i = 0;
+	while (i < game->data.ct_patrol)
+	{
+		if (!p_distance(obj->pos, game->data.patrol[i].pos) &&
+			game->data.patrol[i].orient == 0)
+			return (state_failure(game));
+		++i;
+	}
 }
 
 void	object_p_attack(t_game *game)
@@ -43,8 +54,7 @@ void	object_p_attack(t_game *game)
 	{
 		dist = p_distance(game->data.player.pos, game->data.patrol[i].pos);
 		if (dist <= game->data.player_range)
-			object_list_remove_nth(game->data.patrol,
-				&game->data.ct_patrol, i);
+			game->data.patrol[i].orient = 1;
 		++i;
 	}
 }

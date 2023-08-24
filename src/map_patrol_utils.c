@@ -48,8 +48,7 @@ t_coordinate	get_movable_crd(t_map *map, t_uint n)
 	t_uint			i;
 
 	i = 0;
-	ret.y = 1;
-	printf("%u\n", n);
+	ret.y = 0;
 	while (++ret.y < map->size.y)
 	{
 		ret.x = 0;
@@ -59,7 +58,6 @@ t_coordinate	get_movable_crd(t_map *map, t_uint n)
 				++i;
 			if (i == n)
 			{
-				printf("cur %d %d\n", ret.y, ret.x);
 				map->area[ret.y][ret.x] = '0';
 				return (ret);
 			}

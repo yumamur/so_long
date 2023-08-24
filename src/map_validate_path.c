@@ -8,7 +8,7 @@ int			generate_next_depth(int sub_ct, t_depth *parent);
 int			free_depth(t_depth *level);
 void		assign_next_list(t_depth *parent, t_map_lines **arr);
 
-void	mark_visited_blocks(t_map_lines **arr, int **area)
+static void	mark_visited_blocks(t_map_lines **arr, int **area)
 {
 	t_uint	i;
 	t_line2	l;
@@ -33,7 +33,7 @@ void	mark_visited_blocks(t_map_lines **arr, int **area)
 	}
 }
 
-int	depth_loop(t_depth *root, t_map_lines **arr)
+static int	depth_loop(t_depth *root, t_map_lines **arr)
 {
 	int		i;
 	int		next_subrts;
@@ -57,7 +57,7 @@ int	depth_loop(t_depth *root, t_map_lines **arr)
 	return (0);
 }
 
-int	check_path(t_map_lines **arr, t_coordinate player)
+static int	check_path(t_map_lines **arr, t_coordinate player)
 {
 	t_path	start;
 	t_depth	level;
@@ -81,7 +81,7 @@ int	check_path(t_map_lines **arr, t_coordinate player)
 	return (0);
 }
 
-int	check_unvisited(t_map_lines **arr, t_data *data)
+static int	check_unvisited(t_map_lines **arr, t_data *data)
 {
 	t_uint	i;
 
