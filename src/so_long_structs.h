@@ -56,7 +56,7 @@ typedef struct s_xpm
 	int		h;
 	int		w;
 	void	*d;
-	char	*name;
+	char	*n;
 }	t_xpm;
 
 typedef struct s_object
@@ -92,15 +92,34 @@ typedef struct s_player_assets
 	t_xpm	inair;
 }	t_player_assets;
 
+typedef struct s_gui_assets
+{
+	t_xpm	sccs;
+	t_xpm	fail;
+	t_xpm	sidebar;
+	t_xpm	pause_menu;
+	t_xpm	pm_select;
+	t_xpm	pm_resume;
+	t_xpm	pm_restart;
+	t_xpm	pm_settings;
+	t_xpm	pm_exit;
+	t_xpm	settings_menu;
+	t_xpm	sm_mode;
+	t_xpm	sm_binds;
+	t_xpm	sm_winsize;
+}	t_gui_assets;
+
 typedef struct s_assets
 {
 	t_player_assets	p;
+	t_gui_assets	gui;
 	t_xpm			bckgrnd;
 	t_xpm			noaccess;
 	t_xpm			exit;
 	t_xpm			wall;
 	t_xpm			clct;
 	t_xpm			patrol;
+	t_xpm			patrolx_x;
 }	t_assets;
 
 typedef enum e_move
@@ -141,15 +160,73 @@ typedef struct s_bind
 	int	left;
 	int	right;
 	int	attack;
+	int	block;
 }	t_bind;
 
 typedef enum e_difficulty
 {
-	PEACEFUL = 0,
-	EASY = 1,
-	NORMAL = 3,
-	HARD = 6
+	EASY0 = 0,
+	EASY1 = 1,
+	EASY2 = 2,
+	NORMAL0 = 3,
+	NORMAL1 = 4,
+	NORMAL2 = 5,
+	HARD0 = 6,
+	HARD1 = 7,
+	HARD2 = 8
 }	t_difficulty;
+
+typedef struct s_change_binds
+{
+	t_xpm	*select;
+	t_xpm	*left;
+	t_xpm	*right;
+	t_xpm	*up;
+	t_xpm	*down;
+	t_xpm	*attack;
+	t_xpm	*block;
+}	t_change_binds;
+
+typedef struct s_change_winsize
+{
+	t_xpm	*h_box;
+	t_xpm	*w_box;
+	t_xpm	*l_arrow;
+	t_xpm	*r_arrow;
+}	t_change_winsize;
+
+typedef struct s_change_mode
+{
+	t_xpm	*l_arrow;
+	t_xpm	*r_arrow;
+}	t_change_mode;
+
+typedef struct s_settings_menu
+{
+	t_xpm	*select;
+	t_xpm	*binds;
+	t_xpm	*winsize;
+	t_xpm	*mode;
+}	t_settings_menu;
+
+typedef struct s_pause_menu
+{
+	t_xpm	*select;
+	t_xpm	*resume;
+	t_xpm	*restart;
+	t_xpm	*settings;
+	t_xpm	*exit;
+}	t_pause_menu;
+
+typedef struct s_menu
+{
+	t_xpm				*img;
+	t_pause_menu		pause;
+	t_settings_menu		settings;
+	t_change_binds		binds;
+	t_change_winsize	winsize;
+	t_change_mode		mode;
+}	t_menu;
 
 typedef struct s_game
 {
@@ -157,7 +234,9 @@ typedef struct s_game
 	void			*win;
 	t_resolution	res;
 	t_assets		img;
+	int				draw;
 	t_data			data;
+	t_menu			menu;
 	t_bind			keybinds;
 	t_difficulty	mode;
 }	t_game;

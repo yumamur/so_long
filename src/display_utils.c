@@ -28,4 +28,3 @@ void	draw_map(t_game *game, t_object obj)
 		}
 	}
 }
-

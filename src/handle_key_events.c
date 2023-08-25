@@ -9,12 +9,12 @@ int	handle_playing(int key, t_game *game)
 {
 	if (key == game->keybinds.up || key == game->keybinds.down
 		|| key == game->keybinds.left || key == game->keybinds.right
-		|| key == game->keybinds.attack)
+		|| key == game->keybinds.attack || key == game->keybinds.block)
 		state_playing(key, game);
 	else if (key == game->keybinds.exit)
 		exit_game(game, 0);
 	else if (key == game->keybinds.pause)
-		state_pause(game);	
+		state_pause(game);
 	else if (key == game->keybinds.restart)
 		state_restart(game);
 	display_game(game);
@@ -32,7 +32,11 @@ int	handle_restart(int key, t_game *game)
 
 int	handle_pause(int key, t_game *game)
 {
-	if (key == game->keybinds.pause || key == game->keybinds.enter)
+	static int	i;
+
+	if (!i)
+		i = 0;
+	if (key == game->keybinds.pause)
 		mlx_hook(game->win, 2, 1L << 0, handle_playing, game);
 	else if (key == game->keybinds.exit)
 		mlx_hook(game->win, 2, 1L << 0, handle_playing, game);
@@ -41,7 +45,7 @@ int	handle_pause(int key, t_game *game)
 
 int	handle_failure(int key, t_game *game)
 {
-	if (key == game->keybinds.restart)
+	if (key == game->keybinds.enter)
 		run_game(game);
 	else if (key == game->keybinds.exit)
 		exit_game(game, 0);
@@ -50,7 +54,7 @@ int	handle_failure(int key, t_game *game)
 
 int	handle_success(int key, t_game *game)
 {
-	if (key == game->keybinds.restart)
+	if (key == game->keybinds.enter)
 		run_game(game);
 	else if (key == game->keybinds.exit)
 		exit_game(game, 0);

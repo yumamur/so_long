@@ -20,26 +20,21 @@ int	display_game(t_game *game)
 {
 	t_uint	i;
 
-	if (!game->data.movect)
+	if (game->draw < 3)
 	{
 		draw_map(game, (t_object){.id = '1', .img = &game->img.wall});
 		draw_map(game, (t_object){.id = '0', .img = &game->img.noaccess});
 		draw_map(game,
 			(t_object){.id = SL_ACCESSIBLE, .img = &game->img.bckgrnd});
+		++game->draw;
 	}
 	draw_object(game, &game->data.exit);
 	i = 0;
-	while (i < game->data.ct_clct)
-	{
-		draw_object(game, &game->data.clct[i]);
-		++i;
-	}
+	while (i++ < game->data.ct_clct)
+		draw_object(game, &game->data.clct[i - 1]);
 	i = 0;
-	while (i < game->data.ct_patrol)
-	{
-		draw_object(game, &game->data.patrol[i]);
-		++i;
-	}
+	while (i++ < game->data.ct_patrol)
+		draw_object(game, &game->data.patrol[i - 1]);
 	// draw_object(game, &game->data.player);
 	// if (game->data.player.orient == 0xa)
 	// 	draw_rope(game);

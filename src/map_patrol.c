@@ -45,7 +45,7 @@ static void	patrol_deploy(t_data *data, t_uint movable_space)
 	while (i < data->ct_patrol)
 	{
 		data->map.area[data->patrol[i].pos.y]
-			[data->patrol[i].pos.x] = SL_ACCESSIBLE;
+		[data->patrol[i].pos.x] = SL_ACCESSIBLE;
 		++i;
 	}
 	random_data(1, 0, 0);
@@ -55,7 +55,7 @@ void	generate_patrol(t_game *game)
 {
 	t_uint	movable_space;
 
-	if (game->mode == PEACEFUL)
+	if (!game->mode)
 		return ;
 	movable_space = count_movable_space(&game->data.map);
 	patrol_init(game);

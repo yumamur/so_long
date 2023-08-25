@@ -7,26 +7,26 @@ int		free_player_asset_names(t_player_assets *p, t_xpm **ptr);
 
 int	import_img(t_xpm *xpm, void *mlx, int bs)
 {
-	xpm->d = mlx_xpm_file_to_image(mlx, xpm->name, &xpm->h, &xpm->w);
+	xpm->d = mlx_xpm_file_to_image(mlx, xpm->n, &xpm->h, &xpm->w);
 	if (!xpm->d)
 	{
 		ft_putstr_fd(2, "MiniLibX could not convert ");
-		ft_putstr_fd(2, xpm->name);
+		ft_putstr_fd(2, xpm->n);
 		ft_putstr_fd(2, "\n");
-		free(xpm->name);
+		free(xpm->n);
 		return (-1);
 	}
 	if (xpm->h != xpm->w || xpm->h != bs)
 	{
 		mlx_destroy_image(mlx, xpm->d);
 		ft_putstr_fd(2, "Error while importing ");
-		ft_putstr_fd(2, xpm->name);
+		ft_putstr_fd(2, xpm->n);
 		ft_putstr_fd(2, "\nFile size is not as stated\n");
-		free(xpm->name);
+		free(xpm->n);
 		*xpm = (t_xpm){};
 		return (-1);
 	}
-	free(xpm->name);
+	free(xpm->n);
 	return (0);
 }
 
@@ -56,6 +56,8 @@ int	asset_import(t_game *game)
 	errno += import_img(&game->img.clct, game->mlx, game->data.block_size);
 	errno += import_img(&game->img.exit, game->mlx, game->data.block_size);
 	errno += import_img(&game->img.patrol, game->mlx, game->data.block_size);
+	errno += import_img(&game->img.patrolx_x,
+			game->mlx, game->data.block_size);
 	errno += import_img(&game->img.wall, game->mlx, game->data.block_size);
 	errno += import_img(&game->img.bckgrnd, game->mlx, game->data.block_size);
 	errno += import_img(&game->img.noaccess, game->mlx, game->data.block_size);

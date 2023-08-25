@@ -6,10 +6,10 @@ int	random_data(int mode, void *buf, t_uint n)
 
 	if (!fd)
 	{
-		fd = open("/dev/random", O_RDONLY);
+		fd = open("/dev/urandom", O_RDONLY);
 		if (fd == -1)
 		{
-			fd = open("/dev/urandom", O_RDONLY);
+			fd = open("/dev/random", O_RDONLY);
 			if (fd == -1)
 				return (-1);
 		}

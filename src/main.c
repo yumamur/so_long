@@ -27,9 +27,13 @@ void	run_game(t_game *game)
 	errno = generate_obj(&game->data);
 	if (errno)
 		handle_error(errno, game);
+	game->data.map.area[game->data.player.pos.y]
+	[game->data.player.pos.x] = '0';
+	generate_patrol(game);
 	game->data.movect = 0;
 	game->data.player_range = 1;
-	generate_patrol(game);
+	game->data.map.area[game->data.player.pos.y]
+	[game->data.player.pos.x] = SL_ACCESSIBLE;
 	mlx_do_key_autorepeaton(game->mlx);
 	mlx_hook(game->win, 17, 0, exit_game, game);
 	mlx_hook(game->win, 2, 1L << 0, handle_playing, game);

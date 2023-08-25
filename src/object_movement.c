@@ -74,8 +74,6 @@ static void	move_check_up(int **area, t_object *obj)
 		p_move(obj, 0x1, (t_coordinate){0, -1});
 }
 
-void	object_p_interact(t_game *game, t_object *obj);
-
 void	object_p_move(t_game *game, t_object *obj, int key)
 {
 	int	ctl[3];
@@ -93,5 +91,4 @@ void	object_p_move(t_game *game, t_object *obj, int key)
 		move_check_up(game->data.map.area, obj);
 	if (ctl[0] != obj->orient || ctl[1] != obj->pos.x || ctl[2] != obj->pos.y)
 		++game->data.movect;
-	object_p_interact(game, obj);
 }
