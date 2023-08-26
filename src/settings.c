@@ -37,10 +37,11 @@ void	settings_default(t_game *game)
 	game->keybinds.up = K_UP;
 	game->keybinds.down = K_DOWN;
 	game->keybinds.attack = K_SPACE;
-	game->keybinds.defend = K_E;
+	game->keybinds.block = K_E;
 	game->keybinds.exit = K_ESC;
 	game->keybinds.enter = K_ENTER;
 	game->keybinds.pause = K_P;
 	game->keybinds.restart = K_R;
-	game->mode = get_difficulty();
+	// game->mode = get_difficulty();
+	game->mode = 8;
 }

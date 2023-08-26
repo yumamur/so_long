@@ -1,9 +1,10 @@
 #include "so_long.h"
 
-int	random_data(int mode, void *buf, t_uint n)
+int	random_data(t_uint *buf, t_uint n)
 {
-	static int	fd;
+	int	fd;
 
+	fd = 0;
 	if (!fd)
 	{
 		fd = open("/dev/urandom", O_RDONLY);
@@ -14,12 +15,8 @@ int	random_data(int mode, void *buf, t_uint n)
 				return (-1);
 		}
 	}
-	if (mode && fd)
-	{
-		close(fd);
-		return (0);
-	}
 	read(fd, buf, n);
+	close(fd);
 	return (0);
 }
 

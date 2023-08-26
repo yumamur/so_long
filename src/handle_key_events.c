@@ -24,21 +24,18 @@ int	handle_playing(int key, t_game *game)
 int	handle_restart(int key, t_game *game)
 {
 	if (key == game->keybinds.enter)
+	{
+		game->draw = 0;
 		run_game(game);
-	else if (key == game->keybinds.exit)
+	}
+	else if (key == game->keybinds.restart)
 		mlx_hook(game->win, 2, 1L << 0, handle_playing, game);
 	return (0);
 }
 
 int	handle_pause(int key, t_game *game)
 {
-	static int	i;
-
-	if (!i)
-		i = 0;
 	if (key == game->keybinds.pause)
-		mlx_hook(game->win, 2, 1L << 0, handle_playing, game);
-	else if (key == game->keybinds.exit)
 		mlx_hook(game->win, 2, 1L << 0, handle_playing, game);
 	return (0);
 }

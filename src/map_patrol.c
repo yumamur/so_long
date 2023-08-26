@@ -1,7 +1,7 @@
 #include "so_long.h"
 
 t_uint			count_movable_space(t_map *map);
-int				random_data(int mode, void *buf, t_uint n);
+int				random_data(void *buf, t_uint n);
 t_coordinate	get_movable_crd(t_map *map, t_uint n);
 
 static void	patrol_init(t_game *game)
@@ -27,7 +27,7 @@ static void	patrol_init(t_game *game)
 	}
 }
 
-static void	patrol_deploy(t_data *data, t_uint movable_space)
+static void	patrol_deploy(t_data *data, t_uint available_space)
 {
 	t_uint	block;
 	t_uint	i;
@@ -35,9 +35,12 @@ static void	patrol_deploy(t_data *data, t_uint movable_space)
 	i = 0;
 	while (i < data->ct_patrol)
 	{
-		if (random_data(0, &block, sizeof(block)))
+		block = 0;
+		if (random_data(&block, 4))
 			return ;
-		block %= movable_space--;
+		printf("random %d\n", block);
+		block %= available_space--;
+		printf("mod    %d\n", block);
 		data->patrol[i].pos = get_movable_crd(&data->map, ++block);
 		++i;
 	}
@@ -48,7 +51,6 @@ static void	patrol_deploy(t_data *data, t_uint movable_space)
 		[data->patrol[i].pos.x] = SL_ACCESSIBLE;
 		++i;
 	}
-	random_data(1, 0, 0);
 }
 
 void	generate_patrol(t_game *game)
