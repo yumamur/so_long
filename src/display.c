@@ -35,7 +35,7 @@ int	display_game(t_game *game)
 	i = 0;
 	while (i++ < game->data.ct_patrol)
 		draw_object(game, &game->data.patrol[i - 1]);
-	// draw_object(game, &game->data.player);
+	draw_object(game, &game->data.player);
 	// if (game->data.player.orient == 0xa)
 	// 	draw_rope(game);
 	// draw_gui(game);

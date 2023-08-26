@@ -27,6 +27,7 @@ void	run_game(t_game *game)
 	errno = generate_obj(&game->data);
 	if (errno)
 		handle_error(errno, game);
+	assign_player_img(game, &game->data.player, -1);
 	game->data.map.area[game->data.player.pos.y]
 	[game->data.player.pos.x] = '0';
 	generate_patrol(game);

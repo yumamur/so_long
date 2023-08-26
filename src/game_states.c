@@ -47,6 +47,8 @@ void	state_restart(t_game *game)
 
 void	state_playing(int key, t_game *game)
 {
+	draw_object(game, &(t_object){.pos = game->data.player.pos,
+		.img = &game->img.bckgrnd});
 	if (key == game->keybinds.attack)
 		object_p_attack(game);
 	else
@@ -56,8 +58,6 @@ void	state_playing(int key, t_game *game)
 		return ;
 	if (key == game->keybinds.attack || key == game->keybinds.block)
 		++game->data.movect;
-	draw_object(game, &(t_object){.pos = game->data.player.pos,
-		.img = &game->img.bckgrnd});
-	ft_putstr_fd(1, "\rMove Count: ");
-	ft_putstr_fd(1, buf_itoa(game->data.movect).ret);
+	// ft_putstr_fd(1, "\rMove Count: ");
+	// ft_putstr_fd(1, buf_itoa(game->data.movect).ret);
 }

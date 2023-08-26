@@ -89,6 +89,7 @@ void	object_p_move(t_game *game, t_object *obj, int key)
 		move_check_down(game->data.map.area, obj);
 	if (key == game->keybinds.up)
 		move_check_up(game->data.map.area, obj);
+	assign_player_img(game, &game->data.player, key);
 	if (ctl[0] != obj->orient || ctl[1] != obj->pos.x || ctl[2] != obj->pos.y)
 		++game->data.movect;
 }

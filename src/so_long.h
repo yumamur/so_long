@@ -23,8 +23,20 @@
 
 typedef int	(*t_funccast)(int, void *);
 
+char	*ft_strjoin(t_c_char *s1, t_c_char *s2);
+char	*ft_strjoin_frees1(char *s1, t_c_char *s2);
+t_uint	ft_strlen(t_c_char *str);
+int		ft_strcmp(t_c_char *s1, t_c_char *s2);
+char	*ft_strchr(t_c_char *s, int c);
+char	*ft_strrchr(t_c_char *s, int c);
+void	ft_putstr_fd(int fd, char *str);
+void	*ft_calloc(size_t nmemb, size_t size);
+void	*ft_memcpy(void *dst, t_c_void *src, size_t n);
+
+
 void	handle_error(int errno, void *ptr);
 int		display_game(t_game *game);
+void	assign_player_img(t_game *game, t_object *player, int key);
 int		handle_playing(int key, t_game *game);
 int		exit_game(t_game *game, int ext);
 #endif /* SO_LONG_H */

@@ -1,7 +1,7 @@
 #ifndef SO_LONG_STRUCTS_H
 # define SO_LONG_STRUCTS_H 1
 
-# include "libft/include/libft.h"
+# include "typeft.h"
 
 typedef int				**t_area;
 typedef struct s_path	t_path;
@@ -122,18 +122,10 @@ typedef struct s_assets
 	t_xpm			patrolx_x;
 }	t_assets;
 
-typedef enum e_move
-{
-	LEFT,
-	RIGHT,
-	UP,
-	DOWN,
-}	t_move;
-
 typedef struct s_data
 {
 	int				movect;
-	t_move			last_move;
+	int				last_move;
 	int				block_size;
 	t_map			map;
 	t_object		player;
