@@ -43,5 +43,5 @@ void	settings_default(t_game *game)
 	game->keybinds.pause = K_P;
 	game->keybinds.restart = K_R;
 	// game->mode = get_difficulty();
-	game->mode = 0;
+	game->mode = 5;
 }
