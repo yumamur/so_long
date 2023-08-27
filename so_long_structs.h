@@ -6,7 +6,7 @@
 /*   By: yumamur <yumamur@student.42istanbul.com.t  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:05:51 by yumamur           #+#    #+#             */
-/*   Updated: 2023/08/27 11:42:48 by yumamur          ###   ########.fr       */
+/*   Updated: 2023/08/27 12:20:25 by yumamur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ typedef struct s_gui_assets
 	t_xpm	sidebar;
 	t_xpm	digit[10];
 	t_xpm	p_pause;
-	t_xpm	p_rest;
+	t_xpm	p_restart;
 	t_xpm	p_exit;
 	t_xpm	chg_mode;
 	t_xpm	btn_select;
@@ -123,10 +123,10 @@ typedef struct s_assets
 	t_gui_assets	gui;
 	t_xpm			bckgrnd;
 	t_xpm			noaccess;
-	t_xpm			exit;
+	t_xpm			exit[8];
 	t_xpm			wall;
-	t_xpm			clct;
-	t_xpm			patrol;
+	t_xpm			clct[8];
+	t_xpm			patrol[8];
 	t_xpm			patrolx_x;
 }	t_assets;
 

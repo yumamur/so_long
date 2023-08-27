@@ -6,7 +6,7 @@
 /*   By: yumamur <yumamur@student.42istanbul.com.t  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:03:58 by yumamur           #+#    #+#             */
-/*   Updated: 2023/08/27 11:41:01 by yumamur          ###   ########.fr       */
+/*   Updated: 2023/08/27 12:23:25 by yumamur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int		set_asset_names(t_assets *img, int bs);
 int		free_asset_names(int ret, t_assets *img);
 void	set_player_asset_ptr(t_player_assets *p, t_xpm **ptr);
 int		free_player_asset_names(t_player_assets *p, t_xpm **ptr);
-int		set_gui_asset_names(t_gui_assets *gui, int bs);
 
 int	import_img(t_xpm *xpm, void *mlx, int bs)
 {
@@ -43,21 +42,49 @@ int	import_img(t_xpm *xpm, void *mlx, int bs)
 	return (0);
 }
 
-int		import_gui(t_game)
+int	import_static(t_xpm *xpm, char fname[], void *mlx)
+{
+	xpm->d = mlx_xpm_file_to_image(mlx, fname, &xpm->h, &xpm->w);
+	if (!xpm->d)
+	{
+		ft_putstr_fd(2, "MiniLibX could not convert ");
+		ft_putstr_fd(2, xpm->n);
+		ft_putstr_fd(2, "\n");
+		return (-1);
+	}
+	if (xpm->h != xpm->w || xpm->h != bs)
+	{
+		mlx_destroy_image(mlx, xpm->d);
+		ft_putstr_fd(2, "Error: ");
+		ft_putstr_fd(2, xpm->n);
+		ft_putstr_fd(2, ": File size is not as stated\n");
+		*xpm = (t_xpm){};
+		return (-1);
+	}
+	return (0);
+}
+
+int		import_gui(t_gui_assets *gui, void *mlx, int bs)
 {
 	int	errno;
 
-	if (set_gui_asset_names(&game->img.gui, game->data.block_size)
-		return (-1);
-	errno += import_img(&game->img.fail, game->mlx, game->data.block_size);
-	errno += import_img(&game->img.sccs, game->mlx, game->data.block_size);
-	errno += import_img(&game->img.sidebar, game->mlx, game->data.block_size);
-	errno += import_img(&game->img.m_pause, game->mlx, game->data.block_size);
-	errno += import_img(&game->img.p_restart, game->mlx, game->data.block_size);
-	errno += import_img(&game->img.p_exit, game->mlx, game->data.block_size);
-	errno += import_img(&game->img.chg_mode, game->mlx, game->data.block_size);
-	errno += import_img(&game->img.btn_select,
-		game->mlx, game->data.block_size);
+	errno += import_static(&gui->sccs, ASSET_PATH SL_P_SCCS, mlx);
+	errno += import_static(&gui->fail, ASSET_PATH SL_P_SCCS, mlx);
+	errno += import_static(&gui->m_pause, ASSET_PATH SL_P_SCCS, mlx);
+	errno += import_static(&gui->p_restart, ASSET_PATH SL_P_SCCS, mlx);
+	errno += import_static(&gui->chg_mode, ASSET_PATH SL_P_SCCS, mlx);
+	errno += import_static(&gui->btn_select, ASSET_PATH SL_P_SCCS, mlx);
+	errno += import_static(&gui->sidebar, ASSET_PATH SL_P_SCCS, mlx);
+	errno += import_static(&gui->digit[0], ASSET_PATH SL_NBR_0, mlx);
+	errno += import_static(&gui->digit[0], ASSET_PATH SL_NBR_1, mlx);
+	errno += import_static(&gui->digit[0], ASSET_PATH SL_NBR_2, mlx);
+	errno += import_static(&gui->digit[0], ASSET_PATH SL_NBR_3, mlx);
+	errno += import_static(&gui->digit[0], ASSET_PATH SL_NBR_4, mlx);
+	errno += import_static(&gui->digit[0], ASSET_PATH SL_NBR_5, mlx);
+	errno += import_static(&gui->digit[0], ASSET_PATH SL_NBR_6, mlx);
+	errno += import_static(&gui->digit[0], ASSET_PATH SL_NBR_7, mlx);
+	errno += import_static(&gui->digit[0], ASSET_PATH SL_NBR_8, mlx);
+	errno += import_static(&gui->digit[0], ASSET_PATH SL_NBR_9, mlx);
 	return (errno);
 }
 
@@ -92,7 +119,7 @@ int	asset_import(t_game *game)
 	errno += import_img(&game->img.wall, game->mlx, game->data.block_size);
 	errno += import_img(&game->img.bckgrnd, game->mlx, game->data.block_size);
 	errno += import_img(&game->img.noaccess, game->mlx, game->data.block_size);
-	errno += import_gui(game);
+	errno += import_gui(&game->img.gui, game->mlx, game->data.block_size);
 	set_player_asset_ptr(&game->img.p, ptr);
 	i = 0;
 	while (i < 21)

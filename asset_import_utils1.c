@@ -6,7 +6,7 @@
 /*   By: yumamur <yumamur@student.42istanbul.com.t  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:04:00 by yumamur           #+#    #+#             */
-/*   Updated: 2023/08/27 11:34:44 by yumamur          ###   ########.fr       */
+/*   Updated: 2023/08/27 12:12:44 by yumamur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,31 +68,6 @@ static int	set_player_asset_names(t_player_assets *p, int bs)
 	p->_7r.n = ft_strjoin(ASSET_PATH SL_PLYR_7D, buf_itoa(bs).ret);
 	p->inair.n = ft_strjoin(ASSET_PATH SL_PLYR_INAIR, buf_itoa(bs).ret);
 	return (set_player_asset_exts(p));
-}
-
-static int	set_gui_asset_names(t_gui_assets *gui, int bs)
-{
-	gui->fail.n = ft_strjoin(ASSET_PATH SL_P_SCCS, buf_itoa(bs).ret);
-	gui->sccs.n = ft_strjoin(ASSET_PATH SL_P_FAIL, buf_itoa(bs).ret);
-	gui->m_pause.n = ft_strjoin(ASSET_PATH SL_M_PAUSE, buf_itoa(bs).ret);
-	gui->p_restart.n = ft_strjoin(ASSET_PATH SL_P_RESTART, buf_itoa(bs).ret);
-	gui->p_exit.n = ft_strjoin(ASSET_PATH SL_P_EXIT, buf_itoa(bs).ret);
-	gui->chg_mode.n = ft_strjoin(ASSET_PATH SL_CHG_MODE, buf_itoa(bs).ret);
-	gui->btn_select.n = ft_strjoin(ASSET_PATH SL_BTN_SELECT, buf_itoa(bs).ret);
-	if (!gui->fail.n || !gui->sccs.n || !gui->m_pause.n || !gui->p_restart.n
-		|| !gui->p_exit.n || !gui->chg_mode.n || !gui->btn_select.n)
-		return (free_gui_asset_names(-1, gui));
-	gui->fail.n = ft_strjoin_frees1(gui->fail.n, "p.xpm");
-    gui->sccs.n = ft_strjoin_frees1(gui->sccs.n, "p.xpm");
-    gui->m_pause.n = ft_strjoin_frees1(gui->m_pause.n, "p.xpm");
-    gui->p_restart.n = ft_strjoin_frees1(gui->p_restart.n, "p.xpm");
-    gui->p_exit.n = ft_strjoin_frees1(gui->p_exit.n, "p.xpm");
-    gui->chg_mode.n = ft_strjoin_frees1(gui->chg_mode.n, "p.xpm");
-    gui->btn_select.n = ft_strjoin_frees1(gui->btn_select.n, "p.xpm");
-	if (!gui->fail.n || !gui->sccs.n || !gui->m_pause.n || !gui->p_restart.n
-		|| !gui->p_exit.n || !gui->chg_mode.n || !gui->btn_select.n)
-		return (free_gui_asset_names(-1, gui));
-	return (0);
 }
 
 int	set_asset_names(t_assets *img, int bs)
