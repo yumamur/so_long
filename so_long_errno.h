@@ -61,7 +61,9 @@
 
 # define SLE_OBJMALLOC			0x00f000
 # define MSG_OBJMALLOC	"Memory allocation error\n"
-# define SLE_IMGIMPORT			0x00f001
+# define SLE_IMGNMALLOC			0x00f001
+# define MSG_IMGNMALLOC	"Memory allocation error\n"
+# define SLE_IMGIMPORT			0x00f002
 # define MSG_IMGIMPORT	"Error while importing assets\n"
 
 # define MSG_CONFIG		"Configure \033[1;32mso_long_config.h\033[m and retry\n"

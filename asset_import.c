@@ -55,28 +55,28 @@ int	import_img_gui(t_xpm *xpm, char fname[], void *mlx)
 	return (0);
 }
 
-int		import_gui(t_gui_assets *gui, void *mlx)
+int	import_gui(t_gui_assets *gui, void *mlx)
 {
 	int	errno;
 
 	errno = 0;
-	errno += import_img_gui(&gui->sccs, ASSET_PATH SL_P_SCCS, mlx);
-	errno += import_img_gui(&gui->fail, ASSET_PATH SL_P_FAIL, mlx);
-	errno += import_img_gui(&gui->p_pause, ASSET_PATH SL_P_PAUSE, mlx);
-	errno += import_img_gui(&gui->p_restart, ASSET_PATH SL_P_RESTART, mlx);
-	errno += import_img_gui(&gui->chmod, ASSET_PATH SL_P_CHMOD, mlx);
-	errno += import_img_gui(&gui->btn_select, ASSET_PATH SL_B_SELECT, mlx);
-	errno += import_img_gui(&gui->sidebar, ASSET_PATH SL_GUI, mlx);
-	errno += import_img_gui(&gui->digit[0], ASSET_PATH SL_NBR_0, mlx);
-	errno += import_img_gui(&gui->digit[1], ASSET_PATH SL_NBR_1, mlx);
-	errno += import_img_gui(&gui->digit[2], ASSET_PATH SL_NBR_2, mlx);
-	errno += import_img_gui(&gui->digit[3], ASSET_PATH SL_NBR_3, mlx);
-	errno += import_img_gui(&gui->digit[4], ASSET_PATH SL_NBR_4, mlx);
-	errno += import_img_gui(&gui->digit[5], ASSET_PATH SL_NBR_5, mlx);
-	errno += import_img_gui(&gui->digit[6], ASSET_PATH SL_NBR_6, mlx);
-	errno += import_img_gui(&gui->digit[7], ASSET_PATH SL_NBR_7, mlx);
-	errno += import_img_gui(&gui->digit[8], ASSET_PATH SL_NBR_8, mlx);
-	errno += import_img_gui(&gui->digit[9], ASSET_PATH SL_NBR_9, mlx);
+	errno += import_img_gui(&gui->sccs, SL_P_SCCS, mlx);
+	errno += import_img_gui(&gui->fail, SL_P_FAIL, mlx);
+	errno += import_img_gui(&gui->p_pause, SL_P_PAUSE, mlx);
+	errno += import_img_gui(&gui->p_restart, SL_P_RESTART, mlx);
+	errno += import_img_gui(&gui->chmod, SL_P_CHMOD, mlx);
+	errno += import_img_gui(&gui->btn_select, SL_B_SELECT, mlx);
+	errno += import_img_gui(&gui->sidebar, SL_GUI, mlx);
+	errno += import_img_gui(&gui->digit[0], SL_NBR_0, mlx);
+	errno += import_img_gui(&gui->digit[1], SL_NBR_1, mlx);
+	errno += import_img_gui(&gui->digit[2], SL_NBR_2, mlx);
+	errno += import_img_gui(&gui->digit[3], SL_NBR_3, mlx);
+	errno += import_img_gui(&gui->digit[4], SL_NBR_4, mlx);
+	errno += import_img_gui(&gui->digit[5], SL_NBR_5, mlx);
+	errno += import_img_gui(&gui->digit[6], SL_NBR_6, mlx);
+	errno += import_img_gui(&gui->digit[7], SL_NBR_7, mlx);
+	errno += import_img_gui(&gui->digit[8], SL_NBR_8, mlx);
+	errno += import_img_gui(&gui->digit[9], SL_NBR_9, mlx);
 	return (errno);
 }
 
@@ -101,7 +101,7 @@ int	asset_import(t_game *game)
 	int		errno;
 
 	if (set_asset_names(&game->img, game->data.block_size))
-		return (-1);
+		return (SLE_IMGNMALLOC);
 	errno = 0;
 	errno += import_img(&game->img.clct, game->mlx, game->data.block_size);
 	errno += import_img(&game->img.exit, game->mlx, game->data.block_size);

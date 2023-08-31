@@ -66,15 +66,6 @@ int	free_asset_names(int ret, t_assets *img)
 
 int	free_player_asset_names(t_player_assets *p, t_xpm **ptr)
 {
-	int	i;
-
-	if (!p)
-	{
-		i = 0;
-		while (i < 21)
-			free(ptr[i++]->n);
-		return (-1);
-	}
 	if (r_free(p->_0r.n) || r_free(p->_0l.n) || r_free(p->inair.n)
 		|| r_free(p->_1d.n) || r_free(p->_1l.n) || r_free(p->_2d.n)
 		|| r_free(p->_2s.n) || r_free(p->_2u.n) || r_free(p->_3u.n)

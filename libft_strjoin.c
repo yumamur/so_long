@@ -12,62 +12,47 @@
 
 #include "so_long.h"
 
-char	*ft_strdup(t_c_char *s)
-{
-	char	*ret;
-	int		i;
+char	*function(const char *fir, ...) __attribute__((aligned));
 
-	ret = malloc(ft_strlen(s) + 1);
-	if (!ret)
-		return (NULL);
-	i = -1;
-	while (s[++i] != '\0')
-		ret[i] = s[i];
-	ret[i] = '\0';
+static t_ulong	length(__builtin_va_list args, const char *fir)
+{
+	t_c_char	*pt;
+	t_ulong		ret;
+
+	pt = fir;
+	ret = 0;
+	while (pt)
+	{
+		ret += ft_strlen(pt);
+		pt = __builtin_va_arg(args, char *);
+	}
 	return (ret);
 }
 
-char	*ft_strjoin(t_c_char *s1, t_c_char *s2)
+char	*ft_strjoin_v2(const char *fir, ...)
 {
-	size_t	l1;
-	size_t	l2;
-	char	*r;
+	__builtin_va_list	args;
+	t_ulong				len;
+	t_c_char			*cur;
+	char				*ret;
 
-	if (!s1 || !s2)
-		return (NULL);
-	l1 = ft_strlen(s1);
-	l2 = ft_strlen(s2);
-	r = malloc(l1 + l2 + 1);
-	if (!r)
-		return (NULL);
-	while (*s1 != '\0')
-		*(r++) = *((char *)s1++);
-	while (*s2 != '\0')
-		*(r++) = *((char *)s2++);
-	*r = '\0';
-	return (r - l1 - l2);
-}
-
-char	*ft_strjoin_frees1(char *s1, t_c_char *s2)
-{
-	char	*str;
-	int		i1;
-	int		i2;
-
-	if (!s1)
-		s1 = ft_strdup("");
-	if (!s1 || !s2)
-		return (NULL);
-	str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (!str)
-		return (NULL);
-	i1 = -1;
-	while (s1[++i1])
-		str[i1] = s1[i1];
-	i2 = 0;
-	while (s2[i2])
-		str[i1++] = s2[i2++];
-	str[i1] = '\0';
-	free(s1);
-	return (str);
+	__builtin_va_start(args, fir);
+	len = length(args, fir);
+	__builtin_va_end(args);
+	ret = malloc(len + 1);
+	if (ret)
+	{
+		__builtin_va_start(args, fir);
+		cur = fir;
+		len = 0;
+		while (cur)
+		{
+			ft_strcpy(&ret[len], cur);
+			len += ft_strlen(cur);
+			cur = __builtin_va_arg(args, char *);
+		}
+		__builtin_va_end(args);
+		ret[len] = 0;
+	}
+	return (ret);
 }

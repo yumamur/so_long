@@ -104,7 +104,7 @@ typedef struct s_player_assets
 	t_xpm	inair;
 }	t_player_assets;
 
-#ifndef SO_LONG_BONUS
+# ifndef SO_LONG_BONUS
 
 typedef struct s_gui_assets
 {
@@ -132,7 +132,7 @@ typedef struct s_assets
 	t_xpm			patrolx_x;
 }	t_assets;
 
-#else
+# else
 
 typedef struct s_gui_assets
 {
@@ -160,7 +160,7 @@ typedef struct s_assets
 	t_xpm			patrolx_x;
 }	t_assets;
 
-#endif
+# endif
 
 typedef struct s_data
 {

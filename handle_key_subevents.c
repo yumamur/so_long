@@ -25,7 +25,7 @@ static void	restart_game(t_game *game)
 	run_game(game);
 }
 
-int handle_sub_change_mode(int key, t_game *game)
+int	handle_sub_change_mode(int key, t_game *game)
 {
 	static t_coordinate	i;
 

@@ -49,5 +49,5 @@ void	set_assets(t_game *game)
 		handle_error(SLE_MLXINIT, game);
 	errno = asset_import(game);
 	if (errno)
-		handle_error(SLE_IMGIMPORT, game);
+		handle_error(errno, game);
 }

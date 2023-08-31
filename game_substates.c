@@ -25,6 +25,12 @@ void	substate_change_mode(t_game *game)
 	mlx_hook(game->win, 2, 1L << 0, handle_sub_change_mode, game);
 }
 
+void	substate_resume(t_game *game)
+{
+	display_game(game);
+	mlx_hook(game->win, 2, 1L << 0, handle_playing, game);
+}
+
 void	substate_restart(t_game *game)
 {
 	draw_object(game, &game->menu.confirm_restart); 

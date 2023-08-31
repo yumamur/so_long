@@ -16,81 +16,58 @@ void	set_player_asset_ptr(t_player_assets *p, t_xpm **ptr);
 int		free_asset_names(int ret, t_assets *img);
 int		free_player_asset_names(t_player_assets *p, t_xpm **ptr);
 
-static int	set_player_asset_exts(t_player_assets *p)
+static int	player_asset_ctl(t_player_assets *p)
 {
-	t_xpm	*ptr[21];
-	int		i;
-
-	set_player_asset_ptr(p, ptr);
-	i = 0;
-	while (i < 21)
-	{
-		if (!ptr[i]->n)
-			return (free_player_asset_names(NULL, ptr));
-		++i;
-	}
-	i = 0;
-	while (i < 21)
-	{
-		ptr[i]->n = ft_strjoin_frees1(ptr[i]->n, "p"ASSET_TYPE);
-		if (!ptr[i]->n || ft_strlen(ptr[i]->n) < 5)
-			return (free_player_asset_names(NULL, ptr));
-		++i;
-	}
+	if (!p->_0l.n || !p->_0r.n || !p->_0s.n || !p->_1d.n || !p->_1l.n
+		|| !p->_2d.n || !p->_2s.n || !p->_2u.n || !p->_3l.n || !p->_3u.n
+		|| !p->_4l.n || !p->_4r.n || !p->_4s.n || !p->_5r.n || !p->_5u.n
+		|| !p->_6d.n || !p->_6s.n || !p->_6u.n || !p->_7d.n || !p->_7r.n
+		|| !p->inair.n)
+		return (-1);
 	return (0);
 }
 
-static int	set_player_asset_names(t_player_assets *p, int bs)
+static int	set_player_asset_names(t_player_assets *p, char *bs)
 {
-	p->_0l.n = ft_strjoin(ASSET_PATH SL_PLYR_0L, buf_itoa(bs).ret);
-	p->_0r.n = ft_strjoin(ASSET_PATH SL_PLYR_0R, buf_itoa(bs).ret);
-	p->_0s.n = ft_strjoin(ASSET_PATH SL_PLYR_0S, buf_itoa(bs).ret);
-	p->_1d.n = ft_strjoin(ASSET_PATH SL_PLYR_1D, buf_itoa(bs).ret);
-	p->_1l.n = ft_strjoin(ASSET_PATH SL_PLYR_1L, buf_itoa(bs).ret);
-	p->_2d.n = ft_strjoin(ASSET_PATH SL_PLYR_2D, buf_itoa(bs).ret);
-	p->_2s.n = ft_strjoin(ASSET_PATH SL_PLYR_2S, buf_itoa(bs).ret);
-	p->_2u.n = ft_strjoin(ASSET_PATH SL_PLYR_2U, buf_itoa(bs).ret);
-	p->_3l.n = ft_strjoin(ASSET_PATH SL_PLYR_3L, buf_itoa(bs).ret);
-	p->_3u.n = ft_strjoin(ASSET_PATH SL_PLYR_3U, buf_itoa(bs).ret);
-	p->_4l.n = ft_strjoin(ASSET_PATH SL_PLYR_4L, buf_itoa(bs).ret);
-	p->_4r.n = ft_strjoin(ASSET_PATH SL_PLYR_4R, buf_itoa(bs).ret);
-	p->_4s.n = ft_strjoin(ASSET_PATH SL_PLYR_4S, buf_itoa(bs).ret);
-	p->_5r.n = ft_strjoin(ASSET_PATH SL_PLYR_5R, buf_itoa(bs).ret);
-	p->_5u.n = ft_strjoin(ASSET_PATH SL_PLYR_5U, buf_itoa(bs).ret);
-	p->_6d.n = ft_strjoin(ASSET_PATH SL_PLYR_6D, buf_itoa(bs).ret);
-	p->_6s.n = ft_strjoin(ASSET_PATH SL_PLYR_6S, buf_itoa(bs).ret);
-	p->_6u.n = ft_strjoin(ASSET_PATH SL_PLYR_6U, buf_itoa(bs).ret);
-	p->_7d.n = ft_strjoin(ASSET_PATH SL_PLYR_7D, buf_itoa(bs).ret);
-	p->_7r.n = ft_strjoin(ASSET_PATH SL_PLYR_7D, buf_itoa(bs).ret);
-	p->inair.n = ft_strjoin(ASSET_PATH SL_PLYR_INAIR, buf_itoa(bs).ret);
-	return (set_player_asset_exts(p));
+	p->_0l.n = strjoin_v2(SL_PLYR_0L, bs, "p.xpm", 0);
+	p->_0r.n = strjoin_v2(SL_PLYR_0R, bs, "p.xpm", 0);
+	p->_0s.n = strjoin_v2(SL_PLYR_0S, bs, "p.xpm", 0);
+	p->_1d.n = strjoin_v2(SL_PLYR_1D, bs, "p.xpm", 0);
+	p->_1l.n = strjoin_v2(SL_PLYR_1L, bs, "p.xpm", 0);
+	p->_2d.n = strjoin_v2(SL_PLYR_2D, bs, "p.xpm", 0);
+	p->_2s.n = strjoin_v2(SL_PLYR_2S, bs, "p.xpm", 0);
+	p->_2u.n = strjoin_v2(SL_PLYR_2U, bs, "p.xpm", 0);
+	p->_3l.n = strjoin_v2(SL_PLYR_3L, bs, "p.xpm", 0);
+	p->_3u.n = strjoin_v2(SL_PLYR_3U, bs, "p.xpm", 0);
+	p->_4l.n = strjoin_v2(SL_PLYR_4L, bs, "p.xpm", 0);
+	p->_4r.n = strjoin_v2(SL_PLYR_4R, bs, "p.xpm", 0);
+	p->_4s.n = strjoin_v2(SL_PLYR_4S, bs, "p.xpm", 0);
+	p->_5r.n = strjoin_v2(SL_PLYR_5R, bs, "p.xpm", 0);
+	p->_5u.n = strjoin_v2(SL_PLYR_5U, bs, "p.xpm", 0);
+	p->_6d.n = strjoin_v2(SL_PLYR_6D, bs, "p.xpm", 0);
+	p->_6s.n = strjoin_v2(SL_PLYR_6S, bs, "p.xpm", 0);
+	p->_6u.n = strjoin_v2(SL_PLYR_6U, bs, "p.xpm", 0);
+	p->_7d.n = strjoin_v2(SL_PLYR_7D, bs, "p.xpm", 0);
+	p->_7r.n = strjoin_v2(SL_PLYR_7D, bs, "p.xpm", 0);
+	p->inair.n = strjoin_v2(SL_PLYR_INAIR, bs, "p.xpm", 0);
+	return (player_asset_ctl(p));
 }
 
 #ifndef SO_LONG_BONUS
 
 int	set_asset_names(t_assets *img, int bs)
 {
-	img->exit.n = ft_strjoin(ASSET_PATH SL_EXIT, buf_itoa(bs).ret);
-	img->clct.n = ft_strjoin(ASSET_PATH SL_CLCT, buf_itoa(bs).ret);
-	img->wall.n = ft_strjoin(ASSET_PATH SL_WALL, buf_itoa(bs).ret);
-	img->patrol.n = ft_strjoin(ASSET_PATH SL_PATROL, buf_itoa(bs).ret);
-	img->patrolx_x.n = ft_strjoin(ASSET_PATH SL_PATROLX_X, buf_itoa(bs).ret);
-	img->bckgrnd.n = ft_strjoin(ASSET_PATH SL_BCKGRND, buf_itoa(bs).ret);
-	img->noaccess.n = ft_strjoin(ASSET_PATH SL_NOACCESS, buf_itoa(bs).ret);
+	img->exit.n = strjoin_v2(SL_EXIT, buf_itoa(bs).ret, "p.xpm", 0);
+	img->clct.n = strjoin_v2(SL_CLCT, buf_itoa(bs).ret, "p.xpm", 0);
+	img->wall.n = strjoin_v2(SL_WALL, buf_itoa(bs).ret, "p.xpm", 0);
+	img->patrol.n = strjoin_v2(SL_PATROL, buf_itoa(bs).ret, "p.xpm", 0);
+	img->patrolx_x.n = strjoin_v2(SL_PATROLX_X, buf_itoa(bs).ret, "p.xpm", 0);
+	img->bckgrnd.n = strjoin_v2(SL_BCKGRND, buf_itoa(bs).ret, "p.xpm", 0);
+	img->noaccess.n = strjoin_v2(SL_NOACCESS, buf_itoa(bs).ret, "p.xpm", 0);
 	if (!img->exit.n || !img->clct.n || !img->wall.n || !img->patrol.n
 		|| !img->bckgrnd.n || !img->noaccess.n || !img->patrolx_x.n)
 		return (free_asset_names(-1, img));
-	img->exit.n = ft_strjoin_frees1(img->exit.n, "p.xpm");
-	img->clct.n = ft_strjoin_frees1(img->clct.n, "p.xpm");
-	img->wall.n = ft_strjoin_frees1(img->wall.n, "p.xpm");
-	img->patrol.n = ft_strjoin_frees1(img->patrol.n, "p.xpm");
-	img->patrolx_x.n = ft_strjoin_frees1(img->patrolx_x.n, "p.xpm");
-	img->bckgrnd.n = ft_strjoin_frees1(img->bckgrnd.n, "p.xpm");
-	img->noaccess.n = ft_strjoin_frees1(img->noaccess.n, "p.xpm");
-	if (!img->exit.n || !img->clct.n || !img->wall.n || !img->patrol.n
-		|| !img->bckgrnd.n || !img->noaccess.n || !img->patrolx_x.n)
-		return (free_asset_names(-1, img));
-	if (set_player_asset_names(&img->p, bs))
+	if (set_player_asset_names(&img->p, buf_itoa(bs).ret))
 		return (-1);
 	return (0);
 }

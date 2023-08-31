@@ -35,9 +35,9 @@
 
 typedef int	(*t_funccast)(int, void *);
 
-char	*ft_strjoin(t_c_char *s1, t_c_char *s2);
-char	*ft_strjoin_frees1(char *s1, t_c_char *s2);
-t_uint	ft_strlen(t_c_char *str);
+char	*strjoin_v2(char *str, ...);
+t_ulong	ft_strcpy(char *dst, const char *src);
+t_ulong	ft_strlen(t_c_char *str);
 int		ft_strcmp(t_c_char *s1, t_c_char *s2);
 char	*ft_strchr(t_c_char *s, int c);
 char	*ft_strrchr(t_c_char *s, int c);
