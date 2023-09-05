@@ -14,7 +14,7 @@
 
 void	set_player_asset_ptr(t_player_assets *p, t_xpm **ptr);
 int		free_asset_names(int ret, t_assets *img);
-int		free_player_asset_names(t_player_assets *p, t_xpm **ptr);
+int		free_player_asset_names(t_player_assets *p);
 
 static int	player_asset_ctl(t_player_assets *p)
 {

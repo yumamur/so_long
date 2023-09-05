@@ -21,20 +21,15 @@ SRC		= asset.c \
 		  display.c \
 		  display_states.c \
 		  display_utils.c \
-		  exit_game.c \
+		  game_exit.c \
 		  game_states.c \
 		  game_substates.c \
 		  handle_error.c \
 		  handle_key_events.c \
 		  handle_key_subevents.c \
-		  libft_buf_itoa.c \
-		  libft_calloc.c \
-		  libft_memcpy.c \
-		  libft_putstr_fd.c \
-		  libft_strchr.c \
-		  libft_strcmp.c \
-		  libft_strjoin.c \
-		  libft_strlen.c \
+		  libft_1.c \
+		  libft_2.c \
+		  libft_strjoin_v2.c \
 		  main.c \
 		  map_generate.c \
 		  map_generate_utils.c \

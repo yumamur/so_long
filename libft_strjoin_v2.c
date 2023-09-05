@@ -12,7 +12,15 @@
 
 #include "so_long.h"
 
-char	*function(const char *fir, ...) __attribute__((aligned));
+t_ulong	ft_strlen(t_c_char *str)
+{
+	t_ulong	i;
+
+	i = 0;
+	while (*str++)
+		i++;
+	return (i);
+}
 
 static t_ulong	length(__builtin_va_list args, const char *fir)
 {
@@ -29,7 +37,7 @@ static t_ulong	length(__builtin_va_list args, const char *fir)
 	return (ret);
 }
 
-char	*ft_strjoin_v2(const char *fir, ...)
+char	*strjoin_v2(const char *fir, ...)
 {
 	__builtin_va_list	args;
 	t_ulong				len;

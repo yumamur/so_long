@@ -12,7 +12,17 @@
 
 #include "so_long.h"
 
-static void	perror_graph(int errno)
+static void	perror_asset(int errno)
+{
+	if (errno == SLE_OBJMALLOC)
+		ft_putstr_fd(2, MSG_OBJMALLOC);
+	else if (errno == SLE_IMGNMALLOC)
+		ft_putstr_fd(2, MSG_IMGNMALLOC);
+	else if (errno == SLE_IMGIMPORT)
+		ft_putstr_fd(2, MSG_IMGIMPORT);
+}
+
+static void	perror_map(int errno)
 {
 	if (errno == SLE_OPEN2)
 		ft_putstr_fd(2, MSG_OPEN2);
@@ -32,7 +42,7 @@ static void	perror_graph(int errno)
 		ft_putstr_fd(2, MSG_RCHCLCT);
 }
 
-static void	perror_simple_validation(int errno)
+static void	perror_map_simple(int errno)
 {
 	if ((errno >> 0) % 2 == 1)
 		ft_putstr_fd(2, MSG_NOPLAYER);
@@ -70,13 +80,15 @@ static void	perror_file(int errno)
 
 void	handle_error(int errno, void *ptr)
 {
-	if (errno < SLE_SIMPLE)
+	if (errno < THOLD_SIMPLE)
 		perror_file(errno);
-	else if (errno > SLE_SIMPLE && errno < SLE_VAL1)
-		perror_simple_validation(errno);
-	else if (errno > SLE_VAL1 && errno < SLE_MAPGENER)
-		perror_graph(errno);
-	if (errno < SLE_MAPGENER)
+	else if (errno < THOLD_VAL1)
+		perror_map_simple(errno);
+	else if (errno < THOLD_MAPGENER)
+		perror_map(errno);
+	else if (errno < THOLD_ASSET)
+		perror_asset(errno);
+	if (errno < THOLD_MAPGENER)
 		free(ptr);
 	exit(1);
 }

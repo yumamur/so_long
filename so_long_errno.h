@@ -30,7 +30,7 @@
 # define SLE_OPEN				0x000007
 # define MSG_OPEN		"Could not open map"
 
-# define SLE_SIMPLE				0x000080
+# define THOLD_SIMPLE				0x000080
 // Errors encountered in map_validate_simple() corresponds here
 # define MSG_NOPLAYER	".ber file contains no player\n"
 # define MSG_MLTPLAYER	".ber file contains multiple players\n"
@@ -40,7 +40,7 @@
 # define MSG_LESSWALL	".ber file does not contain enough walls to surround\n"
 # define MSG_SMALLMAP	".ber file contains an insufficently sized map\n"
 
-# define SLE_VAL1				0x000f00
+# define THOLD_VAL1				0x000f00
 
 # define SLE_OPEN2				0x000f01
 # define MSG_OPEN2	 	"Could not re-open map\n"
@@ -57,7 +57,7 @@
 # define SLE_RCHCLCT			0x000f07
 # define MSG_RCHCLCT	"Collectable(s) are unreachable to the player\n"
 
-# define SLE_MAPGENER			0x000ff0
+# define THOLD_MAPGENER			0x000ff0
 
 # define SLE_OBJMALLOC			0x00f000
 # define MSG_OBJMALLOC	"Memory allocation error\n"
@@ -65,6 +65,8 @@
 # define MSG_IMGNMALLOC	"Memory allocation error\n"
 # define SLE_IMGIMPORT			0x00f002
 # define MSG_IMGIMPORT	"Error while importing assets\n"
+
+# define THOLD_ASSET			0x00f0f0
 
 # define MSG_CONFIG		"Configure \033[1;32mso_long_config.h\033[m and retry\n"
 

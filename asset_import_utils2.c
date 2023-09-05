@@ -12,6 +12,30 @@
 
 #include "so_long.h"
 
+int	try_open(char *file)
+{
+	int		fd;
+	int		ret;
+	char	buf[1];
+
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+	{
+		ft_putstr_fd(2, "Could not open file \"\033[1m");
+		ft_putstr_fd(2, file);
+		perror("\033[m\"");
+		return (-1);
+	}
+	ret = read(fd, buf, 1);
+	if (ret == 1)
+		return (0);
+	ft_putstr_fd(2, "Could not read file \"");
+	ft_putstr_fd(2, file);
+	perror("\"");
+	close(fd);
+	return (-1);
+}
+
 int	r_free(void *ptr)
 {
 	if (!ptr)
@@ -64,7 +88,7 @@ int	free_asset_names(int ret, t_assets *img)
 	return (ret);
 }
 
-int	free_player_asset_names(t_player_assets *p, t_xpm **ptr)
+int	free_player_asset_names(t_player_assets *p)
 {
 	if (r_free(p->_0r.n) || r_free(p->_0l.n) || r_free(p->inair.n)
 		|| r_free(p->_1d.n) || r_free(p->_1l.n) || r_free(p->_2d.n)
