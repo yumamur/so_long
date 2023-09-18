@@ -14,41 +14,10 @@
 # define SO_LONG_STRUCTS_H 1
 
 # include "typeft.h"
+# include "so_long_structs_img.h"
+# include "so_long_structs_mapv.h"
 
 typedef int				**t_area;
-typedef struct s_path	t_path;
-typedef struct s_level	t_depth;
-
-typedef struct s_coordinate
-{
-	int	x;
-	int	y;
-}	t_coordinate;
-
-typedef struct s_line2
-{
-	t_coordinate	node1;
-	t_coordinate	node2;
-}	t_line2;
-
-typedef struct s_map_lines
-{
-	t_line2	l;
-	int		visit;
-}	t_map_lines;
-
-typedef struct s_path
-{
-	int			closed;
-	t_map_lines	*line;
-}	t_path;
-
-typedef struct s_level
-{
-	t_int64	ct;
-	t_path	*list;
-	t_depth	*next;
-}	t_depth;
 
 typedef struct s_resolution
 {
@@ -63,14 +32,6 @@ typedef struct s_map
 	t_area			area;
 }	t_map;
 
-typedef struct s_xpm
-{
-	int		h;
-	int		w;
-	void	*d;
-	char	*n;
-}	t_xpm;
-
 typedef struct s_object
 {
 	t_uint			id;
@@ -78,89 +39,6 @@ typedef struct s_object
 	t_coordinate	pos;
 	t_xpm			*img;
 }	t_object;
-
-typedef struct s_player_assets 
-{
-	t_xpm	_0l;
-	t_xpm	_0r;
-	t_xpm	_0s;
-	t_xpm	_1d;
-	t_xpm	_1l;
-	t_xpm	_2d;
-	t_xpm	_2s;
-	t_xpm	_2u;
-	t_xpm	_3l;
-	t_xpm	_3u;
-	t_xpm	_4l;
-	t_xpm	_4r;
-	t_xpm	_4s;
-	t_xpm	_5r;
-	t_xpm	_5u;
-	t_xpm	_6d;
-	t_xpm	_6s;
-	t_xpm	_6u;
-	t_xpm	_7d;
-	t_xpm	_7r;
-	t_xpm	inair;
-}	t_player_assets;
-
-# ifndef SO_LONG_BONUS
-
-typedef struct s_gui_assets
-{
-	t_xpm	sidebar;
-	t_xpm	digit[10];
-	t_xpm	p_pause;
-	t_xpm	p_restart;
-	t_xpm	p_exit;
-	t_xpm	chmod;
-	t_xpm	btn_select;
-	t_xpm	sccs;
-	t_xpm	fail;
-}	t_gui_assets;
-
-typedef struct s_assets
-{
-	t_player_assets	p;
-	t_gui_assets	gui;
-	t_xpm			bckgrnd;
-	t_xpm			noaccess;
-	t_xpm			exit;
-	t_xpm			wall;
-	t_xpm			clct;
-	t_xpm			patrol;
-	t_xpm			patrolx_x;
-}	t_assets;
-
-# else
-
-typedef struct s_gui_assets
-{
-	t_xpm	sidebar;
-	t_xpm	digit[10];
-	t_xpm	p_pause;
-	t_xpm	p_restart;
-	t_xpm	p_exit;
-	t_xpm	chmod;
-	t_xpm	btn_select;
-	t_xpm	sccs;
-	t_xpm	fail;
-}	t_gui_assets;
-
-typedef struct s_assets
-{
-	t_player_assets	p;
-	t_gui_assets	gui;
-	t_xpm			bckgrnd;
-	t_xpm			noaccess;
-	t_xpm			exit[8];
-	t_xpm			wall;
-	t_xpm			clct[8];
-	t_xpm			patrol[8];
-	t_xpm			patrolx_x;
-}	t_assets;
-
-# endif
 
 typedef struct s_data
 {

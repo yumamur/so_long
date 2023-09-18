@@ -113,6 +113,7 @@ int	asset_import(t_game *game)
 	if (set_asset_names(&game->img, game->data.block_size))
 		return (SLE_IMGNMALLOC);
 	err = 0;
+	err += import_gui(&game->img.gui, game->mlx);
 	err += import_img(&game->img.clct, game->mlx, game->data.block_size);
 	err += import_img(&game->img.exit, game->mlx, game->data.block_size);
 	err += import_img(&game->img.patrol, game->mlx, game->data.block_size);
@@ -121,7 +122,6 @@ int	asset_import(t_game *game)
 	err += import_img(&game->img.wall, game->mlx, game->data.block_size);
 	err += import_img(&game->img.bckgrnd, game->mlx, game->data.block_size);
 	err += import_img(&game->img.noaccess, game->mlx, game->data.block_size);
-	err += import_gui(&game->img.gui, game->mlx);
 	set_player_asset_ptr(&game->img.p, ptr);
 	i = 0;
 	while (i < 21)

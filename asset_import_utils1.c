@@ -48,7 +48,7 @@ static int	set_player_asset_names(t_player_assets *p, char *bs)
 	p->_6s.n = strjoin_v2(SL_PLYR_6S, bs, "p.xpm", 0);
 	p->_6u.n = strjoin_v2(SL_PLYR_6U, bs, "p.xpm", 0);
 	p->_7d.n = strjoin_v2(SL_PLYR_7D, bs, "p.xpm", 0);
-	p->_7r.n = strjoin_v2(SL_PLYR_7D, bs, "p.xpm", 0);
+	p->_7r.n = strjoin_v2(SL_PLYR_7R, bs, "p.xpm", 0);
 	p->inair.n = strjoin_v2(SL_PLYR_INAIR, bs, "p.xpm", 0);
 	return (player_asset_ctl(p));
 }
