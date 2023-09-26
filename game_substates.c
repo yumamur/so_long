@@ -19,8 +19,7 @@ int		handle_sub_change_mode(int key, t_game *game);
 
 void	substate_change_mode(t_game *game)
 {
-	game->menu.cur = RESUME;
-	draw_object(game, &game->menu.origin);
+	draw_object(game, &game->menu.chmod);
 	draw_object(game, &game->menu.select);
 	mlx_hook(game->win, 2, 1L << 0, handle_sub_change_mode, game);
 }

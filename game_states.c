@@ -46,23 +46,18 @@ void	state_failure(t_game *game)
 
 void	state_pause(t_game *game)
 {
-	game->draw = 0;
 	draw_object(game, &game->menu.origin);
 	mlx_hook(game->win, 2, 1L << 0, handle_pause, game);
 }
 
 void	state_restart(t_game *game)
 {
-	game->draw = 0;
 	draw_object(game, &game->menu.confirm_restart);
 	mlx_hook(game->win, 2, 1L << 0, handle_restart, game);
 }
 
 void	state_playing(int key, t_game *game)
 {
-	display_game(game);
-	draw_object(game, &(t_object){.pos = game->data.player.pos,
-		.img = &game->img.bckgrnd});
 	if (key == game->keybinds.attack)
 		object_p_attack(game);
 	else
@@ -72,6 +67,7 @@ void	state_playing(int key, t_game *game)
 		return ;
 	if (key == game->keybinds.attack || key == game->keybinds.block)
 		++game->data.movect;
+	display_game(game);
 	ft_putstr_fd(1, "\rMove Count: ");
 	ft_putstr_fd(1, buf_itoa(game->data.movect).ret);
 }

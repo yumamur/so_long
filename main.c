@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include "typeft.h"
 
 int		map_generate(t_data *data, char *map_name);
 void	set_assets(t_game *game);
@@ -30,6 +31,16 @@ int	generate_obj(t_data *data)
 	return (0);
 }
 
+double	calculate_range(t_game *game)
+{
+	if (game->mode < 3)
+		return (1);
+	else if (game->mode < 6)
+		return (sqrt(2));
+	else
+		return (sqrt(9.0/2));
+}
+
 void	run_game(t_game *game)
 {
 	int	errno;
@@ -39,6 +50,7 @@ void	run_game(t_game *game)
 	errno = generate_obj(&game->data);
 	if (errno)
 		handle_error(errno, game);
+	game->data.player_range = calculate_range(game);
 	assign_player_img(game, &game->data.player, -1);
 	game->data.map.area[game->data.player.pos.y]
 	[game->data.player.pos.x] = '0';
@@ -51,7 +63,6 @@ void	run_game(t_game *game)
 	mlx_hook(game->win, 2, 1L << 0, handle_playing, game);
 	mlx_expose_hook(game->win, display_game, game);
 	display_game(game);
-	mlx_loop(game->mlx);
 }
 
 int	main(int argc, char *argv[])
@@ -67,4 +78,5 @@ int	main(int argc, char *argv[])
 	set_assets(&game);
 	game.win = mlx_new_window(game.mlx, game.res.w, game.res.h, "so_long");
 	run_game(&game);
+	mlx_loop(game.mlx);
 }

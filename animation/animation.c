@@ -1,6 +1,6 @@
 #include "animation_int.h"
 
-t_bool	animation_is_running(t_animation *ani)
+t_bool inline	animation_is_running(t_animation *ani)
 {
 	return (ani->is_running);
 }
@@ -33,26 +33,24 @@ void	animation_switch(t_animation *ani)
 
 void	*animation_current_frame(t_animation *ani, unsigned long delta)
 {
-	if (ani->is_running)
+	if (!ani->is_running)
+		return (NULL);
+	ani->ran_time += delta;
+	if (ani->ran_time >= ani->duration)
 	{
-		ani->ran_time += delta;
-		if (ani->ran_time >= ani->duration)
+		ani->ran_time -= ani->duration;
+		if (ani->is_loop == FALSE)
 		{
-			ani->ran_time -= ani->duration;
-			if (ani->is_loop == FALSE)
+			ani->is_running = FALSE;
+			if (ani->alternate)
 			{
-				ani->is_running = FALSE;
-				if (ani->alternate)
-				{
-					animation_start(ani->alternate);
-					ani->alternate->ran_time = ani->ran_time;
-					return (animation_current_frame(ani->alternate, 0));
-				}
-				return (NULL);
+				animation_start(ani->alternate);
+				ani->alternate->ran_time = ani->ran_time;
+				return (animation_current_frame(ani->alternate, 0));
 			}
+			return (NULL);
 		}
-		return (ani->frames[(ani->ran_time / (ani->duration / ani->size))
-				% ani->size]);
 	}
-	return (NULL);
+	return (ani->frames[(ani->ran_time / (ani->duration / ani->size))
+			% ani->size]);
 }

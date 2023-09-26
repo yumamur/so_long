@@ -50,9 +50,7 @@ static void	patrol_deploy(t_data *data, t_uint available_space)
 		block = 0;
 		if (random_data(&block, 4))
 			return ;
-		printf("random %d\n", block);
 		block %= available_space--;
-		printf("mod    %d\n", block);
 		data->patrol[i].pos = get_movable_crd(&data->map, ++block);
 		++i;
 	}

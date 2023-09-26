@@ -1,4 +1,5 @@
-#include "header.h"
+#include <stdlib.h>
+#include <string.h>
 
 void	*f_realloc(void *src, unsigned long long oldsize,
 			unsigned long long newsize)

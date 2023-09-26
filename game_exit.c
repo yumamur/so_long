@@ -36,6 +36,7 @@ int	exit_game(t_game *game, int ext)
 int	exit_game(t_game *game, int ext)
 {
 	mlx_do_key_autorepeaton(game->mlx);
+	exit(ext);
 	if (!ext)
 	{
 		mlx_loop_end(game->mlx);
@@ -47,6 +48,5 @@ int	exit_game(t_game *game, int ext)
 		if (game->data.map.area)
 			free(game->data.map.area);
 	}
-	exit(ext);
 }
 #endif

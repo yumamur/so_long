@@ -26,26 +26,22 @@ void	display_pause(t_game *game)
 	draw_object(game, &game->menu.select);
 }
 
-void	draw_gui(t_game *game)
+void	display_gui(t_game *game)
 {
-	draw_object(game, &game->gui.bar);
-	draw_object(game, &game->gui.box_move);
-	draw_object(game, &game->gui.box_clct);
-	draw_object(game, &game->gui.box_patrol);
+	mlx_put_image_to_window(game->mlx, game->win, game->gui.bar.img->d,
+		game->gui.bar.pos.x, game->gui.bar.pos.y);
+	mlx_put_image_to_window(game->mlx, game->win, game->gui.box_move.img->d,
+		game->gui.box_move.pos.x, game->gui.box_move.pos.y);
+	// draw_object(game, &game->gui.box_clct);
+	// draw_object(game, &game->gui.box_patrol);
 }
 
 int	display_game(t_game *game)
 {
 	t_uint	i;
 
-	if (game->draw < 3)
-	{
-		draw_map(game, (t_object){.id = '1', .img = &game->img.wall});
-		draw_map(game, (t_object){.id = '0', .img = &game->img.noaccess});
-		draw_map(game,
-			(t_object){.id = SL_ACCESSIBLE, .img = &game->img.bckgrnd});
-		++game->draw;
-	}
+	mlx_put_image_to_window(game->mlx, game->win, game->img.map.d,
+		game->data.padding.x, game->data.padding.y);
 	draw_object(game, &game->data.exit);
 	i = 0;
 	while (i++ < game->data.ct_clct)
@@ -56,6 +52,6 @@ int	display_game(t_game *game)
 	draw_object(game, &game->data.player);
 	// if (game->data.player.orient == 0xa)
 	// 	draw_rope(game);
-	draw_gui(game);
+	display_gui(game);
 	return (0);
 }

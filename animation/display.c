@@ -1,19 +1,10 @@
-#include "header.h"
+#include "animation.h"
 
 static void	frame_set(t_game *game, unsigned long delta)
 {
-	if (animation_is_running(game->spr0))
+	if (animation_is_running(game->spr))
 		mlx_put_image_to_window(game->mlx, game->win,
-			animation_current_frame(game->spr0, delta), 0, 0);
-	// if (animation_is_running(game->spr1))
-	// 	mlx_put_image_to_window(game->mlx, game->win,
-	// 		animation_current_frame(game->spr1, delta), 128, 128);
-	// if (animation_is_running(game->spr2))
-	// 	mlx_put_image_to_window(game->mlx, game->win,
-	// 		animation_current_frame(game->spr2, delta), 256, 256);
-	// if (animation_is_running(game->spr3))
-	// 	mlx_put_image_to_window(game->mlx, game->win,
-	// 		animation_current_frame(game->spr3, delta), 384, 384);
+			animation_current_frame(game->spr, delta), 248, 248);
 }
 
 int	display_loop(t_game *game)

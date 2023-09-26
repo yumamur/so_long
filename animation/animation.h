@@ -7,7 +7,6 @@
 # include <string.h>
 # include <stdint.h>
 # include <mlx.h>
-# include <X11/keysym.h>
 # include "structs.h"
 # include "utils.h"
 

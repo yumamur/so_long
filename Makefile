@@ -11,7 +11,8 @@ HEADERS = so_long.h \
 		  so_long_structs.h \
 		  typeft.h
 
-SRC		= asset.c \
+SRC		= animation_player.c \
+		  asset.c \
 		  asset_import.c \
 		  asset_import_utils1.c \
 		  asset_import_utils2.c \
@@ -42,8 +43,9 @@ SRC		= asset.c \
 		  object_assignment.c \
 		  object_interaction.c \
 		  object_movement.c \
-		  player_sprite.c \
 		  settings.c
+
+OBJ = $(patsubst %.c, obj/%.o, $(SRC))
 
 MLX		= minilibx/ \
 		  minilibx/libmlx.a \
@@ -52,19 +54,25 @@ MLX		= minilibx/ \
 LIB_MAC = -framework AppKit -framework OpenGL -L./minilibx/ -lmlx
 LIB_LNX = -lmlx -lXext -lX11
 
-$(NAME): $(SRC) $(HEADERS)
-	@$(CC) $(SRC) $(LIB_LNX) $(CFLAGS) -o $(NAME)
+.PHONY = all clean fclean re
+
+all: create_objdir $(NAME)
+
+$(NAME): $(OBJ)
+	@$(CC) $(CFLAGS) $(OBJ) $(LIB_LNX) $(CFLAGS) -o $(NAME)
 #$(NAME): $(SRC) $(HEADERS) $(MLX)
 #	@$(CC) -I./minilibx $(SRC) $(LIB_MAC) $(CFLAGS) -o $(NAME)
 
-.PHONY = all clean fclean re
+obj/%.o: %.c $(HEADERS)
+	@$(CC) $(CFLAGS) -c $< -o $@
 
-all: $(NAME)
+create_objdir:
+	@mkdir -p obj
 
 clean:
-	@rm -rf $(NAME)
+	@rm -rf obj/
 
 fclean:
-	@rm -rf $(NAME)
+	@rm -rf $(NAME) obj/
 
 re: fclean all

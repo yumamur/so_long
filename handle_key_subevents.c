@@ -19,33 +19,28 @@ void	substate_restart(t_game *game);
 void	substate_change_mode(t_game *game);
 void	draw_object(t_game *game, t_object *obj);
 
-static void	restart_game(t_game *game)
-{
-	mlx_hook(game->win, 2, 1L << 0, handle_playing, game);
-	run_game(game);
-}
-
 int	handle_sub_change_mode(int key, t_game *game)
 {
-	static t_coordinate	i;
+	static int	i;
 
-	if (!i.x)
-		i = (t_coordinate){0, 0};
-	if (key == game->keybinds.left && i.x > -8)
-		--i.x;
-	else if (key == game->keybinds.right && i.x < 8)
-		++i.x;
-	else if (!i.y && key == game->keybinds.enter && ++i.y)
-		draw_object(game, &game->menu.confirm_chmod);
-	else if (i.y && key == game->keybinds.enter)
+	if (key == game->keybinds.left && i >= -8)
+		--i;
+	else if (key == game->keybinds.right && i <= 8)
+		++i;
+	else if (key == game->keybinds.enter)
 	{
-		if (game->mode + i.x < 0)
-			game->mode = 0;
-		else if (game->mode + i.x > 8)
-			game->mode = 8;
+		if (i)
+		{
+			if (game->mode + i < 0)
+				game->mode = 0;
+			else if (game->mode + i > 8)
+				game->mode = 8;
+			else
+				game->mode += i;
+			substate_restart(game);
+		}
 		else
-			game->mode += i.x;
-		restart_game(game);
+			state_pause(game);
 	}
 	else if (key == game->keybinds.exit)
 		state_pause(game);
@@ -55,7 +50,7 @@ int	handle_sub_change_mode(int key, t_game *game)
 int	handle_sub_restart(int key, t_game *game)
 {
 	if (key == game->keybinds.enter)
-		restart_game(game);
+		run_game(game);
 	else if (key == game->keybinds.exit)
 		state_pause(game);
 	return (0);

@@ -119,7 +119,6 @@ typedef struct s_game
 	void			*win;
 	t_resolution	res;
 	t_assets		img;
-	int				draw;
 	t_data			data;
 	t_gui			gui;
 	t_menu			menu;

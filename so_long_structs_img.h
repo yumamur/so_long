@@ -39,6 +39,7 @@ typedef struct s_player_assets
 typedef struct s_gui_assets
 {
 	t_xpm	sidebar;
+	t_xpm	chr_box;
 	t_xpm	digit[10];
 	t_xpm	p_pause;
 	t_xpm	p_restart;
@@ -60,6 +61,7 @@ typedef struct s_assets
 	t_xpm			clct;
 	t_xpm			patrol;
 	t_xpm			patrolx_x;
+	t_xpm			map;
 }	t_assets;
 
 # else

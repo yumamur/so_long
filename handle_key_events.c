@@ -16,7 +16,6 @@ void	run_game(t_game *game);
 void	state_playing(int key, t_game *game);
 void	state_pause(t_game *game);
 void	state_restart(t_game *game);
-void	display_pause(t_game *game);
 void	substate_change_mode(t_game *game);
 void	substate_exit(t_game *game);
 void	substate_restart(t_game *game);
@@ -31,7 +30,10 @@ int	handle_playing(int key, t_game *game)
 	else if (key == game->keybinds.exit)
 		exit_game(game, 0);
 	else if (key == game->keybinds.pause)
+	{
+		game->menu.cur = RESUME;
 		state_pause(game);
+	}
 	else if (key == game->keybinds.restart)
 		state_restart(game);
 	return (0);
@@ -39,7 +41,6 @@ int	handle_playing(int key, t_game *game)
 
 int	handle_restart(int key, t_game *game)
 {
-	game->draw = 0;
 	if (key == game->keybinds.enter || key == game->keybinds.restart)
 		run_game(game);
 	else if (key == game->keybinds.exit)
@@ -52,8 +53,7 @@ int	handle_restart(int key, t_game *game)
 
 int	handle_pause(int key, t_game *game)
 {
-	game->draw = 0;
-	if (key == game->keybinds.pause)
+	if (key == game->keybinds.pause || key == game->keybinds.exit)
 		substate_resume(game);
 	else if (key == game->keybinds.left && game->menu.cur > 0)
 		--game->menu.cur;
@@ -65,12 +65,11 @@ int	handle_pause(int key, t_game *game)
 			substate_resume(game);
 		else if (game->menu.cur == RESTART)
 			substate_restart(game);
-		else if (game->menu.cur == EXIT)
-			substate_exit(game);
 		else if (game->menu.cur == MODE)
 			substate_change_mode(game);
+		else if (game->menu.cur == EXIT)
+			substate_exit(game);
 	}
-	display_pause(game);
 	return (0);
 }
 
