@@ -13,6 +13,7 @@
 #include "so_long.h"
 
 void	run_game(t_game *game);
+void	display_pause(t_game *game);
 void	state_playing(int key, t_game *game);
 void	state_pause(t_game *game);
 void	state_restart(t_game *game);
@@ -56,9 +57,15 @@ int	handle_pause(int key, t_game *game)
 	if (key == game->keybinds.pause || key == game->keybinds.exit)
 		substate_resume(game);
 	else if (key == game->keybinds.left && game->menu.cur > 0)
+	{
 		--game->menu.cur;
+		display_pause(game);
+	}
 	else if (key == game->keybinds.right && game->menu.cur < 3)
+	{
 		++game->menu.cur;
+		display_pause(game);
+	}
 	else if (key == game->keybinds.enter)
 	{
 		if (game->menu.cur == RESUME)

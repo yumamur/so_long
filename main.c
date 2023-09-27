@@ -38,7 +38,7 @@ double	calculate_range(t_game *game)
 	else if (game->mode < 6)
 		return (sqrt(2));
 	else
-		return (sqrt(9.0/2));
+		return (sqrt(9.0 / 2));
 }
 
 void	run_game(t_game *game)

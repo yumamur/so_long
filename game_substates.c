@@ -12,15 +12,14 @@
 
 #include "so_long.h"
 
-void	draw_object(t_game *game, t_object *obj);
+void	display_chmod(t_game *game);
 int		handle_sub_exit(int key, t_game *game);
 int		handle_sub_restart(int key, t_game *game);
 int		handle_sub_change_mode(int key, t_game *game);
 
 void	substate_change_mode(t_game *game)
 {
-	draw_object(game, &game->menu.chmod);
-	draw_object(game, &game->menu.select);
+	display_chmod(game);
 	mlx_hook(game->win, 2, 1L << 0, handle_sub_change_mode, game);
 }
 
@@ -32,12 +31,16 @@ void	substate_resume(t_game *game)
 
 void	substate_restart(t_game *game)
 {
-	draw_object(game, &game->menu.confirm_restart); 
+	mlx_put_image_to_window(game->mlx, game->win,
+		game->menu.confirm_restart.img->d,
+		game->menu.confirm_restart.pos.x, game->menu.confirm_restart.pos.y);
 	mlx_hook(game->win, 2, 1L << 0, handle_sub_restart, game);
 }
 
 void	substate_exit(t_game *game)
 {
-	draw_object(game, &game->menu.confirm_exit);
+	mlx_put_image_to_window(game->mlx, game->win,
+		game->menu.confirm_exit.img->d,
+		game->menu.confirm_exit.pos.x, game->menu.confirm_exit.pos.y);
 	mlx_hook(game->win, 2, 1L << 0, handle_sub_exit, game);
 }

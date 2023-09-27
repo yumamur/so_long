@@ -12,8 +12,8 @@
 
 #include "so_long.h"
 
-void	state_success(t_game *game);
-void	state_failure(t_game *game);
+int	state_success(t_game *game);
+int	state_failure(t_game *game);
 
 static int	object_list_remove_nth(t_object *list, t_uint *ct, int n)
 {
@@ -34,29 +34,24 @@ static int	object_list_remove_nth(t_object *list, t_uint *ct, int n)
 
 int	object_p_interact(t_game *game, t_object *obj)
 {
-	t_uint	i;
+	int	i;
 
 	if (!game->data.ct_clct
 		&& !p_distance(obj->pos, game->data.exit.pos))
-		exit_game(game, 0);
-	i = 0;
-	while (i < game->data.ct_clct)
+		return (state_success(game));
+	i = -1;
+	while ((t_uint)++i < game->data.ct_clct)
 	{
 		if (!p_distance(obj->pos, game->data.clct[i].pos))
 			return (object_list_remove_nth(game->data.clct,
 					&game->data.ct_clct, i));
-		++i;
 	}
-	i = 0;
-	while (i < game->data.ct_patrol)
+	i = -1;
+	while ((t_uint)++i < game->data.ct_patrol)
 	{
 		if (!p_distance(obj->pos, game->data.patrol[i].pos)
 			&& game->data.patrol[i].orient == 0)
-		{
-			state_failure(game);
-			return (1);
-		}
-		++i;
+			return (state_failure(game));
 	}
 	return (0);
 }

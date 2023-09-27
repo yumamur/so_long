@@ -47,8 +47,10 @@ void	map_synth_addimg(t_xpm *base, t_xpm *add, t_coordinate pos_map, int bs)
 	t_uint			*p_base;
 	t_uint			*p_add;
 
-	p_base = (t_uint *)mlx_get_data_addr(base->d, &pos_img.y, &pos_img.y, &pos_img.y);
-	p_add = (t_uint *)mlx_get_data_addr(add->d, &pos_img.y, &pos_img.y, &pos_img.y);
+	p_base = (t_uint *)mlx_get_data_addr(base->d,
+			&pos_img.y, &pos_img.y, &pos_img.y);
+	p_add = (t_uint *)mlx_get_data_addr(add->d,
+			&pos_img.y, &pos_img.y, &pos_img.y);
 	pos_img.y = 0;
 	while (pos_img.y < bs)
 	{

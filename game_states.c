@@ -13,6 +13,7 @@
 #include "so_long.h"
 
 void	draw_object(t_game *game, t_object *obj);
+void	display_pause(t_game *game);
 void	object_p_move(t_game *game, t_object *player, int key);
 void	object_p_attack(t_game *game);
 int		object_p_interact(t_game *game, t_object *obj);
@@ -22,37 +23,35 @@ int		handle_pause(int key, t_game *game);
 int		handle_playing(int key, t_game *game);
 int		handle_end(int key, t_game *game);
 
-void	state_success(t_game *game)
+int	state_success(t_game *game)
 {
-	draw_object(game, &(t_object){
-		.pos = (t_coordinate){
-		(game->data.map.size.x / 2) - (game->img.gui.sccs.w / 2),
-		(game->data.map.size.y / 2) - (game->img.gui.sccs.h / 2)},
-		.img = &game->img.gui.sccs});
-	ft_putstr_fd(1, "\nSuccess\n");
+	mlx_put_image_to_window(game->mlx, game->win, game->img.gui.sccs.d,
+		game->res.w / 2 - game->img.gui.sccs.w / 2,
+		game->res.h / 2 - game->img.gui.sccs.h / 2);
 	mlx_hook(game->win, 2, 1L << 0, handle_end, game);
+	return (1);
 }
 
-void	state_failure(t_game *game)
+int	state_failure(t_game *game)
 {
-	draw_object(game, &(t_object){
-		.pos = (t_coordinate){
-		(game->data.map.size.x / 2) - (game->img.gui.fail.w / 2),
-		(game->data.map.size.y / 2) - (game->img.gui.fail.h / 2)},
-		.img = &game->img.gui.fail});
-	ft_putstr_fd(1, "\nFailure\n");
+	mlx_put_image_to_window(game->mlx, game->win, game->img.gui.fail.d,
+		game->res.w / 2 - game->img.gui.fail.w / 2,
+		game->res.h / 2 - game->img.gui.fail.h / 2);
 	mlx_hook(game->win, 2, 1L << 0, handle_end, game);
+	return (1);
 }
 
 void	state_pause(t_game *game)
 {
-	draw_object(game, &game->menu.origin);
+	display_pause(game);
 	mlx_hook(game->win, 2, 1L << 0, handle_pause, game);
 }
 
 void	state_restart(t_game *game)
 {
-	draw_object(game, &game->menu.confirm_restart);
+	mlx_put_image_to_window(game->mlx, game->win,
+		game->menu.confirm_restart.img->d,
+		game->menu.confirm_restart.pos.x, game->menu.confirm_restart.pos.y);
 	mlx_hook(game->win, 2, 1L << 0, handle_restart, game);
 }
 

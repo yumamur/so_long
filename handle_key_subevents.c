@@ -17,30 +17,55 @@ void	state_pause(t_game *game);
 void	substate_exit(t_game *game);
 void	substate_restart(t_game *game);
 void	substate_change_mode(t_game *game);
-void	draw_object(t_game *game, t_object *obj);
+int		handle_sub_change_mode(int key, t_game *game);
 
-int	handle_sub_change_mode(int key, t_game *game)
+void	display_change_mode_diff(t_game *game, int delta)
+{
+	mlx_put_image_to_window(game->mlx, game->win,
+		game->img.gui.digit[delta].d,
+		game->res.w / 2 - 110, game->res.h / 2 - 10);
+}
+
+int	change_mode_restart(int key, t_game *game)
 {
 	static int	i;
 
-	if (key == game->keybinds.left && i >= -8)
-		--i;
-	else if (key == game->keybinds.right && i <= 8)
-		++i;
+	if (!game)
+	{
+		if (!key)
+			i = game->mode;
+		else if (i + key >= 0 && i + key <= 8)
+			i += key;
+		return (i);
+	}
+	else if (key == game->keybinds.exit)
+		substate_change_mode(game);
 	else if (key == game->keybinds.enter)
 	{
-		if (i)
-		{
-			if (game->mode + i < 0)
-				game->mode = 0;
-			else if (game->mode + i > 8)
-				game->mode = 8;
-			else
-				game->mode += i;
-			substate_restart(game);
-		}
-		else
+		game->mode = i;
+		run_game(game);
+	}
+	return (0);
+}
+
+int	handle_sub_change_mode(int key, t_game *game)
+{
+	if (key == game->keybinds.left)
+		display_change_mode_diff(game, change_mode_restart(-1, 0));
+	else if (key == game->keybinds.right)
+		display_change_mode_diff(game, change_mode_restart(1, 0));
+	else if (key == game->keybinds.enter)
+	{
+		if (change_mode_restart(10, 0) == (int)game->mode)
 			state_pause(game);
+		else
+		{
+			mlx_put_image_to_window(game->mlx, game->win,
+				game->menu.confirm_restart.img->d,
+				game->menu.confirm_restart.pos.x,
+				game->menu.confirm_restart.pos.y);
+			mlx_hook(game->win, 2, 1L << 0, change_mode_restart, game);
+		}
 	}
 	else if (key == game->keybinds.exit)
 		state_pause(game);

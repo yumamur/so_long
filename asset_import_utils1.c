@@ -70,11 +70,6 @@ int	set_asset_names(t_assets *img, int bs)
 	return (0);
 }
 
-// void	align_gui(t_game *game)
-// {
-
-// }
-
 void	assign_gui_img(t_game *game)
 {
 	game->menu.origin.img = &game->img.gui.p_pause;
@@ -82,11 +77,16 @@ void	assign_gui_img(t_game *game)
 	game->menu.select.img = &game->img.gui.btn_select;
 	game->menu.confirm_restart.img = &game->img.gui.p_restart;
 	game->menu.confirm_exit.img = &game->img.gui.p_exit;
+	game->menu.origin.pos.x = game->res.w / 2 - game->menu.origin.img->w / 2;
+	game->menu.origin.pos.y = game->res.h / 2 - game->menu.origin.img->h / 2;
+	game->menu.chmod.pos = game->menu.origin.pos;
+	game->menu.confirm_restart.pos = game->menu.origin.pos;
+	game->menu.confirm_exit.pos = game->menu.origin.pos;
+	game->menu.select.pos.y = game->menu.origin.pos.y + 120;
 	game->gui.bar.img = &game->img.gui.sidebar;
 	game->gui.box_move.img = &game->img.gui.chr_box;
 	game->gui.bar.pos.x = game->res.w - game->gui.bar.img->w;
 	game->gui.bar.pos.y = (game->res.h - game->gui.bar.img->h) / 2;
 	game->gui.box_move.pos.x = game->gui.bar.pos.x + 2;
 	game->gui.box_move.pos.y = game->gui.bar.pos.y + game->res.h / 2;
-	// align_gui(game);
 }
