@@ -44,6 +44,7 @@
 # define SL_EXIT			"textures/exit_"
 # define SL_PATROL			"textures/patrol_"
 # define SL_PATROLX_X		"textures/patrolx_x_"
+# define SL_ROPE			"textures/rope_"
 
 # define SL_P_SCCS			"textures/prompt_success.xpm"
 # define SL_P_FAIL			"textures/prompt_fail.xpm"

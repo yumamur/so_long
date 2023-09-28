@@ -85,6 +85,8 @@ int	free_asset_names(int ret, t_assets *img)
 		free(img->bckgrnd.n);
 	if (img->noaccess.n)
 		free(img->noaccess.n);
+	if (img->rope.n)
+		free(img->rope.n);
 	return (ret);
 }
 

@@ -18,6 +18,7 @@ int		set_asset_names(t_assets *img, int bs);
 int		free_asset_names(int ret, t_assets *img);
 void	set_player_asset_ptr(t_player_assets *p, t_xpm **ptr);
 int		free_player_asset_names(t_player_assets *p, t_xpm **ptr);
+int		import_img_rope(t_xpm *xpm, void *mlx, int bs);
 void	assign_gui_img(t_game *game);
 
 int	import_img(t_xpm *xpm, void *mlx, int bs)
@@ -120,11 +121,11 @@ int	asset_import(t_game *game)
 	err += import_img(&game->img.clct, game->mlx, game->data.block_size);
 	err += import_img(&game->img.exit, game->mlx, game->data.block_size);
 	err += import_img(&game->img.patrol, game->mlx, game->data.block_size);
-	err += import_img(&game->img.patrolx_x,
-			game->mlx, game->data.block_size);
+	err += import_img(&game->img.patrolx_x, game->mlx, game->data.block_size);
 	err += import_img(&game->img.wall, game->mlx, game->data.block_size);
 	err += import_img(&game->img.bckgrnd, game->mlx, game->data.block_size);
 	err += import_img(&game->img.noaccess, game->mlx, game->data.block_size);
+	err += import_img_rope(&game->img.rope, game->mlx, game->data.block_size);
 	set_player_asset_ptr(&game->img.p, ptr);
 	i = 0;
 	while (i < 21)

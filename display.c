@@ -15,7 +15,7 @@
 #define BTN_NEXT 108
 
 void	draw_object(t_game *game, t_object *obj);
-void	draw_map(t_game *game, t_object obj);
+void	draw_rope(t_game *game);
 
 void	display_pause(t_game *game)
 {
@@ -42,14 +42,17 @@ void	display_gui(t_game *game)
 		game->gui.bar.pos.x, game->gui.bar.pos.y);
 	mlx_put_image_to_window(game->mlx, game->win, game->gui.box_move.img->d,
 		game->gui.box_move.pos.x, game->gui.box_move.pos.y);
-	// draw_object(game, &game->gui.box_clct);
-	// draw_object(game, &game->gui.box_patrol);
+	mlx_put_image_to_window(game->mlx, game->win, game->gui.box_patrol.img->d,
+		game->gui.box_patrol.pos.x, game->gui.box_patrol.pos.y);
+	mlx_put_image_to_window(game->mlx, game->win, game->gui.box_clct.img->d,
+		game->gui.box_clct.pos.x, game->gui.box_clct.pos.y);
 }
 
 int	display_game(t_game *game)
 {
 	t_uint	i;
 
+	mlx_clear_window(game->mlx, game->win);
 	mlx_put_image_to_window(game->mlx, game->win, game->img.map.d,
 		game->data.padding.x, game->data.padding.y);
 	draw_object(game, &game->data.exit);
@@ -60,8 +63,8 @@ int	display_game(t_game *game)
 	while (i++ < game->data.ct_patrol)
 		draw_object(game, &game->data.patrol[i - 1]);
 	draw_object(game, &game->data.player);
-	// if (game->data.player.orient == 0xa)
-	// 	draw_rope(game);
+	if (game->data.player.orient == 0xa)
+		draw_rope(game);
 	display_gui(game);
 	return (0);
 }

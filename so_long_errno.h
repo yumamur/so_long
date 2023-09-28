@@ -65,10 +65,14 @@
 # define MSG_IMGNMALLOC	"Memory allocation error\n"
 # define SLE_IMGIMPORT			0x00f002
 # define MSG_IMGIMPORT	"Error while importing assets\n"
+# define SLE_MAPSYNTH			0x00f003
+# define MSG_MAPSYNTH	"Error while synthesizing map\n"
 
 # define THOLD_ASSET			0x00f0f0
 
-# define MSG_CONFIG		"Configure \033[1;32mso_long_config.h\033[m and retry\n"
+# define MSG_CONFIG		"Configure \033[1;32mSL_WIN_*\033[m macros and retry\n"
+# define MSG_WINSIZE1	"\n\nResolution is too low to display\n"
+# define MSG_WINSIZE2	"512x256 is minimum settings\n\n"
 
 void	handle_error(int errno, void *ptr);
 #endif /* SO_LONG_ERRNO_H */

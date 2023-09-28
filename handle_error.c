@@ -20,6 +20,8 @@ static void	perror_asset(int errno)
 		ft_putstr_fd(2, MSG_IMGNMALLOC);
 	else if (errno == SLE_IMGIMPORT)
 		ft_putstr_fd(2, MSG_IMGIMPORT);
+	else if (errno == SLE_MAPSYNTH)
+		ft_putstr_fd(2, MSG_MAPSYNTH);
 }
 
 static void	perror_map(int errno)

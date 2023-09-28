@@ -12,6 +12,7 @@
 
 #include "so_long.h"
 
+int		try_open(char *file);
 void	set_player_asset_ptr(t_player_assets *p, t_xpm **ptr);
 int		free_asset_names(int ret, t_assets *img);
 int		free_player_asset_names(t_player_assets *p);
@@ -62,8 +63,10 @@ int	set_asset_names(t_assets *img, int bs)
 	img->patrolx_x.n = strjoin_v2(SL_PATROLX_X, buf_itoa(bs).ret, "p.xpm", 0);
 	img->bckgrnd.n = strjoin_v2(SL_BCKGRND, buf_itoa(bs).ret, "p.xpm", 0);
 	img->noaccess.n = strjoin_v2(SL_NOACCESS, buf_itoa(bs).ret, "p.xpm", 0);
+	img->rope.n = strjoin_v2(SL_ROPE, buf_itoa(bs).ret, "p.xpm", 0);
 	if (!img->exit.n || !img->clct.n || !img->wall.n || !img->patrol.n
-		|| !img->bckgrnd.n || !img->noaccess.n || !img->patrolx_x.n)
+		|| !img->bckgrnd.n || !img->noaccess.n || !img->patrolx_x.n
+		|| !img->rope.n)
 		return (free_asset_names(-1, img));
 	if (set_player_asset_names(&img->p, buf_itoa(bs).ret))
 		return (-1);
@@ -85,8 +88,41 @@ void	assign_gui_img(t_game *game)
 	game->menu.select.pos.y = game->menu.origin.pos.y + 120;
 	game->gui.bar.img = &game->img.gui.sidebar;
 	game->gui.box_move.img = &game->img.gui.chr_box;
+	game->gui.box_clct.img = &game->img.gui.chr_box;
+	game->gui.box_patrol.img = &game->img.gui.chr_box;
 	game->gui.bar.pos.x = game->res.w - game->gui.bar.img->w;
 	game->gui.bar.pos.y = (game->res.h - game->gui.bar.img->h) / 2;
-	game->gui.box_move.pos.x = game->gui.bar.pos.x + 2;
-	game->gui.box_move.pos.y = game->gui.bar.pos.y + game->res.h / 2;
+	game->gui.box_move.pos.x = game->gui.bar.pos.x + 40;
+	game->gui.box_move.pos.y = game->gui.bar.pos.y + 80;
+	game->gui.box_clct.pos.x = game->gui.box_move.pos.x;
+	game->gui.box_clct.pos.y = game->gui.box_move.pos.y + 60;
+	game->gui.box_patrol.pos.x = game->gui.box_move.pos.x;
+	game->gui.box_patrol.pos.y = game->gui.box_clct.pos.y + 60;
+}
+
+int	import_img_rope(t_xpm *xpm, void *mlx, int bs)
+{
+	xpm->d = mlx_xpm_file_to_image(mlx, xpm->n, &xpm->w, &xpm->h);
+	if (try_open(xpm->n))
+		bs = -1;
+	else if (!xpm->d)
+	{
+		ft_putstr_fd(2, "MiniLibX could not convert ");
+		ft_putstr_fd(2, xpm->n);
+		ft_putstr_fd(2, "\n");
+		bs = -1;
+	}
+	else if (xpm->w > xpm->h / 4 || xpm->h != bs)
+	{
+		mlx_destroy_image(mlx, xpm->d);
+		xpm->d = 0;
+		ft_putstr_fd(2, "Error: ");
+		ft_putstr_fd(2, xpm->n);
+		ft_putstr_fd(2, ": File size is not as stated\n");
+		bs = -1;
+	}
+	free(xpm->n);
+	if (xpm->d)
+		bs = 0;
+	return (bs);
 }

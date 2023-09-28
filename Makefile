@@ -20,9 +20,9 @@ SRC		= animation_player.c \
 		  calc_point.c \
 		  calc_vector.c \
 		  display.c \
-		  display_states.c \
 		  display_utils.c \
 		  game_exit.c \
+		  game_start.c \
 		  game_states.c \
 		  game_substates.c \
 		  handle_error.c \
@@ -32,6 +32,7 @@ SRC		= animation_player.c \
 		  libft_2.c \
 		  libft_strjoin_v2.c \
 		  main.c \
+		  map_assign_objects.c \
 		  map_generate.c \
 		  map_generate_utils.c \
 		  map_patrol.c \
@@ -40,7 +41,6 @@ SRC		= animation_player.c \
 		  map_validate_path_utils1.c \
 		  map_validate_path_utils2.c \
 		  map_validate_simple.c \
-		  object_assignment.c \
 		  object_interaction.c \
 		  object_movement.c \
 		  settings.c

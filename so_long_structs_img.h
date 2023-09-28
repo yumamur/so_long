@@ -56,6 +56,7 @@ typedef struct s_assets
 	t_gui_assets	gui;
 	t_xpm			bckgrnd;
 	t_xpm			noaccess;
+	t_xpm			rope;
 	t_xpm			exit;
 	t_xpm			wall;
 	t_xpm			clct;

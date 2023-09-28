@@ -24,14 +24,14 @@
 # include "so_long_errno.h"
 # include "so_long_calc.h"
 
-# define SL_CFG "./.mode.cfg"
+# define SL_RES_HEIGHT	900
+# define SL_RES_WIDTH	1600
+
 # define SL_ACCESSIBLE 	0xaa
 # define SL_ID_CLCT		0x89
 # define SL_ID_PLAYER	0xab
 # define SL_ID_PATROL	0xcd
 # define SL_ID_EXIT		0xef
-# define SL_RES_HEIGHT	738
-# define SL_RES_WIDTH	1368
 
 typedef int	(*t_funccast)(int, void *);
 

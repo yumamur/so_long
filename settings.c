@@ -20,7 +20,7 @@ void	settings_default(t_game *game)
 	game->keybinds.up = K_UP;
 	game->keybinds.down = K_DOWN;
 	game->keybinds.attack = K_SPACE;
-	game->keybinds.block = K_E;
+	game->keybinds.block = K_B;
 	game->keybinds.exit = K_ESC;
 	game->keybinds.enter = K_ENTER;
 	game->keybinds.pause = K_P;

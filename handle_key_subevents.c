@@ -34,7 +34,7 @@ int	change_mode_restart(int key, t_game *game)
 	{
 		if (!key)
 			i = game->mode;
-		else if (i + key >= 0 && i + key <= 8)
+		else if (i + key >= 0 && i + key <= 7)
 			i += key;
 		return (i);
 	}
