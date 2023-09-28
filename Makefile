@@ -16,6 +16,8 @@ SRC		= animation_player.c \
 		  asset_import.c \
 		  asset_import_utils1.c \
 		  asset_import_utils2.c \
+		  asset_map_synth.c \
+		  calc_handle_mouse.c \
 		  calc_integer.c \
 		  calc_point.c \
 		  calc_vector.c \
@@ -28,6 +30,8 @@ SRC		= animation_player.c \
 		  handle_error.c \
 		  handle_key_events.c \
 		  handle_key_subevents.c \
+		  handle_mouse_events.c \
+		  handle_mouse_subevents.c \
 		  libft_1.c \
 		  libft_2.c \
 		  libft_strjoin_v2.c \

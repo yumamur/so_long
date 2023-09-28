@@ -18,7 +18,7 @@ void	set_assets(t_game *game);
 void	settings_default(t_game *game);
 void	run_game(t_game *game);
 
-#if SL_RES_WIDTH < 512 || SL_RES_HEIGHT < 256
+#if SL_RES_WIDTH < 512 || SL_RES_HEIGHT < 374
 
 void __attribute__((warning(MSG_WINSIZE1 MSG_WINSIZE2)))	check_winsize(void)
 {

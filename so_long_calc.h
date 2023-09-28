@@ -34,6 +34,8 @@ double	p_distance(t_coordinate p1, t_coordinate p2);
 double	l_slope(t_line2 line);
 double	l_magnitude(t_line2 line);
 double	lp_distance(t_line2 line, t_coordinate point);
-// double	l_adjacency(t_line2 l1, t_line2 l2);
 int		l_adjacent(t_line2 l1, t_line2 l2);
+
+int		is_inside(t_coordinate point, t_object *obj);
+int		calc_direction(t_coordinate point, t_game *game);
 #endif

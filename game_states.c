@@ -20,8 +20,10 @@ int		object_p_interact(t_game *game, t_object *obj);
 
 int		handle_restart(int key, t_game *game);
 int		handle_pause(int key, t_game *game);
-int		handle_playing(int key, t_game *game);
 int		handle_end(int key, t_game *game);
+int		handle_mouse_restart(int key, t_game *game);
+int		handle_mouse_pause(int key, t_game *game);
+int		handle_mouse_end(int key, t_game *game);
 
 int	state_success(t_game *game)
 {
@@ -29,6 +31,7 @@ int	state_success(t_game *game)
 		game->res.w / 2 - game->img.gui.sccs.w / 2,
 		game->res.h / 2 - game->img.gui.sccs.h / 2);
 	mlx_hook(game->win, 2, 1L << 0, handle_end, game);
+	mlx_hook(game->win, 4, 1L << 2, handle_mouse_end, game);
 	return (1);
 }
 
@@ -38,6 +41,7 @@ int	state_failure(t_game *game)
 		game->res.w / 2 - game->img.gui.fail.w / 2,
 		game->res.h / 2 - game->img.gui.fail.h / 2);
 	mlx_hook(game->win, 2, 1L << 0, handle_end, game);
+	mlx_hook(game->win, 4, 1L << 2, handle_mouse_end, game);
 	return (1);
 }
 
@@ -45,6 +49,7 @@ void	state_pause(t_game *game)
 {
 	display_pause(game);
 	mlx_hook(game->win, 2, 1L << 0, handle_pause, game);
+	mlx_hook(game->win, 4, 1L << 2, handle_mouse_pause, game);
 }
 
 void	state_restart(t_game *game)
@@ -53,20 +58,21 @@ void	state_restart(t_game *game)
 		game->menu.confirm_restart.img->d,
 		game->menu.confirm_restart.pos.x, game->menu.confirm_restart.pos.y);
 	mlx_hook(game->win, 2, 1L << 0, handle_restart, game);
+	mlx_hook(game->win, 4, 1L << 2, handle_mouse_restart, game);
 }
 
 void	state_playing(int key, t_game *game)
 {
 	if (key == game->keybinds.attack)
 		object_p_attack(game);
+	else if (key == game->keybinds.block && ++game->data.movect)
+		game->data.player.state = BLOCKING;
 	else
 		object_p_move(game, &game->data.player, key);
-	if (key != game->keybinds.block
+	if (game->data.player.state != BLOCKING
 		&& object_p_interact(game, &game->data.player))
 		return ;
-	if (key == game->keybinds.attack || key == game->keybinds.block)
-		++game->data.movect;
 	display_game(game);
-	ft_putstr_fd(1, "\rMove Count: ");
-	ft_putstr_fd(1, buf_itoa(game->data.movect).ret);
+	// ft_putstr_fd(1, "\rMove Count: ");
+	// ft_putstr_fd(1, buf_itoa(game->data.movect).ret);
 }

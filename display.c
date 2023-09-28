@@ -16,6 +16,7 @@
 
 void	draw_object(t_game *game, t_object *obj);
 void	draw_rope(t_game *game);
+void	draw_nbr(t_game *game, t_coordinate pos, int nbr);
 
 void	display_pause(t_game *game)
 {
@@ -46,6 +47,12 @@ void	display_gui(t_game *game)
 		game->gui.box_patrol.pos.x, game->gui.box_patrol.pos.y);
 	mlx_put_image_to_window(game->mlx, game->win, game->gui.box_clct.img->d,
 		game->gui.box_clct.pos.x, game->gui.box_clct.pos.y);
+	draw_nbr(game, (t_coordinate){.x = game->gui.box_move.pos.x + 5,
+		game->gui.box_move.pos.y + 8}, game->data.movect);
+	draw_nbr(game, (t_coordinate){.x = game->gui.box_patrol.pos.x + 5,
+		game->gui.box_patrol.pos.y + 8}, game->data.ct_patrol);
+	draw_nbr(game, (t_coordinate){.x = game->gui.box_clct.pos.x + 5,
+		game->gui.box_clct.pos.y + 8}, game->data.ct_clct);
 }
 
 int	display_game(t_game *game)

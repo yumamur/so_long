@@ -32,12 +32,21 @@ typedef struct s_map
 	t_area			area;
 }	t_map;
 
+typedef enum e_state
+{
+	STANDING,
+	MOVING,
+	BLOCKING,
+	ATTACKING
+}	t_state;
+
 typedef struct s_object
 {
 	t_uint			id;
 	t_uchar			orient;
 	t_coordinate	pos;
 	t_xpm			*img;
+	t_state			state;
 }	t_object;
 
 typedef struct s_data

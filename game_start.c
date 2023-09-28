@@ -25,6 +25,14 @@ double	calculate_range(t_game *game)
 		return (sqrt(9.0 / 2));
 }
 
+void	default_hooks(t_game *game)
+{
+	mlx_hook(game->win, 17, 0, exit_game, game);
+	mlx_hook(game->win, 2, 1L << 0, handle_playing, game);
+	mlx_hook(game->win, 4, 1L << 2, handle_mouse_playing, game);
+	mlx_expose_hook(game->win, display_game, game);
+}
+
 void	run_game(t_game *game)
 {
 	int	errno;
@@ -43,8 +51,6 @@ void	run_game(t_game *game)
 	game->data.map.area[game->data.player.pos.y]
 	[game->data.player.pos.x] = SL_ACCESSIBLE;
 	mlx_do_key_autorepeaton(game->mlx);
-	mlx_hook(game->win, 17, 0, exit_game, game);
-	mlx_hook(game->win, 2, 1L << 0, handle_playing, game);
-	mlx_expose_hook(game->win, display_game, game);
+	default_hooks(game);
 	display_game(game);
 }

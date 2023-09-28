@@ -90,6 +90,7 @@ void	object_p_move(t_game *game, t_object *obj, int key)
 {
 	int	ctl[3];
 
+	game->data.player.state = MOVING;
 	ctl[0] = obj->orient;
 	ctl[1] = obj->pos.x;
 	ctl[2] = obj->pos.y;

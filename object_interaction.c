@@ -62,6 +62,7 @@ void	object_p_attack(t_game *game)
 	double	dist;
 
 	i = 0;
+	game->data.player.state = ATTACKING;
 	while (i < game->data.ct_patrol)
 	{
 		dist = p_distance(game->data.player.pos, game->data.patrol[i].pos);
@@ -72,4 +73,5 @@ void	object_p_attack(t_game *game)
 		}
 		++i;
 	}
+	++game->data.movect;
 }
