@@ -41,6 +41,7 @@ int	r_free(void *ptr)
 	if (!ptr)
 		return (0);
 	free(ptr);
+	ptr = 0;
 	return (0);
 }
 

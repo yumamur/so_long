@@ -13,16 +13,16 @@
 #include "so_long.h"
 
 void	run_game(t_game *game);
-void	state_pause(t_game *game);
+int		state_pause(t_game *game);
 void	substate_exit(t_game *game);
 void	substate_restart(t_game *game);
 void	substate_change_mode(t_game *game);
 int		handle_sub_change_mode(int key, t_game *game);
 
-void	display_change_mode_diff(t_game *game, int delta)
+void	display_change_mode_diff(t_game *game, int mode)
 {
 	mlx_put_image_to_window(game->mlx, game->win,
-		game->img.gui.digit[delta].d,
+		game->img.gui.digit[mode].d,
 		game->res.w / 2 - 110, game->res.h / 2 - 10);
 }
 

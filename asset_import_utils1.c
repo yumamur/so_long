@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include "so_long_img_macro.h"
 
 int		try_open(char *file);
 void	set_player_asset_ptr(t_player_assets *p, t_xpm **ptr);

@@ -17,6 +17,7 @@ void	display_pause(t_game *game);
 void	object_p_move(t_game *game, t_object *player, int key);
 void	object_p_attack(t_game *game);
 int		object_p_interact(t_game *game, t_object *obj);
+void	move_patrols(t_game *game);
 
 int		handle_restart(int key, t_game *game);
 int		handle_pause(int key, t_game *game);
@@ -45,23 +46,25 @@ int	state_failure(t_game *game)
 	return (1);
 }
 
-void	state_pause(t_game *game)
+int	state_pause(t_game *game)
 {
 	display_pause(game);
 	mlx_hook(game->win, 2, 1L << 0, handle_pause, game);
 	mlx_hook(game->win, 4, 1L << 2, handle_mouse_pause, game);
+	return (1);
 }
 
-void	state_restart(t_game *game)
+int	state_restart(t_game *game)
 {
 	mlx_put_image_to_window(game->mlx, game->win,
 		game->menu.confirm_restart.img->d,
 		game->menu.confirm_restart.pos.x, game->menu.confirm_restart.pos.y);
 	mlx_hook(game->win, 2, 1L << 0, handle_restart, game);
 	mlx_hook(game->win, 4, 1L << 2, handle_mouse_restart, game);
+	return (1);
 }
 
-void	state_playing(int key, t_game *game)
+int	state_playing(int key, t_game *game)
 {
 	if (key == game->keybinds.attack)
 		object_p_attack(game);
@@ -69,10 +72,12 @@ void	state_playing(int key, t_game *game)
 		game->data.player.state = BLOCKING;
 	else
 		object_p_move(game, &game->data.player, key);
+	move_patrols(game);
 	if (game->data.player.state != BLOCKING
 		&& object_p_interact(game, &game->data.player))
-		return ;
+		return (1);
 	display_game(game);
-	// ft_putstr_fd(1, "\rMove Count: ");
-	// ft_putstr_fd(1, buf_itoa(game->data.movect).ret);
+	ft_putstr_fd(1, "\rMove Count: ");
+	ft_putstr_fd(1, buf_itoa(game->data.movect).ret);
+	return (1);
 }

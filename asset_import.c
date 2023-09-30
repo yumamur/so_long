@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "so_long_errno.h"
+#include "so_long_img_macro.h"
 
 int		try_open(char *file);
 int		set_asset_names(t_assets *img, int bs);

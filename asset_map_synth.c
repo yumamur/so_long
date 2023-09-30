@@ -25,15 +25,22 @@ void	map_synth_addimg(t_xpm *base, t_xpm *add, t_coordinate pos_map, int bs)
 	}
 }
 
-int	map_synthesize(t_game *game)
+int	map_synth_createbase(t_game *game)
 {
-	t_coordinate	pos_map;
-
 	game->img.map = (t_xpm){.w = game->data.map.size.x * game->data.block_size,
 		.h = game->data.map.size.y * game->data.block_size};
 	game->img.map.d = mlx_new_image(game->mlx,
 			game->img.map.w, game->img.map.h);
 	if (!game->img.map.d)
+		return (-1);
+	return (0);
+}
+
+int	map_synthesize(t_game *game)
+{
+	t_coordinate	pos_map;
+
+	if (map_synth_createbase(game))
 		return (SLE_MAPSYNTH);
 	pos_map.y = 0;
 	while (pos_map.y < game->data.map.size.y)
@@ -44,6 +51,9 @@ int	map_synthesize(t_game *game)
 			if (game->data.map.area[pos_map.y][pos_map.x] == '1')
 				map_synth_addimg(&game->img.map, &game->img.wall,
 					pos_map, game->data.block_size);
+			else if (game->data.map.area[pos_map.y][pos_map.x] == '0')
+				map_synth_addimg(&game->img.map, &game->img.noaccess,
+					pos_map, game->data.block_size);
 			else
 				map_synth_addimg(&game->img.map, &game->img.bckgrnd,
 					pos_map, game->data.block_size);
@@ -51,5 +61,6 @@ int	map_synthesize(t_game *game)
 		}
 		++pos_map.y;
 	}
+	destroy_imgs_va(game->mlx, game->img.bckgrnd.d, game->img.wall.d, 0);
 	return (0);
 }

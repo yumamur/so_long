@@ -42,8 +42,8 @@ void	draw_rope(t_game *game)
 void	draw_nbr(t_game *game, t_coordinate pos, int nbr)
 {
 	static void	*ptr[10];
-	t_uint	i;
-	t_uint	j;
+	t_uint		i;
+	t_uint		j;
 
 	i = 0;
 	j = 0;

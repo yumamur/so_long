@@ -1,79 +1,66 @@
 #include "so_long.h"
 
 void	run_game(t_game *game);
-void	state_pause(t_game *game);
-void	substate_exit(t_game *game);
-void	substate_restart(t_game *game);
-void	substate_change_mode(t_game *game);
+int		state_pause(t_game *game);
+int		substate_exit(t_game *game);
+int		substate_restart(t_game *game);
+int		substate_change_mode(t_game *game);
 int		handle_sub_change_mode(int key, t_game *game);
+int		change_mode_restart(int key, t_game *game);
+void	display_change_mode_diff(t_game *game, int delta);
 
-void	m_display_change_mode_diff(t_game *game, int delta)
+int	handle_mouse_sub_change_mode(int key, int x, int y, t_game *game)
 {
-	mlx_put_image_to_window(game->mlx, game->win,
-		game->img.gui.digit[delta].d,
-		game->res.w / 2 - 110, game->res.h / 2 - 10);
-}
-
-int	m_change_mode_restart(int key, t_game *game)
-{
-	static int	i;
-
-	if (!game)
-	{
-		if (!key)
-			i = game->mode;
-		else if (i + key >= 0 && i + key <= 7)
-			i += key;
-		return (i);
-	}
-	else if (key == game->keybinds.exit)
-		substate_change_mode(game);
-	else if (key == game->keybinds.enter)
-	{
-		game->mode = i;
-		run_game(game);
-	}
+	if (!(key >= 1 && key <= 3))
+		return (0);
+	if (is_inside((t_coordinate){x, y}, &(t_object){0, 0,
+		(t_coordinate){game->menu.chmod.pos.x + 73,
+		game->menu.chmod.pos.y + 104}, &(t_xpm){23, 38, 0, 0}, 0}))
+		handle_sub_change_mode(game->keybinds.left, game);
+	else if (is_inside((t_coordinate){x, y}, &(t_object){0, 0,
+		(t_coordinate){game->menu.chmod.pos.x + 217,
+		game->menu.chmod.pos.y + 102}, &(t_xpm){31, 36, 0, 0}, 0}))
+		handle_sub_change_mode(game->keybinds.right, game);
+	else if (is_inside((t_coordinate){x, y}, &(t_object){0, 0,
+		(t_coordinate){game->menu.chmod.pos.x + 133,
+		game->menu.chmod.pos.y + 206}, &(t_xpm){77, 30, 0, 0}, 0}))
+		handle_sub_change_mode(game->keybinds.enter, game);
+	else if (!is_inside((t_coordinate){x, y}, &game->menu.chmod)
+		|| is_inside((t_coordinate){x, y}, &(t_object){0, 0,
+		(t_coordinate){game->menu.chmod.pos.x + 273,
+		game->menu.chmod.pos.y + 215}, &(t_xpm){49, 24, 0, 0}, 0}))
+		handle_sub_change_mode(game->keybinds.exit, game);
 	return (0);
 }
 
-int	handle_mouse_sub_change_mode(int key,/*  int x, int y,  */t_game *game)
+int	handle_mouse_sub_restart(int key, int x, int y, t_game *game)
 {
-	if (key == game->keybinds.left)
-		m_display_change_mode_diff(game, m_change_mode_restart(-1, 0));
-	else if (key == game->keybinds.right)
-		m_display_change_mode_diff(game, m_change_mode_restart(1, 0));
-	else if (key == game->keybinds.enter)
-	{
-		if (m_change_mode_restart(10, 0) == (int)game->mode)
-			state_pause(game);
-		else
-		{
-			mlx_put_image_to_window(game->mlx, game->win,
-				game->menu.confirm_restart.img->d,
-				game->menu.confirm_restart.pos.x,
-				game->menu.confirm_restart.pos.y);
-			mlx_hook(game->win, 2, 1L << 0, m_change_mode_restart, game);
-		}
-	}
-	else if (key == game->keybinds.exit)
+	if (!(key >= 1 && key <= 3))
+		return (0);
+	if (is_inside((t_coordinate){x, y}, &(t_object){0, 0,
+		(t_coordinate){game->menu.origin.pos.x + 81,
+		game->menu.origin.pos.y + 161}, &(t_xpm){99, 30, 0, 0}, 0}))
+		run_game(game);
+	else if (is_inside((t_coordinate){x, y}, &(t_object){0, 0,
+		(t_coordinate){game->menu.origin.pos.x + 329,
+		game->menu.origin.pos.y + 161}, &(t_xpm){80, 30, 0, 0}, 0})
+		|| !is_inside((t_coordinate){x, y}, &game->menu.origin))
 		state_pause(game);
 	return (0);
 }
 
-int	handle_mouse_sub_restart(int key,/*  int x, int y,  */t_game *game)
+int	handle_mouse_sub_exit(int key, int x, int y, t_game *game)
 {
-	if (key == game->keybinds.enter)
-		run_game(game);
-	else if (key == game->keybinds.exit)
-		state_pause(game);
-	return (0);
-}
-
-int	handle_mouse_sub_exit(int key,/*  int x, int y,  */t_game *game)
-{
-	if (key == game->keybinds.enter)
+	if (!(key >= 1 && key <= 3))
+		return (0);
+	if (is_inside((t_coordinate){x, y}, &(t_object){0, 0,
+		(t_coordinate){game->menu.origin.pos.x + 81,
+		game->menu.origin.pos.y + 161}, &(t_xpm){99, 30, 0, 0}, 0}))
 		exit_game(game, 0);
-	else if (key == game->keybinds.exit)
+	else if (is_inside((t_coordinate){x, y}, &(t_object){0, 0,
+		(t_coordinate){game->menu.origin.pos.x + 329,
+		game->menu.origin.pos.y + 161}, &(t_xpm){80, 30, 0, 0}, 0})
+		|| !is_inside((t_coordinate){x, y}, &game->menu.origin))
 		state_pause(game);
 	return (0);
 }

@@ -3,8 +3,8 @@
 
 typedef struct s_xpm
 {
-	int		h;
 	int		w;
+	int		h;
 	void	*d;
 	char	*n;
 }	t_xpm;
@@ -34,8 +34,6 @@ typedef struct s_player_assets
 	t_xpm	inair;
 }	t_player_assets;
 
-# ifndef SO_LONG_BONUS
-
 typedef struct s_gui_assets
 {
 	t_xpm	sidebar;
@@ -49,6 +47,8 @@ typedef struct s_gui_assets
 	t_xpm	sccs;
 	t_xpm	fail;
 }	t_gui_assets;
+
+# ifndef SO_LONG_BONUS
 
 typedef struct s_assets
 {
@@ -67,31 +67,13 @@ typedef struct s_assets
 
 # else
 
-typedef struct s_animation
-{
-	t_list	*head;
-	t_int64	time;
-}	t_animation;
-
-typedef struct s_gui_assets
-{
-	t_xpm	sidebar;
-	t_xpm	digit[10];
-	t_xpm	p_pause;
-	t_xpm	p_restart;
-	t_xpm	p_exit;
-	t_xpm	chmod;
-	t_xpm	btn_select;
-	t_xpm	sccs;
-	t_xpm	fail;
-}	t_gui_assets;
-
 typedef struct s_assets
 {
 	t_player_assets	p;
 	t_gui_assets	gui;
 	t_xpm			bckgrnd;
 	t_xpm			noaccess;
+	t_xpm			rope;
 	t_xpm			exit[8];
 	t_xpm			wall;
 	t_xpm			clct[8];

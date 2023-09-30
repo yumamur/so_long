@@ -111,7 +111,6 @@ typedef struct s_menu
 	enum e_button	cur;
 	t_object		confirm_restart;
 	t_object		confirm_exit;
-	t_object		confirm_chmod;
 }	t_menu;
 
 typedef struct s_gui

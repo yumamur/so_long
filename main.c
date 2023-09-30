@@ -20,7 +20,7 @@ void	run_game(t_game *game);
 
 #if SL_RES_WIDTH < 512 || SL_RES_HEIGHT < 374
 
-void __attribute__((warning(MSG_WINSIZE1 MSG_WINSIZE2)))	check_winsize(void)
+void __attribute__((error(MSG_WINSIZE1 MSG_WINSIZE2)))	check_winsize(void)
 {
 }
 
@@ -42,6 +42,9 @@ int	main(int argc, char *argv[])
 	if (errno)
 		handle_error(errno, NULL);
 	settings_default(&game);
+	game.mlx = mlx_init();
+	if (!game.mlx)
+		handle_error(SLE_MLXINIT, &game);
 	set_assets(&game);
 	game.win = mlx_new_window(game.mlx, game.res.w, game.res.h, "so_long");
 	run_game(&game);

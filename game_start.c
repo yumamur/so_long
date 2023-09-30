@@ -38,6 +38,7 @@ void	run_game(t_game *game)
 	int	errno;
 
 	mlx_clear_window(game->mlx, game->win);
+	write(1, "\r                            \r", 31);
 	game->data.movect = 0;
 	errno = generate_obj(&game->data);
 	if (errno)

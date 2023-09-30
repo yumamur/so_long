@@ -10,9 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "typeft.h"
 #include "so_long.h"
 #include "so_long_structs_img.h"
-#include "typeft.h"
+#include "so_long_img_macro.h"
 
 int	asset_import(t_game *game);
 int	map_synthesize(t_game *game);
@@ -47,9 +48,6 @@ void	set_assets(t_game *game)
 	int	errno;
 
 	align_display(&game->data.padding, &game->data.block_size, game);
-	game->mlx = mlx_init();
-	if (!game->mlx)
-		handle_error(SLE_MLXINIT, game);
 	errno = asset_import(game);
 	if (errno)
 		handle_error(errno, game);

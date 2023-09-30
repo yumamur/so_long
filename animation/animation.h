@@ -11,7 +11,10 @@
 # include "utils.h"
 
 # define NSEC 1000000000L
-# define SL_FPS 60L
+
+# ifndef SL_FPS
+#  define SL_FPS 60L
+# endif
 
 void	*animation_init(void);
 void	animation_add_frame(void *animation, void *img);

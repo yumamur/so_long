@@ -24,7 +24,6 @@ int	calc_direction(t_coordinate point, t_game *game)
 	pos.y = game->data.padding.y + game->data.block_size / 2
 		+ game->data.player.pos.y * game->data.block_size;
 	degree = atan2(pos.x - point.x, pos.y - point.y) * (180.0 / M_PI);
-	printf("%f\n", degree);
 	if (degree >= -135 && degree < -45)
 		return (game->keybinds.right);
 	else if (degree >= -45 && degree < 45)

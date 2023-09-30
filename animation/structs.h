@@ -3,7 +3,6 @@
 
 # include <time.h>
 
-typedef struct timespec	t_time;
 
 typedef struct s_game
 {

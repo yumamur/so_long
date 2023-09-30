@@ -9,14 +9,16 @@ HEADERS = so_long.h \
 		  so_long_img_macro.h \
 		  so_long_keysym.h \
 		  so_long_structs.h \
+		  so_long_structs_img.h \
+		  so_long_structs_mapv.h \
 		  typeft.h
 
-SRC		= animation_player.c \
-		  asset.c \
+SRC		= asset.c \
 		  asset_import.c \
 		  asset_import_utils1.c \
 		  asset_import_utils2.c \
 		  asset_map_synth.c \
+		  asset_utils.c \
 		  calc_handle_mouse.c \
 		  calc_integer.c \
 		  calc_point.c \
@@ -39,15 +41,17 @@ SRC		= animation_player.c \
 		  map_assign_objects.c \
 		  map_generate.c \
 		  map_generate_utils.c \
-		  map_patrol.c \
-		  map_patrol_utils.c \
 		  map_validate_path.c \
 		  map_validate_path_utils1.c \
 		  map_validate_path_utils2.c \
 		  map_validate_simple.c \
 		  object_interaction.c \
 		  object_movement.c \
-		  settings.c
+		  patrol_generate.c \
+		  patrol_generate_utils.c \
+		  patrol_movement.c \
+		  settings.c \
+		  sprite_player.c
 
 OBJ = $(patsubst %.c, obj/%.o, $(SRC))
 
