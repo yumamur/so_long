@@ -10,12 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_libft.h"
+#include <stdlib.h>
 
 t_buf	buf_itoa(t_int64 n)
 {
 	t_buf	ret;
-	t_int32	d;
+	t_int16	d;
 	long	x;
 
 	if (n == 0)
@@ -41,9 +42,9 @@ t_buf	buf_itoa(t_int64 n)
 	return (ret);
 }
 
-void	*ft_memset(void *mem, int set, t_uint n)
+void	*ft_memset(void *mem, int set, t_ulong n)
 {
-	size_t	i;
+	t_ulong	i;
 
 	i = 0;
 	while (i < n)
@@ -54,12 +55,12 @@ void	*ft_memset(void *mem, int set, t_uint n)
 	return (mem);
 }
 
-void	ft_bzero(void *mem, size_t n)
+void	ft_bzero(void *mem, t_ulong n)
 {
 	ft_memset(mem, '\0', n);
 }
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	*ft_calloc(t_ulong nmemb, t_ulong size)
 {
 	void	*ptr;
 
@@ -70,9 +71,9 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	return (ptr);
 }
 
-void	*ft_memcpy(void *dst, t_c_void *src, size_t n)
+void	*ft_memcpy(void *dst, t_c_void *src, t_ulong n)
 {
-	size_t		i;
+	t_ulong		i;
 	t_c_uchar	*ptr_s;
 	t_uchar		*ptr_d;
 

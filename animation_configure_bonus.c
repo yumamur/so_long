@@ -1,4 +1,6 @@
-#include "animation_int.h"
+#include "so_long_animation_int_bonus.h"
+
+void	*ft_realloc(void *src, t_ullong oldsize, t_ullong newsize);
 
 void	animation_set_duration(t_animation *ani, double seconds)
 {
@@ -12,7 +14,7 @@ void	animation_add_frame(t_animation *ani, void *img)
 	{
 		if (ani->size == ani->cap)
 		{
-			ani->frames = f_realloc(ani->frames, ani->cap * sizeof(void *),
+			ani->frames = ft_realloc(ani->frames, ani->cap * sizeof(void *),
 					ani->cap * 2 * sizeof(void *));
 			ani->cap *= 2;
 		}

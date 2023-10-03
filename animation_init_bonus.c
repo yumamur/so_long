@@ -1,4 +1,4 @@
-#include "animation_int.h"
+#include "so_long_animation_int_bonus.h"
 
 void	*animation_init(void)
 {

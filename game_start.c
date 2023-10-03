@@ -1,6 +1,7 @@
 #include "so_long.h"
 
 void	generate_patrol(t_game *game);
+int		display_game(t_game *game);
 
 int	generate_obj(t_data *data)
 {
@@ -33,7 +34,7 @@ void	default_hooks(t_game *game)
 	mlx_expose_hook(game->win, display_game, game);
 }
 
-void	run_game(t_game *game)
+void __attribute__((weak))	run_game(t_game *game)
 {
 	int	errno;
 

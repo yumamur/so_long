@@ -12,6 +12,9 @@
 
 #include "so_long.h"
 
+int		display_game(t_game *game);
+int		display_stop(t_game *game);
+int		display_start(t_game *game);
 void	draw_object(t_game *game, t_object *obj);
 void	display_pause(t_game *game);
 void	object_p_move(t_game *game, t_object *player, int key);
@@ -28,6 +31,7 @@ int		handle_mouse_end(int key, t_game *game);
 
 int	state_success(t_game *game)
 {
+	display_stop(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->img.gui.sccs.d,
 		game->res.w / 2 - game->img.gui.sccs.w / 2,
 		game->res.h / 2 - game->img.gui.sccs.h / 2);
@@ -38,6 +42,7 @@ int	state_success(t_game *game)
 
 int	state_failure(t_game *game)
 {
+	display_stop(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->img.gui.fail.d,
 		game->res.w / 2 - game->img.gui.fail.w / 2,
 		game->res.h / 2 - game->img.gui.fail.h / 2);
@@ -48,6 +53,7 @@ int	state_failure(t_game *game)
 
 int	state_pause(t_game *game)
 {
+	display_stop(game);
 	display_pause(game);
 	mlx_hook(game->win, 2, 1L << 0, handle_pause, game);
 	mlx_hook(game->win, 4, 1L << 2, handle_mouse_pause, game);
@@ -56,6 +62,7 @@ int	state_pause(t_game *game)
 
 int	state_restart(t_game *game)
 {
+	display_stop(game);
 	mlx_put_image_to_window(game->mlx, game->win,
 		game->menu.confirm_restart.img->d,
 		game->menu.confirm_restart.pos.x, game->menu.confirm_restart.pos.y);
@@ -66,6 +73,7 @@ int	state_restart(t_game *game)
 
 int	state_playing(int key, t_game *game)
 {
+	display_start(game);
 	if (key == game->keybinds.attack)
 		object_p_attack(game);
 	else if (key == game->keybinds.block && ++game->data.movect)

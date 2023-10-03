@@ -1,6 +1,6 @@
-#include "animation_int.h"
+#include "so_long_animation_int_bonus.h"
 
-t_bool inline	animation_is_running(t_animation *ani)
+t_bool	animation_is_running(t_animation *ani)
 {
 	return (ani->is_running);
 }

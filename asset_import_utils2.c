@@ -72,14 +72,10 @@ void	set_player_asset_ptr(t_player_assets *p, t_xpm **ptr)
 
 int	free_asset_names(int ret, t_assets *img)
 {
-	if (img->exit.n)
-		free(img->exit.n);
 	if (img->patrol.n)
 		free(img->patrol.n);
 	if (img->patrolx_x.n)
 		free(img->patrolx_x.n);
-	if (img->clct.n)
-		free(img->clct.n);
 	if (img->wall.n)
 		free(img->wall.n);
 	if (img->bckgrnd.n)

@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_libft.h"
+#include <unistd.h>
 
 void	ft_putstr_fd(int fd, char *str)
 {
@@ -21,7 +22,7 @@ void	ft_putstr_fd(int fd, char *str)
 
 char	*ft_strchr(t_c_char *s, int c)
 {
-	size_t	index;
+	t_ulong	index;
 	t_uchar	*pt;
 
 	index = 0;
@@ -43,7 +44,7 @@ char	*ft_strchr(t_c_char *s, int c)
 
 char	*ft_strrchr(t_c_char *s, int c)
 {
-	size_t	index;
+	t_ulong	index;
 
 	index = ft_strlen(s);
 	if ((char)c == '\0')
@@ -60,7 +61,7 @@ char	*ft_strrchr(t_c_char *s, int c)
 
 int	ft_strcmp(t_c_char *s1, t_c_char *s2)
 {
-	size_t	i;
+	t_ulong	i;
 
 	i = 0;
 	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')

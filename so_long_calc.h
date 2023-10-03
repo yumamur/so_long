@@ -18,13 +18,6 @@
 
 # define SL_MAX_SIZE 65538
 
-typedef struct s_buf
-{
-	char	ret[22];
-}	t_buf;
-
-t_buf	buf_itoa(t_int64 i);
-
 t_int64	i_hcf(t_int64 x, t_int64 y);
 
 int		p_data(int **area, t_coordinate pos, int x, int y);

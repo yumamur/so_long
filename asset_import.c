@@ -20,6 +20,7 @@ void	set_player_asset_ptr(t_player_assets *p, t_xpm **ptr);
 int		free_player_asset_names(t_player_assets *p, t_xpm **ptr);
 int		import_img_rope(t_xpm *xpm, void *mlx, int bs);
 void	assign_gui_img(t_game *game);
+int		import_exit_clct(t_game *game);
 
 int	import_img(t_xpm *xpm, void *mlx, int bs)
 {
@@ -94,10 +95,21 @@ int	import_gui(t_gui_assets *gui, void *mlx)
 	return (errno);
 }
 
-void	assign_obj_img(t_game *game)
+#ifndef SO_LONG_BONUS_H
+
+int	import_exit_clct(t_game *game)
 {
 	t_uint	i;
+	int		err;
 
+	game->img.exit.n
+		= strjoin_v2(SL_EXIT, buf_itoa(game->data.block_size).ret, "p.xpm", 0);
+	game->img.clct.n
+		= strjoin_v2(SL_CLCT, buf_itoa(game->data.block_size).ret, "p.xpm", 0);
+	err = import_img(&game->img.clct, game->mlx, game->data.block_size);
+	err += import_img(&game->img.exit, game->mlx, game->data.block_size);
+	if (err)
+		return (err);
 	game->data.exit.img = &game->img.exit;
 	i = 0;
 	while (i < game->data.tmp_ct_clct)
@@ -105,8 +117,9 @@ void	assign_obj_img(t_game *game)
 		game->data.tmp_clct[i].img = &game->img.clct;
 		++i;
 	}
-	i = 0;
+	return (0);
 }
+#endif
 
 int	asset_import(t_game *game)
 {
@@ -116,21 +129,18 @@ int	asset_import(t_game *game)
 
 	if (set_asset_names(&game->img, game->data.block_size))
 		return (SLE_IMGNMALLOC);
-	err = 0;
-	err += import_gui(&game->img.gui, game->mlx);
-	err += import_img(&game->img.clct, game->mlx, game->data.block_size);
-	err += import_img(&game->img.exit, game->mlx, game->data.block_size);
+	err = import_gui(&game->img.gui, game->mlx);
 	err += import_img(&game->img.patrol, game->mlx, game->data.block_size);
 	err += import_img(&game->img.patrolx_x, game->mlx, game->data.block_size);
 	err += import_img(&game->img.wall, game->mlx, game->data.block_size);
 	err += import_img(&game->img.bckgrnd, game->mlx, game->data.block_size);
 	err += import_img(&game->img.noaccess, game->mlx, game->data.block_size);
 	err += import_img_rope(&game->img.rope, game->mlx, game->data.block_size);
+	err += import_exit_clct(game);
 	set_player_asset_ptr(&game->img.p, ptr);
 	i = 0;
 	while (i < 21)
 		err += import_img(ptr[i++], game->mlx, game->data.block_size);
-	assign_obj_img(game);
 	assign_gui_img(game);
 	if (!err)
 		return (0);

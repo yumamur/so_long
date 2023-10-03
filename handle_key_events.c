@@ -14,6 +14,7 @@
 
 void	run_game(t_game *game);
 void	display_pause(t_game *game);
+int		display_game(t_game *game);
 void	state_playing(int key, t_game *game);
 void	state_pause(t_game *game);
 void	state_restart(t_game *game);

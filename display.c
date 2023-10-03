@@ -12,8 +12,6 @@
 
 #include "so_long.h"
 
-#define BTN_NEXT 108
-
 void	draw_object(t_game *game, t_object *obj);
 void	draw_rope(t_game *game);
 void	draw_nbr(t_game *game, t_coordinate pos, int nbr);
@@ -23,7 +21,7 @@ void	display_pause(t_game *game)
 	mlx_put_image_to_window(game->mlx, game->win, game->menu.origin.img->d,
 		game->menu.origin.pos.x, game->menu.origin.pos.y);
 	game->menu.select.pos.x = game->menu.origin.pos.x + 84
-		+ (BTN_NEXT * game->menu.cur); 
+		+ (108 * game->menu.cur); 
 	mlx_put_image_to_window(game->mlx, game->win, game->menu.select.img->d,
 		game->menu.select.pos.x, game->menu.select.pos.y);
 }
@@ -55,6 +53,8 @@ void	display_gui(t_game *game)
 		game->gui.box_clct.pos.y + 8}, game->data.ct_clct);
 }
 
+#ifndef SO_LONG_BONUS_H
+
 int	display_game(t_game *game)
 {
 	t_uint	i;
@@ -75,3 +75,11 @@ int	display_game(t_game *game)
 	display_gui(game);
 	return (0);
 }
+
+#else
+
+int	display_game(t_game *game)
+{
+	return (!game);
+}
+#endif

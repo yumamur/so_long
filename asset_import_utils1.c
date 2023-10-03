@@ -57,17 +57,14 @@ static int	set_player_asset_names(t_player_assets *p, char *bs)
 
 int	set_asset_names(t_assets *img, int bs)
 {
-	img->exit.n = strjoin_v2(SL_EXIT, buf_itoa(bs).ret, "p.xpm", 0);
-	img->clct.n = strjoin_v2(SL_CLCT, buf_itoa(bs).ret, "p.xpm", 0);
 	img->wall.n = strjoin_v2(SL_WALL, buf_itoa(bs).ret, "p.xpm", 0);
 	img->patrol.n = strjoin_v2(SL_PATROL, buf_itoa(bs).ret, "p.xpm", 0);
 	img->patrolx_x.n = strjoin_v2(SL_PATROLX_X, buf_itoa(bs).ret, "p.xpm", 0);
 	img->bckgrnd.n = strjoin_v2(SL_BCKGRND, buf_itoa(bs).ret, "p.xpm", 0);
 	img->noaccess.n = strjoin_v2(SL_NOACCESS, buf_itoa(bs).ret, "p.xpm", 0);
 	img->rope.n = strjoin_v2(SL_ROPE, buf_itoa(bs).ret, "p.xpm", 0);
-	if (!img->exit.n || !img->clct.n || !img->wall.n || !img->patrol.n
-		|| !img->bckgrnd.n || !img->noaccess.n || !img->patrolx_x.n
-		|| !img->rope.n)
+	if (!img->wall.n || !img->patrol.n || !img->bckgrnd.n || !img->noaccess.n
+		|| !img->patrolx_x.n || !img->rope.n)
 		return (free_asset_names(-1, img));
 	if (set_player_asset_names(&img->p, buf_itoa(bs).ret))
 		return (-1);

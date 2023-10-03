@@ -16,6 +16,12 @@
 # include "typeft.h"
 # include "so_long_structs_img.h"
 # include "so_long_structs_mapv.h"
+# ifdef SO_LONG_BONUS_H
+
+#  include <time.h>
+
+typedef struct timespec	t_time;
+# endif
 
 typedef int				**t_area;
 
@@ -43,7 +49,7 @@ typedef enum e_state
 typedef struct s_object
 {
 	t_uint			id;
-	t_uchar			orient;
+	t_uint			orient : 4;
 	t_coordinate	pos;
 	t_xpm			*img;
 	t_state			state;
@@ -52,7 +58,6 @@ typedef struct s_object
 typedef struct s_data
 {
 	int				movect;
-	int				last_move;
 	int				block_size;
 	t_map			map;
 	t_object		player;
@@ -121,6 +126,8 @@ typedef struct s_gui
 	t_object	box_patrol;
 }	t_gui;
 
+# ifndef SO_LONG_BONUS_H
+
 typedef struct s_game
 {
 	void			*mlx;
@@ -133,4 +140,24 @@ typedef struct s_game
 	t_bind			keybinds;
 	t_difficulty	mode;
 }	t_game;
-#endif
+
+# else
+
+typedef struct s_game
+{
+	void			*mlx;
+	void			*win;
+	t_time			current;
+	void			*animation[2];
+	t_uint			fps;
+	t_resolution	res;
+	t_assets		img;
+	t_data			data;
+	t_gui			gui;
+	t_menu			menu;
+	t_bind			keybinds;
+	t_difficulty	mode;
+}	t_game;
+# endif /* GAME_STRUCTS */
+
+#endif /* SO_LONG_STRUCTS_H */

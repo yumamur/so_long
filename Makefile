@@ -3,11 +3,12 @@ NAME = so_long
 CC = clang
 CFLAGS = -Wall -Werror -Wextra -fsanitize=address -fsanitize=alignment -fsanitize=shift -fsanitize=return
 
-HEADERS = so_long.h \
+HDR		= so_long.h \
 		  so_long_calc.h \
 		  so_long_errno.h \
 		  so_long_img_macro.h \
 		  so_long_keysym.h \
+		  so_long_libft.h \
 		  so_long_structs.h \
 		  so_long_structs_img.h \
 		  so_long_structs_mapv.h \
@@ -53,8 +54,6 @@ SRC		= asset.c \
 		  settings.c \
 		  sprite_player.c
 
-OBJ = $(patsubst %.c, obj/%.o, $(SRC))
-
 MLX		= minilibx/ \
 		  minilibx/libmlx.a \
 		  minilibx/mlx.h
@@ -62,25 +61,40 @@ MLX		= minilibx/ \
 LIB_MAC = -framework AppKit -framework OpenGL -L./minilibx/ -lmlx
 LIB_LNX = -lmlx -lXext -lX11
 
-.PHONY = all clean fclean re
+.PHONY = all clean fclean re bonus
 
-all: create_objdir $(NAME)
+all: $(NAME)
 
-$(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) $(LIB_LNX) $(CFLAGS) -o $(NAME)
+$(NAME): $(HDR) $(SRC)
+	@$(CC) $(CFLAGS) $(SRC) $(LIB_LNX) $(CFLAGS) -o $(NAME)
 #$(NAME): $(SRC) $(HEADERS) $(MLX)
 #	@$(CC) -I./minilibx $(SRC) $(LIB_MAC) $(CFLAGS) -o $(NAME)
-
-obj/%.o: %.c $(HEADERS)
-	@$(CC) $(CFLAGS) -c $< -o $@
-
-create_objdir:
-	@mkdir -p obj
 
 clean:
 	@rm -rf obj/
 
 fclean:
-	@rm -rf $(NAME) obj/
+	@rm -rf $(NAME) $(NAME_BONUS) obj/
 
 re: fclean all
+
+NAME_BONUS = so_long_bonus
+
+HDR_BONUS =	so_long_animation_bonus.h \
+ 			so_long_animation_int_bonus.h \
+ 			so_long_bonus.h
+
+SRC_BONUS =	animation_bonus.c \
+ 			animation_configure_bonus.c \
+ 			animation_destroy_bonus.c \
+ 			animation_init_bonus.c \
+			asset_import_bonus.c \
+			display_bonus.c \
+			game_start_bonus.c \
+			libft_realloc.c
+
+bonus: CFLAGS += -DSO_LONG_BONUS_H
+bonus: $(NAME_BONUS)
+
+$(NAME_BONUS): $(HDR_BONUS) $(HDR) $(SRC) $(SRC_BONUS)
+	@$(CC) $(CFLAGS) $(SRC) $(SRC_BONUS) $(LIB_LNX) -o $(NAME_BONUS)

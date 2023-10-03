@@ -112,8 +112,8 @@ int	map_validate_path(t_data *data)
 	t_map_lines	**arr;
 	int			errno;
 
-	lines = malloc((data->map.size.x - 2)
-			* (data->map.size.y - 1) / 2 * sizeof(t_map_lines) + 1);
+	lines = malloc(((data->map.size.x - 2)
+				* (data->map.size.y - 1) / 2 + 1) * sizeof(t_map_lines));
 	if (!lines)
 		return (SLE_MAPMALLOC);
 	arr = set_map_lines(lines, &data->map);

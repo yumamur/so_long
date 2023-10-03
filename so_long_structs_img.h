@@ -48,7 +48,7 @@ typedef struct s_gui_assets
 	t_xpm	fail;
 }	t_gui_assets;
 
-# ifndef SO_LONG_BONUS
+# ifndef SO_LONG_BONUS_H
 
 typedef struct s_assets
 {
@@ -77,9 +77,10 @@ typedef struct s_assets
 	t_xpm			exit[8];
 	t_xpm			wall;
 	t_xpm			clct[8];
-	t_xpm			patrol[8];
+	t_xpm			patrol;
 	t_xpm			patrolx_x;
+	t_xpm			map;
 }	t_assets;
 
-# endif /* SO_LONG_BONUS */
+# endif /* SO_LONG_BONUS_H */
 #endif

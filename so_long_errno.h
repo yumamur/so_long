@@ -70,7 +70,7 @@
 
 # define THOLD_ASSET			0x00f0f0
 
-# define MSG_CONFIG		"Re-configure \033[1;32mSL_WIN_*\033[m macros\n"
+# define MSG_CONFIG		"Configure \033[1;32mSL_WIN\033[m macros in so_long.h\n"
 # define MSG_WINSIZE1	"\n\nResolution is too low to display\n"
 # define MSG_WINSIZE2	"512x374 is minimum settings\n\n"
 

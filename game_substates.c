@@ -12,6 +12,9 @@
 
 #include "so_long.h"
 
+int		display_game(t_game *game);
+int		display_stop(t_game *game);
+int		display_start(t_game *game);
 void	display_chmod(t_game *game);
 int		handle_sub_exit(int key, t_game *game);
 int		handle_sub_restart(int key, t_game *game);
@@ -30,6 +33,7 @@ int	substate_change_mode(t_game *game)
 
 int	substate_resume(t_game *game)
 {
+	display_start(game);
 	display_game(game);
 	mlx_hook(game->win, 2, 1L << 0, handle_playing, game);
 	mlx_hook(game->win, 4, 1L << 2, handle_mouse_playing, game);

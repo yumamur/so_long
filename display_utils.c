@@ -11,17 +11,22 @@
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "so_long_structs_img.h"
-#include "so_long_structs_mapv.h"
-#include "typeft.h"
+
+int __attribute__((weak))	display_stop(t_game *game)
+{
+	return (!game);
+}
+
+int __attribute__((weak))	display_start(t_game *game)
+{
+	return (!game);
+}
 
 void	draw_object(t_game *game, t_object *obj)
 {
-	t_coordinate	pos;
-
-	pos.x = game->data.padding.x + obj->pos.x * game->data.block_size;
-	pos.y = game->data.padding.y + obj->pos.y * game->data.block_size;
-	mlx_put_image_to_window(game->mlx, game->win, obj->img->d, pos.x, pos.y);
+	mlx_put_image_to_window(game->mlx, game->win, obj->img->d,
+		game->data.padding.x + obj->pos.x * game->data.block_size,
+		game->data.padding.y + obj->pos.y * game->data.block_size);
 }
 
 void	draw_rope(t_game *game)

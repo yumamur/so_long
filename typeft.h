@@ -41,4 +41,10 @@ typedef const t_ushort			t_c_ushort;
 typedef const t_uint			t_c_uint;
 typedef const t_ulong			t_c_ulong;
 typedef const t_ullong			t_c_ullong;
+
+typedef enum e_bool
+{
+	FALSE = 0,
+	TRUE = 1
+}	t_bool;
 #endif /* TYPEFT_H */

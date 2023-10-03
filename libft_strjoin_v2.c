@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_libft.h"
+#include <stdlib.h>
 
 t_ulong	ft_strlen(t_c_char *str)
 {
@@ -22,7 +23,7 @@ t_ulong	ft_strlen(t_c_char *str)
 	return (i);
 }
 
-static t_ulong	length(__builtin_va_list args, const char *fir)
+static t_ulong	length(__builtin_va_list args, t_c_char *fir)
 {
 	t_c_char	*pt;
 	t_ulong		ret;
@@ -37,7 +38,7 @@ static t_ulong	length(__builtin_va_list args, const char *fir)
 	return (ret);
 }
 
-char	*strjoin_v2(const char *fir, ...)
+char	*strjoin_v2(t_c_char *fir, ...)
 {
 	__builtin_va_list	args;
 	t_ulong				len;
