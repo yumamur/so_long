@@ -31,7 +31,7 @@ void	animation_switch(t_animation *ani)
 	}
 }
 
-void	*animation_current_frame(t_animation *ani, unsigned long delta)
+void	*animation_current_frame(t_animation *ani, t_ulong delta)
 {
 	if (!ani->is_running)
 		return (NULL);
